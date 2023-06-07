@@ -70,13 +70,18 @@ describe('cutTextIntoSentences', () => {
 });
 
 describe('addMissingPunctuation', () => {
-  it('Should not add punctuation when text finishes with punctuation', () => {
-    const text = 'Bonjour.';
+  it.each([
+    { text: 'Bonjour.', expected: 'Bonjour.' },
+    { text: 'Bonjour !', expected: 'Bonjour !' },
+    { text: 'Bonjour ?', expected: 'Bonjour ?' },
+  ])(
+    'Should not add punctuation when text finishes with punctuation',
+    ({ text, expected }) => {
+      const result = addMissingPunctuation(text);
 
-    const result = addMissingPunctuation(text);
-
-    expect(result).toBe('Bonjour.');
-  });
+      expect(result).toBe(expected);
+    },
+  );
   it('Should add punctuation when text does not finish with punctuation', () => {
     const text = 'Bonjour';
 
