@@ -1,3 +1,3 @@
 export const cutTextIntoSentences = (text: string): string[] => {
-  return [text];
+  return text.match(/[A-Z][^.!?]*[.!?]/g) ?? [];
 };
