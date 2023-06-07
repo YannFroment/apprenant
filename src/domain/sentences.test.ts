@@ -1,4 +1,4 @@
-import { cutTextIntoSentences, addMissingPunctuation } from './sentences';
+import { cutTextIntoSentences, addMissingFinalPunctuation } from './sentences';
 
 describe('cutTextIntoSentences', () => {
   it('Should not cut 1 sentence', () => {
@@ -77,7 +77,7 @@ describe('addMissingPunctuation', () => {
   ])(
     'Should not add punctuation when text finishes with punctuation',
     ({ text, expected }) => {
-      const result = addMissingPunctuation(text);
+      const result = addMissingFinalPunctuation(text);
 
       expect(result).toBe(expected);
     },
@@ -85,7 +85,7 @@ describe('addMissingPunctuation', () => {
   it('Should add punctuation when text does not finish with punctuation', () => {
     const text = 'Bonjour';
 
-    const result = addMissingPunctuation(text);
+    const result = addMissingFinalPunctuation(text);
 
     expect(result).toBe('Bonjour.');
   });
