@@ -4,6 +4,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
@@ -11,15 +12,4 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
-  "overrides": [
-    {
-      "files": [
-        "**/*.test.js",
-        "**/*.test.jsx"
-      ],
-      "env": {
-        "vitest": true
-      }
-    }
-  ]
-}
+};
