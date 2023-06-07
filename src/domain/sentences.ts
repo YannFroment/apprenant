@@ -1,8 +1,16 @@
-export const cutTextIntoSentences = (text: string): string[] => {
-  let textResult = text;
-  const lastCharacter = text.charAt(text.length - 1);
-  if (lastCharacter !== '.' && lastCharacter !== '!' && lastCharacter !== '?') {
-    textResult = text + '.';
+const PUNCTUATIONS = ['.', '?', '!'];
+
+export const addMissingPunctuation = (rawText: string): string => {
+  return rawText;
+};
+
+export const cutTextIntoSentences = (rawText: string): string[] => {
+  let text = rawText;
+
+  const lastCharacter = rawText.charAt(rawText.length - 1);
+  if (!PUNCTUATIONS.includes(lastCharacter)) {
+    text = rawText + '.';
   }
-  return textResult.match(/[A-Z][^.!?]*[.!?]/g) ?? [];
+
+  return text.match(/[A-Z][^.!?]*[.!?]/g) ?? [];
 };
