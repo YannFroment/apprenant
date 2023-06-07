@@ -77,4 +77,11 @@ describe('addMissingPunctuation', () => {
 
     expect(result).toBe('Bonjour.');
   });
+  it('Should add punctuation when text does not finish with punctuation', () => {
+    const text = 'Bonjour';
+
+    const result = addMissingPunctuation(text);
+
+    expect(result).toBe('Bonjour.');
+  });
 });
