@@ -3,8 +3,16 @@ import Sentence, { NeutralText, SuccessText } from './Sentence';
 
 describe('Sentence', () => {
   it('should display text passed as a sentence prop', async () => {
-    render(<Sentence sentence={'Bonjour.'} />);
+    render(<Sentence sentence={'Bonjour.'} goodIndex={0} suggestedIndex={0} />);
     expect(screen.queryByText('Bonjour.')).toBeInTheDocument();
+  });
+  it('should display successText component if goodIndex equals suggestedIndex', () => {
+    render(<Sentence sentence={'Bonjour.'} goodIndex={0} suggestedIndex={0} />);
+    expect(screen.queryByTestId('success')).toBeInTheDocument();
+  });
+  it('should display neutralText component if goodIndex do not equals suggestedIndex', () => {
+    render(<Sentence sentence={'Bonjour.'} goodIndex={0} suggestedIndex={1} />);
+    expect(screen.queryByTestId('neutral')).toBeInTheDocument();
   });
 });
 

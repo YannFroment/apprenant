@@ -1,9 +1,15 @@
 type SentenceProps = {
   sentence: string;
+  goodIndex: number;
+  suggestedIndex: number;
 };
 
-const Sentence = ({ sentence }: SentenceProps) => {
-  return <div>{sentence}</div>;
+const Sentence = ({ sentence, goodIndex, suggestedIndex }: SentenceProps) => {
+  return goodIndex === suggestedIndex ? (
+    <SuccessText sentence={sentence} />
+  ) : (
+    <NeutralText sentence={sentence} />
+  );
 };
 
 type TextProps = {
