@@ -1,3 +1,22 @@
+import { cutTextIntoSentences } from '../domain/sentences';
+
+export const Sentences = ({ text }: { text: string }) => {
+  const sentences = cutTextIntoSentences(text);
+
+  return (
+    <>
+      {sentences.map((sentence, index) => (
+        <Sentence
+          sentence={sentence}
+          goodIndex={index}
+          suggestedIndex={index}
+          key={index}
+        />
+      ))}
+    </>
+  );
+};
+
 type SentenceProps = {
   sentence: string;
   goodIndex: number;
