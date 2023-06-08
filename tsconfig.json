@@ -19,7 +19,7 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["jest"]
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "include": ["src", "tests"],
   "references": [{ "path": "./tsconfig.node.json" }]
