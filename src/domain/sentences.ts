@@ -13,3 +13,11 @@ export const addMissingFinalPunctuation = (rawText: string): string => {
 export const cutTextIntoSentences = (text: string): string[] => {
   return addMissingFinalPunctuation(text).match(/[A-Z][^.!?]*[.!?]/g) ?? [];
 };
+
+export const checkPosition = (
+  textArray: string[],
+  index: number,
+  text: string,
+) => {
+  return textArray.indexOf(text) === index;
+};

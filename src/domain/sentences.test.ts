@@ -1,4 +1,8 @@
-import { cutTextIntoSentences, addMissingFinalPunctuation } from './sentences';
+import {
+  cutTextIntoSentences,
+  addMissingFinalPunctuation,
+  checkPosition,
+} from './sentences';
 
 describe('cutTextIntoSentences', () => {
   it('Should not cut 1 sentence', () => {
@@ -88,5 +92,20 @@ describe('addMissingPunctuation', () => {
     const result = addMissingFinalPunctuation(text);
 
     expect(result).toBe('Bonjour.');
+  });
+});
+
+describe('memorizeSentenceOrder', () => {
+  it('foo', () => {
+    const textArray = ['Bonjour.', 'Il fait beau'];
+    const result = checkPosition(textArray, 0, 'Bonjour.');
+
+    expect(result).toBe(true);
+  });
+  it('bar', () => {
+    const textArray = ['Bonjour.', 'Il fait beau'];
+    const result = checkPosition(textArray, 1, 'Bonjour.');
+
+    expect(result).toBe(false);
   });
 });
