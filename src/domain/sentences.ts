@@ -14,10 +14,10 @@ export const cutTextIntoSentences = (text: string): string[] => {
   return addMissingFinalPunctuation(text).match(/[A-Z][^.!?]*[.!?]/g) ?? [];
 };
 
-export const checkSentencePositionInText = (
-  text: string[],
+export const checkSentencePosition = (
+  sentences: string[],
   index: number,
   sentence: string,
 ) => {
-  return text.indexOf(sentence) === index;
+  return sentences.indexOf(sentence) === index;
 };

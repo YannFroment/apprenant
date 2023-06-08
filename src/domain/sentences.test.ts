@@ -1,7 +1,7 @@
 import {
   cutTextIntoSentences,
   addMissingFinalPunctuation,
-  checkSentencePositionInText,
+  checkSentencePosition,
 } from './sentences';
 
 describe('cutTextIntoSentences', () => {
@@ -95,16 +95,16 @@ describe('addMissingPunctuation', () => {
   });
 });
 
-describe('checkSentencePositionInText', () => {
+describe('checkSentencePosition', () => {
   it('should be true when sentence is at the right position', () => {
-    const textArray = ['Bonjour.', 'Il fait beau'];
-    const result = checkSentencePositionInText(textArray, 0, 'Bonjour.');
+    const sentences = ['Bonjour.', 'Il fait beau'];
+    const result = checkSentencePosition(sentences, 0, 'Bonjour.');
 
     expect(result).toBe(true);
   });
   it('should be false when sentence is at the wrong position', () => {
-    const textArray = ['Bonjour.', 'Il fait beau'];
-    const result = checkSentencePositionInText(textArray, 1, 'Bonjour.');
+    const sentences = ['Bonjour.', 'Il fait beau'];
+    const result = checkSentencePosition(sentences, 1, 'Bonjour.');
 
     expect(result).toBe(false);
   });
