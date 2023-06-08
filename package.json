@@ -13,8 +13,8 @@
   "dependencies": {
     "pexels": "^1.4.0",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
-    "react-draggable": "^4.4.5",
     "styled-components": "^5.3.10"
   },
   "devDependencies": {
@@ -25,6 +25,7 @@
     "@types/dom-speech-recognition": "^0.0.1",
     "@types/jest": "^29.5.2",
     "@types/react": "^18.0.37",
+    "@types/react-beautiful-dnd": "^13.1.4",
     "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
