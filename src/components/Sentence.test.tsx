@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import Sentence, { NeutralText, Sentences, SuccessText } from './Sentence';
+import Sentence, { NeutralText, SentencesPool, SuccessText } from './Sentence';
 
 describe('Sentences', () => {
   it('should display all sentences', () => {
-    render(<Sentences text={'Bonjour. Il fait beau.'} />);
+    render(<SentencesPool sentences={['Bonjour.', 'Il fait beau.']} />);
     expect(screen.queryByText('Bonjour.')).toBeInTheDocument();
     expect(screen.queryByText('Il fait beau.')).toBeInTheDocument();
   });

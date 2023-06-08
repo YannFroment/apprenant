@@ -1,18 +1,20 @@
-import { cutTextIntoSentences } from '../domain/sentences';
+import Draggable from 'react-draggable';
 
-export const Sentences = ({ text }: { text: string }) => {
-  const sentences = cutTextIntoSentences(text);
-
+export const SentencesPool = ({ sentences }: { sentences: string[] }) => {
   return (
     <>
-      {sentences.map((sentence, index) => (
-        <Sentence
-          sentence={sentence}
-          goodIndex={index}
-          suggestedIndex={index}
-          key={index}
-        />
-      ))}
+      {sentences.map((sentence, index) => {
+        return (
+          <Draggable key={index}>
+            <Sentence
+              sentence={sentence}
+              goodIndex={index}
+              suggestedIndex={index}
+              key={index}
+            />
+          </Draggable>
+        );
+      })}
     </>
   );
 };

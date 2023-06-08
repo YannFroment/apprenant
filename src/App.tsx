@@ -1,23 +1,23 @@
-import './App.css';
+import Draggable from 'react-draggable';
+
+const texts = ['Text 1', 'Text 2', 'Text 3', 'Text 4'];
 
 function App() {
-  function cut(text: string) {
-    const phrases = text.match(/[A-Z][^.!?]*[.!?]/g);
-    return phrases;
+  function handleStop(e, data) {
+    console.log('stop');
   }
-
-  const text = 'Bonjour! Comment ça va? Je suis heureux de vous aider.';
-  const cutted = cut(text);
-
-  console.log(cutted);
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <h3>Text : {text}</h3>
-      <div className="card">
-        <button>Random</button>
-      </div>
+      {texts.map((item, index) => {
+        return (
+          <>
+            <Draggable key={index} onStop={handleStop}>
+              <div>{item}</div>
+            </Draggable>
+          </>
+        );
+      })}
     </>
   );
 }
