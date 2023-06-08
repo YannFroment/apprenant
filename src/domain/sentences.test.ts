@@ -108,4 +108,10 @@ describe('checkSentencePosition', () => {
 
     expect(result).toBe(false);
   });
+  it('should be true if sentence matches even if sentence has multiple occurences', () => {
+    const sentences = ['Bonjour.', 'Bonjour.'];
+    const result = checkSentencePosition(sentences, 1, 'Bonjour.');
+
+    expect(result).toBe(true);
+  });
 });

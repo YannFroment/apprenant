@@ -19,5 +19,5 @@ export const checkSentencePosition = (
   index: number,
   sentence: string,
 ) => {
-  return sentences.indexOf(sentence) === index;
+  return sentences[index] === sentence;
 };
