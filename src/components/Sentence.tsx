@@ -10,7 +10,7 @@ type TextProps = {
   sentence: string;
 };
 
-export const GreenText = ({ sentence }: TextProps) => {
+export const SuccessText = ({ sentence }: TextProps) => {
   return <span data-testid="success">{sentence}</span>;
 };
 

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Sentence, { GreenText } from './Sentence';
+import Sentence, { SuccessText } from './Sentence';
 
 describe('Sentence', () => {
   it('should display text passed as a sentence prop', async () => {
@@ -8,9 +8,9 @@ describe('Sentence', () => {
   });
 });
 
-describe('GreenText', () => {
-  it('should toto', async () => {
-    render(<GreenText sentence={'Bonjour.'} />);
+describe('SuccessText', () => {
+  it('should be rendered in the document with success test id', async () => {
+    render(<SuccessText sentence={'Bonjour.'} />);
     expect(screen.queryByTestId('success')).toBeInTheDocument();
   });
 });
