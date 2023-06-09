@@ -132,10 +132,11 @@ describe('useDragSentences', () => {
             defaultSelectedSentenceFromLeftIndex: 0,
             defaultSelectedSentenceFromRightIndex: undefined,
             initialLeftSentences: ['A', 'B'],
+            defaultTargetedSentenceFromLeftIndex: 1,
           },
         });
 
-        act(() => result.current.moveSentenceToLeft(1));
+        act(() => result.current.moveSentenceToLeft());
 
         await waitFor(() => expect(result.current.leftSentences[0]).toBe('B'));
         await waitFor(() => expect(result.current.leftSentences[1]).toBe('A'));
@@ -147,10 +148,11 @@ describe('useDragSentences', () => {
             initialSentences: ['C'],
             defaultSelectedSentenceFromLeftIndex: 0,
             initialLeftSentences: ['A', 'B'],
+            defaultTargetedSentenceFromLeftIndex: 1,
           },
         });
 
-        act(() => result.current.moveSentenceToLeft(1));
+        act(() => result.current.moveSentenceToLeft());
 
         await waitFor(() =>
           expect(result.current.selectedSentenceFromLeftIndex).toBeUndefined(),
@@ -178,10 +180,11 @@ describe('useDragSentences', () => {
             initialProps: {
               initialSentences: ['A', 'B'],
               defaultSelectedSentenceFromRightIndex,
+              defaultTargetedSentenceFromLeftIndex: 0,
             },
           });
 
-          act(() => result.current.moveSentenceToLeft(0));
+          act(() => result.current.moveSentenceToLeft());
 
           await waitFor(() =>
             expect(result.current.rightSentences).toEqual(
@@ -211,10 +214,11 @@ describe('useDragSentences', () => {
             initialProps: {
               initialSentences: ['A', 'B'],
               defaultSelectedSentenceFromRightIndex: 0,
+              defaultTargetedSentenceFromLeftIndex: leftSentenceIndex,
             },
           });
 
-          act(() => result.current.moveSentenceToLeft(leftSentenceIndex));
+          act(() => result.current.moveSentenceToLeft());
 
           await waitFor(() =>
             expect(result.current.leftSentences).toEqual(
@@ -230,10 +234,11 @@ describe('useDragSentences', () => {
             initialSentences: ['A', 'B'],
             defaultSelectedSentenceFromRightIndex: 0,
             initialLeftSentences: ['C', '', ''],
+            defaultTargetedSentenceFromLeftIndex: 0,
           },
         });
 
-        act(() => result.current.moveSentenceToLeft(0));
+        act(() => result.current.moveSentenceToLeft());
 
         await waitFor(() =>
           expect(result.current.leftSentences).toEqual(
@@ -254,10 +259,11 @@ describe('useDragSentences', () => {
             initialSentences: ['A', 'B'],
             defaultSelectedSentenceFromRightIndex: 0,
             initialLeftSentences: ['C', '', ''],
+            defaultTargetedSentenceFromLeftIndex: 0,
           },
         });
 
-        act(() => result.current.moveSentenceToLeft(0));
+        act(() => result.current.moveSentenceToLeft());
 
         await waitFor(() =>
           expect(result.current.selectedSentenceFromRightIndex).toBeUndefined(),

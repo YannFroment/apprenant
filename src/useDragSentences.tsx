@@ -13,7 +13,7 @@ type UseDragSentencesReturn = {
   selectSentenceFromRight: (index: number) => void;
   updateTargetedSentenceFromLeftIndex: (index?: number) => void;
   moveSentenceToRight: () => void;
-  moveSentenceToLeft: (targetLeftSentenceIndex: number) => void;
+  moveSentenceToLeft: () => void;
   rightSentences: string[];
   leftSentences: string[];
   selectedSentenceFromLeftIndex?: number;
@@ -47,17 +47,20 @@ export const useDragSentences = ({
     setTargetedSentenceFromLeftIndex(index);
   };
 
-  const moveSentenceFromLeftToLeft = (targetLeftSentenceIndex: number) => {
+  const moveSentenceFromLeftToLeft = () => {
     setSelectedSentenceFromLeftIndex(undefined);
 
-    if (selectedSentenceFromLeftIndex !== undefined) {
+    if (
+      selectedSentenceFromLeftIndex !== undefined &&
+      targetedSentenceFromLeftIndex !== undefined
+    ) {
       setLeftSentences(
         leftSentences.map((sentence, index) => {
           if (index === selectedSentenceFromLeftIndex) {
-            return leftSentences[targetLeftSentenceIndex];
+            return leftSentences[targetedSentenceFromLeftIndex];
           }
 
-          if (index === targetLeftSentenceIndex) {
+          if (index === targetedSentenceFromLeftIndex) {
             return leftSentences[selectedSentenceFromLeftIndex];
           }
 
@@ -87,33 +90,35 @@ export const useDragSentences = ({
     }
   };
 
-  const moveSentenceFromRightToLeft = (leftSentenceIndex: number) => {
-    setSelectedSentenceFromRightIndex(undefined);
+  const moveSentenceFromRightToLeft = () => {
+    if (targetedSentenceFromLeftIndex !== undefined) {
+      setSelectedSentenceFromRightIndex(undefined);
 
-    if (leftSentences[leftSentenceIndex] !== '') {
-      return;
-    }
+      if (leftSentences[targetedSentenceFromLeftIndex] !== '') {
+        return;
+      }
 
-    if (selectedSentenceFromRightIndex !== undefined) {
-      setLeftSentences([
-        ...leftSentences.slice(0, leftSentenceIndex),
-        rightSentences[selectedSentenceFromRightIndex],
-        ...leftSentences.slice(leftSentenceIndex + 1),
-      ]);
-      setRightSentences(
-        rightSentences.filter(
-          (_, index) => index !== selectedSentenceFromRightIndex,
-        ),
-      );
+      if (selectedSentenceFromRightIndex !== undefined) {
+        setLeftSentences([
+          ...leftSentences.slice(0, targetedSentenceFromLeftIndex),
+          rightSentences[selectedSentenceFromRightIndex],
+          ...leftSentences.slice(targetedSentenceFromLeftIndex + 1),
+        ]);
+        setRightSentences(
+          rightSentences.filter(
+            (_, index) => index !== selectedSentenceFromRightIndex,
+          ),
+        );
+      }
     }
   };
 
-  const moveSentenceToLeft = (targetLeftSentenceIndex: number) => {
+  const moveSentenceToLeft = () => {
     if (selectedSentenceFromLeftIndex !== undefined) {
-      return moveSentenceFromLeftToLeft(targetLeftSentenceIndex);
+      return moveSentenceFromLeftToLeft();
     }
 
-    return moveSentenceFromRightToLeft(targetLeftSentenceIndex);
+    return moveSentenceFromRightToLeft();
   };
 
   const [leftSentences, setLeftSentences] = useState<string[]>(
