@@ -95,6 +95,30 @@ describe('useDragSentences', () => {
         );
       },
     );
+
+    it('should not move the sentence from the right if targeted left sentence is not empty', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['A', 'B'],
+          defaultSelectedSentenceFromRightIndex: 0,
+          initialLeftSentences: ['C', '', ''],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromRightToLeft(0));
+
+      await waitFor(() =>
+        expect(result.current.leftSentences).toEqual(
+          expect.arrayContaining(['C', '', '']),
+        ),
+      );
+
+      await waitFor(() =>
+        expect(result.current.rightSentences).toEqual(
+          expect.arrayContaining(['A', 'B']),
+        ),
+      );
+    });
   });
 
   describe('selectSentenceFromLeft', () => {
