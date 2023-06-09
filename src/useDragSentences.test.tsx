@@ -16,7 +16,7 @@ describe('useDragSentences', () => {
     );
   });
 
-  describe('putToLeft', () => {
+  describe('putFromRightToLeft', () => {
     it.each([
       {
         defaultPickedFromRightIndex: 0,
@@ -36,7 +36,7 @@ describe('useDragSentences', () => {
           },
         });
 
-        act(() => result.current.putToLeft(0));
+        act(() => result.current.putFromRightToLeft(0));
 
         await waitFor(() =>
           expect(result.current.rightSentences).toEqual(
@@ -69,7 +69,7 @@ describe('useDragSentences', () => {
           },
         });
 
-        act(() => result.current.putToLeft(leftSentenceIndex));
+        act(() => result.current.putFromRightToLeft(leftSentenceIndex));
 
         await waitFor(() =>
           expect(result.current.leftSentences).toEqual(
@@ -99,7 +99,7 @@ describe('useDragSentences', () => {
  * pickFromRight
  *      should tell which of the available sentences is picked
  *      only removed from available sentences when is put to left
- * putToLeft
+ * putFromRightToLeft
  *      should remove the sentence from the list of available sentences
  *      should specify at which position the sentence is put
  *      should not accept to put a sentence in a position already occupied
