@@ -7,7 +7,6 @@ type UseDragSentencesProps = {
 
 type UseDragSentencesReturn = {
   pickFromRight: (index: number) => void;
-  pickedFromRightIndex?: number;
   putToLeft: (leftSentenceIndex: number) => void;
   rightSentences: string[];
   leftSentences: string[];
@@ -47,7 +46,6 @@ export const useDragSentences = ({
 
   return {
     pickFromRight,
-    pickedFromRightIndex,
     putToLeft,
     rightSentences,
     leftSentences,

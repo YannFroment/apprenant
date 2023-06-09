@@ -15,15 +15,6 @@ describe('useDragSentences', () => {
       ),
     );
   });
-  it('should pick a sentence from the right', async () => {
-    const { result } = renderHook(useDragSentences, {
-      initialProps: { initialSentences },
-    });
-
-    act(() => result.current.pickFromRight(0));
-
-    await waitFor(() => expect(result.current.pickedFromRightIndex).toBe(0));
-  });
 
   describe('putToLeft', () => {
     it.each([
