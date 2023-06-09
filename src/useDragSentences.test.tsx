@@ -237,6 +237,40 @@ describe('useDragSentences', () => {
       );
     });
   });
+
+  describe('moveSentenceToLeft', () => {
+    it('should move from left to left if selected sentence is on the left', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['C'],
+          defaultSelectedSentenceFromLeftIndex: 0,
+          defaultSelectedSentenceFromRightIndex: undefined,
+          initialLeftSentences: ['A', 'B'],
+        },
+      });
+
+      act(() => result.current.moveSentenceToLeft(1));
+
+      await waitFor(() => expect(result.current.leftSentences[0]).toBe('B'));
+      await waitFor(() => expect(result.current.leftSentences[1]).toBe('A'));
+    });
+
+    it('should move from right to left if selected sentence is on the right', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['A'],
+          defaultSelectedSentenceFromLeftIndex: undefined,
+          defaultSelectedSentenceFromRightIndex: 0,
+          initialLeftSentences: ['', 'B'],
+        },
+      });
+
+      act(() => result.current.moveSentenceToLeft(0));
+
+      await waitFor(() => expect(result.current.leftSentences[0]).toBe('A'));
+      await waitFor(() => expect(result.current.rightSentences.length).toBe(0));
+    });
+  });
 });
 
 /**
