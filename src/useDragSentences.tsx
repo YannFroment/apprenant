@@ -42,7 +42,11 @@ export const useDragSentences = ({
       setLeftSentences(
         leftSentences.map((sentence, index) => {
           if (index === selectedSentenceFromLeftIndex) {
-            return '';
+            return leftSentences[targetLeftSentenceIndex];
+          }
+
+          if (index === targetLeftSentenceIndex) {
+            return leftSentences[selectedSentenceFromLeftIndex];
           }
 
           return sentence;
