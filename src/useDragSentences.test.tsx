@@ -25,7 +25,7 @@ describe('useDragSentences', () => {
       act(() => result.current.selectSentenceFromRight(0));
 
       await waitFor(() =>
-        expect(result.current.selectedFromRightIndex).toBe(0),
+        expect(result.current.selectedSentenceFromRightIndex).toBe(0),
       );
     });
   });
@@ -33,20 +33,23 @@ describe('useDragSentences', () => {
   describe('moveSentenceFromRightToLeft', () => {
     it.each([
       {
-        defaultSelectedFromRightIndex: 0,
+        defaultSelectedSentenceFromRightIndex: 0,
         expectedRightSentences: [initialSentences[1]],
       },
       {
-        defaultSelectedFromRightIndex: 1,
+        defaultSelectedSentenceFromRightIndex: 1,
         expectedRightSentences: [initialSentences[0]],
       },
     ])(
       'should remove sentence from right sentences',
-      async ({ defaultSelectedFromRightIndex, expectedRightSentences }) => {
+      async ({
+        defaultSelectedSentenceFromRightIndex,
+        expectedRightSentences,
+      }) => {
         const { result } = renderHook(useDragSentences, {
           initialProps: {
             initialSentences,
-            defaultSelectedFromRightIndex,
+            defaultSelectedSentenceFromRightIndex,
           },
         });
 
@@ -79,7 +82,7 @@ describe('useDragSentences', () => {
         const { result } = renderHook(useDragSentences, {
           initialProps: {
             initialSentences,
-            defaultSelectedFromRightIndex: 0,
+            defaultSelectedSentenceFromRightIndex: 0,
           },
         });
 

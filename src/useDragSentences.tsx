@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 type UseDragSentencesProps = {
   initialSentences: string[];
-  defaultSelectedFromRightIndex?: number;
+  defaultSelectedSentenceFromRightIndex?: number;
 };
 
 type UseDragSentencesReturn = {
@@ -12,36 +12,37 @@ type UseDragSentencesReturn = {
   rightSentences: string[];
   leftSentences: string[];
   selectedSentenceFromLeftIndex?: number;
-  selectedFromRightIndex?: number;
+  selectedSentenceFromRightIndex?: number;
 };
 
 export const useDragSentences = ({
   initialSentences,
-  defaultSelectedFromRightIndex,
+  defaultSelectedSentenceFromRightIndex,
 }: UseDragSentencesProps): UseDragSentencesReturn => {
-  const [selectedFromRightIndex, setSelectedFromRightIndex] = useState<
-    number | undefined
-  >(defaultSelectedFromRightIndex);
+  const [selectedSentenceFromRightIndex, setSelectedSentenceFromRightIndex] =
+    useState<number | undefined>(defaultSelectedSentenceFromRightIndex);
   const [selectedSentenceFromLeftIndex, setSelectedSentenceFromLeftIndex] =
-    useState<number | undefined>(defaultSelectedFromRightIndex);
+    useState<number | undefined>(defaultSelectedSentenceFromRightIndex);
 
   const selectSentenceFromLeft = (index: number) => {
     setSelectedSentenceFromLeftIndex(index);
   };
 
   const selectSentenceFromRight = (index: number) => {
-    setSelectedFromRightIndex(index);
+    setSelectedSentenceFromRightIndex(index);
   };
 
   const moveSentenceFromRightToLeft = (leftSentenceIndex: number) => {
-    if (selectedFromRightIndex !== undefined) {
+    if (selectedSentenceFromRightIndex !== undefined) {
       setLeftSentences([
         ...leftSentences.slice(0, leftSentenceIndex),
-        rightSentences[selectedFromRightIndex],
+        rightSentences[selectedSentenceFromRightIndex],
         ...leftSentences.slice(leftSentenceIndex + 1),
       ]);
       setRightSentences(
-        rightSentences.filter((_, index) => index !== selectedFromRightIndex),
+        rightSentences.filter(
+          (_, index) => index !== selectedSentenceFromRightIndex,
+        ),
       );
     }
   };
@@ -59,7 +60,7 @@ export const useDragSentences = ({
     moveSentenceFromRightToLeft,
     rightSentences,
     leftSentences,
-    selectedFromRightIndex,
+    selectedSentenceFromRightIndex,
     selectedSentenceFromLeftIndex,
   };
 };
