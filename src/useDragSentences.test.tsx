@@ -166,6 +166,22 @@ describe('useDragSentences', () => {
       await waitFor(() => expect(result.current.leftSentences[0]).toBe('B'));
       await waitFor(() => expect(result.current.leftSentences[1]).toBe('A'));
     });
+
+    it('should erase the selected sentence index after move', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['C'],
+          defaultSelectedSentenceFromLeftIndex: 0,
+          initialLeftSentences: ['A', 'B'],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromLeftToLeft(1));
+
+      await waitFor(() =>
+        expect(result.current.selectedSentenceFromLeftIndex).toBeUndefined(),
+      );
+    });
   });
 
   describe('moveSentenceFromLeftToRight', () => {
@@ -202,6 +218,22 @@ describe('useDragSentences', () => {
         expect(result.current.rightSentences).toEqual(
           expect.arrayContaining(['C', 'A']),
         ),
+      );
+    });
+
+    it('should erase the selected sentence index after move', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['C'],
+          defaultSelectedSentenceFromLeftIndex: 0,
+          initialLeftSentences: ['A', 'B'],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromLeftToRight());
+
+      await waitFor(() =>
+        expect(result.current.selectedSentenceFromLeftIndex).toBeUndefined(),
       );
     });
   });

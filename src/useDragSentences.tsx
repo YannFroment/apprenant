@@ -39,6 +39,8 @@ export const useDragSentences = ({
   };
 
   const moveSentenceFromLeftToLeft = (targetLeftSentenceIndex: number) => {
+    setSelectedSentenceFromLeftIndex(undefined);
+
     if (selectedSentenceFromLeftIndex !== undefined) {
       setLeftSentences(
         leftSentences.map((sentence, index) => {
@@ -57,6 +59,8 @@ export const useDragSentences = ({
   };
 
   const moveSentenceFromLeftToRight = () => {
+    setSelectedSentenceFromLeftIndex(undefined);
+
     if (selectedSentenceFromLeftIndex !== undefined) {
       setRightSentences([
         ...rightSentences,
