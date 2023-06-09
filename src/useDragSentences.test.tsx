@@ -28,115 +28,6 @@ describe('useDragSentences', () => {
     });
   });
 
-  describe('moveSentenceFromRightToLeft', () => {
-    it.each([
-      {
-        defaultSelectedSentenceFromRightIndex: 0,
-        expectedRightSentences: ['B'],
-      },
-      {
-        defaultSelectedSentenceFromRightIndex: 1,
-        expectedRightSentences: ['A'],
-      },
-    ])(
-      'should remove sentence from right sentences',
-      async ({
-        defaultSelectedSentenceFromRightIndex,
-        expectedRightSentences,
-      }) => {
-        const { result } = renderHook(useDragSentences, {
-          initialProps: {
-            initialSentences: ['A', 'B'],
-            defaultSelectedSentenceFromRightIndex,
-          },
-        });
-
-        act(() => result.current.moveSentenceFromRightToLeft(0));
-
-        await waitFor(() =>
-          expect(result.current.rightSentences).toEqual(
-            expect.arrayContaining(expectedRightSentences),
-          ),
-        );
-
-        await waitFor(() =>
-          expect(result.current.rightSentences.length).toBe(1),
-        );
-      },
-    );
-
-    it.each([
-      {
-        leftSentenceIndex: 0,
-        expectedLeftSentences: ['A', ''],
-      },
-      {
-        leftSentenceIndex: 1,
-        expectedLeftSentences: ['', 'A'],
-      },
-    ])(
-      'should add sentence to left sentences at a specific position',
-      async ({ leftSentenceIndex, expectedLeftSentences }) => {
-        const { result } = renderHook(useDragSentences, {
-          initialProps: {
-            initialSentences: ['A', 'B'],
-            defaultSelectedSentenceFromRightIndex: 0,
-          },
-        });
-
-        act(() =>
-          result.current.moveSentenceFromRightToLeft(leftSentenceIndex),
-        );
-
-        await waitFor(() =>
-          expect(result.current.leftSentences).toEqual(
-            expect.arrayContaining(expectedLeftSentences),
-          ),
-        );
-      },
-    );
-
-    it('should not move the sentence from the right if targeted left sentence is not empty', async () => {
-      const { result } = renderHook(useDragSentences, {
-        initialProps: {
-          initialSentences: ['A', 'B'],
-          defaultSelectedSentenceFromRightIndex: 0,
-          initialLeftSentences: ['C', '', ''],
-        },
-      });
-
-      act(() => result.current.moveSentenceFromRightToLeft(0));
-
-      await waitFor(() =>
-        expect(result.current.leftSentences).toEqual(
-          expect.arrayContaining(['C', '', '']),
-        ),
-      );
-
-      await waitFor(() =>
-        expect(result.current.rightSentences).toEqual(
-          expect.arrayContaining(['A', 'B']),
-        ),
-      );
-    });
-
-    it('should erase the selected sentence index after move', async () => {
-      const { result } = renderHook(useDragSentences, {
-        initialProps: {
-          initialSentences: ['A', 'B'],
-          defaultSelectedSentenceFromRightIndex: 0,
-          initialLeftSentences: ['C', '', ''],
-        },
-      });
-
-      act(() => result.current.moveSentenceFromRightToLeft(0));
-
-      await waitFor(() =>
-        expect(result.current.selectedSentenceFromRightIndex).toBeUndefined(),
-      );
-    });
-  });
-
   describe('selectSentenceFromLeft', () => {
     it('should save the index of a sentence selected from the left ', async () => {
       const { result } = renderHook(useDragSentences, {
@@ -151,7 +42,7 @@ describe('useDragSentences', () => {
     });
   });
 
-  describe('moveSentenceFromLeftToRight', () => {
+  describe('moveSentenceToRight', () => {
     it('should replace moved sentence from the left by empty sentence', async () => {
       const { result } = renderHook(useDragSentences, {
         initialProps: {
@@ -161,7 +52,7 @@ describe('useDragSentences', () => {
         },
       });
 
-      act(() => result.current.moveSentenceFromLeftToRight());
+      act(() => result.current.moveSentenceToRight());
 
       await waitFor(() =>
         expect(result.current.leftSentences).toEqual(
@@ -179,7 +70,7 @@ describe('useDragSentences', () => {
         },
       });
 
-      act(() => result.current.moveSentenceFromLeftToRight());
+      act(() => result.current.moveSentenceToRight());
 
       await waitFor(() =>
         expect(result.current.rightSentences).toEqual(
@@ -197,7 +88,7 @@ describe('useDragSentences', () => {
         },
       });
 
-      act(() => result.current.moveSentenceFromLeftToRight());
+      act(() => result.current.moveSentenceToRight());
 
       await waitFor(() =>
         expect(result.current.selectedSentenceFromLeftIndex).toBeUndefined(),
@@ -240,20 +131,111 @@ describe('useDragSentences', () => {
       });
     });
 
-    it('should move from right to left if selected sentence is on the right', async () => {
-      const { result } = renderHook(useDragSentences, {
-        initialProps: {
-          initialSentences: ['A'],
-          defaultSelectedSentenceFromLeftIndex: undefined,
+    describe('selected sentence is on the right', () => {
+      it.each([
+        {
           defaultSelectedSentenceFromRightIndex: 0,
-          initialLeftSentences: ['', 'B'],
+          expectedRightSentences: ['B'],
         },
+        {
+          defaultSelectedSentenceFromRightIndex: 1,
+          expectedRightSentences: ['A'],
+        },
+      ])(
+        'should remove selected sentence from right sentences',
+        async ({
+          defaultSelectedSentenceFromRightIndex,
+          expectedRightSentences,
+        }) => {
+          const { result } = renderHook(useDragSentences, {
+            initialProps: {
+              initialSentences: ['A', 'B'],
+              defaultSelectedSentenceFromRightIndex,
+            },
+          });
+
+          act(() => result.current.moveSentenceToLeft(0));
+
+          await waitFor(() =>
+            expect(result.current.rightSentences).toEqual(
+              expect.arrayContaining(expectedRightSentences),
+            ),
+          );
+
+          await waitFor(() =>
+            expect(result.current.rightSentences.length).toBe(1),
+          );
+        },
+      );
+
+      it.each([
+        {
+          leftSentenceIndex: 0,
+          expectedLeftSentences: ['A', ''],
+        },
+        {
+          leftSentenceIndex: 1,
+          expectedLeftSentences: ['', 'A'],
+        },
+      ])(
+        'should add sentence to left sentences at a specific position',
+        async ({ leftSentenceIndex, expectedLeftSentences }) => {
+          const { result } = renderHook(useDragSentences, {
+            initialProps: {
+              initialSentences: ['A', 'B'],
+              defaultSelectedSentenceFromRightIndex: 0,
+            },
+          });
+
+          act(() => result.current.moveSentenceToLeft(leftSentenceIndex));
+
+          await waitFor(() =>
+            expect(result.current.leftSentences).toEqual(
+              expect.arrayContaining(expectedLeftSentences),
+            ),
+          );
+        },
+      );
+
+      it('should not move the sentence from the right if targeted left sentence is not empty', async () => {
+        const { result } = renderHook(useDragSentences, {
+          initialProps: {
+            initialSentences: ['A', 'B'],
+            defaultSelectedSentenceFromRightIndex: 0,
+            initialLeftSentences: ['C', '', ''],
+          },
+        });
+
+        act(() => result.current.moveSentenceToLeft(0));
+
+        await waitFor(() =>
+          expect(result.current.leftSentences).toEqual(
+            expect.arrayContaining(['C', '', '']),
+          ),
+        );
+
+        await waitFor(() =>
+          expect(result.current.rightSentences).toEqual(
+            expect.arrayContaining(['A', 'B']),
+          ),
+        );
       });
 
-      act(() => result.current.moveSentenceToLeft(0));
+      it('should erase the selected sentence index after move', async () => {
+        const { result } = renderHook(useDragSentences, {
+          initialProps: {
+            initialSentences: ['A', 'B'],
+            defaultSelectedSentenceFromRightIndex: 0,
+            initialLeftSentences: ['C', '', ''],
+          },
+        });
 
-      await waitFor(() => expect(result.current.leftSentences[0]).toBe('A'));
-      await waitFor(() => expect(result.current.rightSentences.length).toBe(0));
+        act(() => result.current.moveSentenceToLeft(0));
+
+        await waitFor(() =>
+          expect(result.current.selectedSentenceFromRightIndex).toBeUndefined(),
+        );
+      });
     });
   });
 });

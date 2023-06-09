@@ -10,9 +10,7 @@ type UseDragSentencesProps = {
 type UseDragSentencesReturn = {
   selectSentenceFromLeft: (index: number) => void;
   selectSentenceFromRight: (index: number) => void;
-  moveSentenceFromLeftToLeft: (targetLeftSentenceIndex: number) => void;
-  moveSentenceFromLeftToRight: () => void;
-  moveSentenceFromRightToLeft: (leftSentenceIndex: number) => void;
+  moveSentenceToRight: () => void;
   moveSentenceToLeft: (targetLeftSentenceIndex: number) => void;
   rightSentences: string[];
   leftSentences: string[];
@@ -59,7 +57,7 @@ export const useDragSentences = ({
     }
   };
 
-  const moveSentenceFromLeftToRight = () => {
+  const moveSentenceToRight = () => {
     setSelectedSentenceFromLeftIndex(undefined);
 
     if (selectedSentenceFromLeftIndex !== undefined) {
@@ -120,9 +118,7 @@ export const useDragSentences = ({
   return {
     selectSentenceFromLeft,
     selectSentenceFromRight,
-    moveSentenceFromLeftToLeft,
-    moveSentenceFromLeftToRight,
-    moveSentenceFromRightToLeft,
+    moveSentenceToRight,
     moveSentenceToLeft,
     rightSentences,
     leftSentences,
