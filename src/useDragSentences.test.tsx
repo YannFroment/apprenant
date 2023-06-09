@@ -133,6 +133,44 @@ describe('useDragSentences', () => {
       );
     });
   });
+
+  describe('moveSentenceFromLeftToRight', () => {
+    it('should replace moved sentence from the left by empty sentence', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['sentence C'],
+          defaultSelectedSentenceFromLeftIndex: 0,
+          initialLeftSentences: ['sentence A', 'sentence B'],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromLeftToRight());
+
+      await waitFor(() =>
+        expect(result.current.leftSentences).toEqual(
+          expect.arrayContaining(['', 'sentence B']),
+        ),
+      );
+    });
+
+    it('should append moved sentence from the left to right sentences', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['sentence C'],
+          defaultSelectedSentenceFromLeftIndex: 0,
+          initialLeftSentences: ['sentence A', 'sentence B'],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromLeftToRight());
+
+      await waitFor(() =>
+        expect(result.current.rightSentences).toEqual(
+          expect.arrayContaining(['sentence C', 'sentence A']),
+        ),
+      );
+    });
+  });
 });
 
 /**
