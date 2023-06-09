@@ -95,6 +95,20 @@ describe('useDragSentences', () => {
       },
     );
   });
+
+  describe('selectSentenceFromLeft', () => {
+    it('should save the index of a sentence selected from the left ', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: { initialSentences },
+      });
+
+      act(() => result.current.selectSentenceFromLeft(0));
+
+      await waitFor(() =>
+        expect(result.current.selectedSentenceFromLeftIndex).toBe(0),
+      );
+    });
+  });
 });
 
 /**
