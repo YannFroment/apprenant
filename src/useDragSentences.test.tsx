@@ -6,11 +6,11 @@ const initialSentences = ['sentence 1', 'sentence 2'];
 describe('useDragSentences', () => {
   it('should return available sentences', async () => {
     const { result } = renderHook(useDragSentences, {
-      initialProps: initialSentences,
+      initialProps: { initialSentences: initialSentences },
     });
 
     await waitFor(() =>
-      expect(result.current.sentences).toEqual(
+      expect(result.current.initialSentences).toEqual(
         expect.arrayContaining(initialSentences),
       ),
     );
@@ -18,13 +18,46 @@ describe('useDragSentences', () => {
 
   it('should pick an available sentence', async () => {
     const { result } = renderHook(useDragSentences, {
-      initialProps: initialSentences,
+      initialProps: { initialSentences },
     });
 
     act(() => result.current.pickFromRight(0));
 
     await waitFor(() => expect(result.current.pickedFromRightIndex).toBe(0));
   });
+
+  it.each([
+    {
+      defaultPickedFromRightIndex: 0,
+      expectedAvailableSentences: [initialSentences[1]],
+    },
+    {
+      defaultPickedFromRightIndex: 1,
+      expectedAvailableSentences: [initialSentences[0]],
+    },
+  ])(
+    'should remove sentence from available sentences when put to left',
+    async ({ defaultPickedFromRightIndex, expectedAvailableSentences }) => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences,
+          defaultPickedFromRightIndex,
+        },
+      });
+
+      act(() => result.current.putToLeft());
+
+      await waitFor(() =>
+        expect(result.current.availableSentences).toEqual(
+          expect.arrayContaining(expectedAvailableSentences),
+        ),
+      );
+
+      await waitFor(() =>
+        expect(result.current.availableSentences.length).toBe(1),
+      );
+    },
+  );
 });
 
 /**
