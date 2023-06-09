@@ -1,12 +1,10 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { useDragSentences } from './useDragSentences';
 
-const initialSentences = ['sentence 1', 'sentence 2'];
-
 describe('useDragSentences', () => {
   it('should instantiate the left sentences with as many empty sentences as the initial sentences list', async () => {
     const { result } = renderHook(useDragSentences, {
-      initialProps: { initialSentences },
+      initialProps: { initialSentences: ['A', 'B'] },
     });
 
     await waitFor(() =>
@@ -19,7 +17,7 @@ describe('useDragSentences', () => {
   describe('selectSentenceFromRight', () => {
     it('should save the index of a sentence selected from the right', async () => {
       const { result } = renderHook(useDragSentences, {
-        initialProps: { initialSentences },
+        initialProps: { initialSentences: ['A'] },
       });
 
       act(() => result.current.selectSentenceFromRight(0));
@@ -34,11 +32,11 @@ describe('useDragSentences', () => {
     it.each([
       {
         defaultSelectedSentenceFromRightIndex: 0,
-        expectedRightSentences: [initialSentences[1]],
+        expectedRightSentences: ['B'],
       },
       {
         defaultSelectedSentenceFromRightIndex: 1,
-        expectedRightSentences: [initialSentences[0]],
+        expectedRightSentences: ['A'],
       },
     ])(
       'should remove sentence from right sentences',
@@ -48,7 +46,7 @@ describe('useDragSentences', () => {
       }) => {
         const { result } = renderHook(useDragSentences, {
           initialProps: {
-            initialSentences,
+            initialSentences: ['A', 'B'],
             defaultSelectedSentenceFromRightIndex,
           },
         });
@@ -70,18 +68,18 @@ describe('useDragSentences', () => {
     it.each([
       {
         leftSentenceIndex: 0,
-        expectedLeftSentences: [initialSentences[0], ''],
+        expectedLeftSentences: ['A', ''],
       },
       {
         leftSentenceIndex: 1,
-        expectedLeftSentences: ['', initialSentences[0]],
+        expectedLeftSentences: ['', 'A'],
       },
     ])(
       'should add sentence to left sentences at a specific position',
       async ({ leftSentenceIndex, expectedLeftSentences }) => {
         const { result } = renderHook(useDragSentences, {
           initialProps: {
-            initialSentences,
+            initialSentences: ['A', 'B'],
             defaultSelectedSentenceFromRightIndex: 0,
           },
         });
@@ -102,7 +100,7 @@ describe('useDragSentences', () => {
   describe('selectSentenceFromLeft', () => {
     it('should save the index of a sentence selected from the left ', async () => {
       const { result } = renderHook(useDragSentences, {
-        initialProps: { initialSentences },
+        initialProps: { initialSentences: ['A', 'B'] },
       });
 
       act(() => result.current.selectSentenceFromLeft(0));
@@ -117,20 +115,16 @@ describe('useDragSentences', () => {
     it('should swap left sentences', async () => {
       const { result } = renderHook(useDragSentences, {
         initialProps: {
-          initialSentences: [initialSentences[1]],
+          initialSentences: ['C'],
           defaultSelectedSentenceFromLeftIndex: 0,
-          initialLeftSentences: ['sentence A', 'sentence B'],
+          initialLeftSentences: ['A', 'B'],
         },
       });
 
       act(() => result.current.moveSentenceFromLeftToLeft(1));
 
-      await waitFor(() =>
-        expect(result.current.leftSentences[0]).toBe('sentence B'),
-      );
-      await waitFor(() =>
-        expect(result.current.leftSentences[1]).toBe('sentence A'),
-      );
+      await waitFor(() => expect(result.current.leftSentences[0]).toBe('B'));
+      await waitFor(() => expect(result.current.leftSentences[1]).toBe('A'));
     });
   });
 
@@ -138,9 +132,9 @@ describe('useDragSentences', () => {
     it('should replace moved sentence from the left by empty sentence', async () => {
       const { result } = renderHook(useDragSentences, {
         initialProps: {
-          initialSentences: ['sentence C'],
+          initialSentences: ['C'],
           defaultSelectedSentenceFromLeftIndex: 0,
-          initialLeftSentences: ['sentence A', 'sentence B'],
+          initialLeftSentences: ['A', 'B'],
         },
       });
 
@@ -148,7 +142,7 @@ describe('useDragSentences', () => {
 
       await waitFor(() =>
         expect(result.current.leftSentences).toEqual(
-          expect.arrayContaining(['', 'sentence B']),
+          expect.arrayContaining(['', 'B']),
         ),
       );
     });
@@ -156,9 +150,9 @@ describe('useDragSentences', () => {
     it('should append moved sentence from the left to right sentences', async () => {
       const { result } = renderHook(useDragSentences, {
         initialProps: {
-          initialSentences: ['sentence C'],
+          initialSentences: ['C'],
           defaultSelectedSentenceFromLeftIndex: 0,
-          initialLeftSentences: ['sentence A', 'sentence B'],
+          initialLeftSentences: ['A', 'B'],
         },
       });
 
@@ -166,7 +160,7 @@ describe('useDragSentences', () => {
 
       await waitFor(() =>
         expect(result.current.rightSentences).toEqual(
-          expect.arrayContaining(['sentence C', 'sentence A']),
+          expect.arrayContaining(['C', 'A']),
         ),
       );
     });
