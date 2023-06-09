@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { useDragSentences } from './useDragSentences';
 
 const Flex = styled.div`
   display: flex;
@@ -29,60 +29,47 @@ type WorkzoneProps = {
   sentences: string[];
 };
 
-export const useDragSentences = (sentences: string[]) => {
-  const [availableSentences, setAvailableSentences] =
-    useState<string[]>(sentences);
-  const [slots, setSlots] = useState<string[]>(sentences.map(() => ''));
-  const [draggedSentenceIndex, setDraggedSentenceIndex] = useState<
-    number | undefined
-  >(undefined);
-
-  const handleDrop = (slotIndex: number) => () => {
-    if (draggedSentenceIndex !== undefined) {
-      setAvailableSentences(
-        availableSentences.filter((_, index) => index !== draggedSentenceIndex),
-      );
-      setSlots([
-        ...slots.slice(0, slotIndex),
-        availableSentences[draggedSentenceIndex],
-        ...slots.slice(slotIndex + 1),
-      ]);
-      setDraggedSentenceIndex(undefined);
-    }
-  };
-
-  const handleDragStart = (index: number) => () =>
-    setDraggedSentenceIndex(index);
-
-  return {
-    availableSentences,
-    slots,
-    handleDragStart,
-    handleDrop,
-  };
-};
-
 export const WorkZone = ({ sentences }: WorkzoneProps) => {
-  const { slots, handleDrop, availableSentences, handleDragStart } =
-    useDragSentences(sentences);
+  const {
+    leftSentences,
+    moveSentenceToLeft,
+    moveSentenceToRight,
+    rightSentences,
+    selectSentenceFromLeft,
+    selectSentenceFromRight,
+    updateTargetedSentenceFromLeftIndex,
+  } = useDragSentences({ initialSentences: sentences });
   return (
     <Flex>
       <Panel>
-        {slots.map((sentence, index) => (
+        {leftSentences.map((sentence, index) => (
           <Box
             key={index}
             $width="100%"
             $height="32px"
-            onDrop={handleDrop(index)}
+            onDrop={moveSentenceToLeft}
             onDragOver={(e) => e.preventDefault()} // necessary to do the trick
+            onDragEnter={() => updateTargetedSentenceFromLeftIndex(index)}
+            onDragLeave={() => updateTargetedSentenceFromLeftIndex()}
           >
-            {sentence && <Text>{sentence}</Text>}
+            {
+              <Text draggable onDragStart={() => selectSentenceFromLeft(index)}>
+                {sentence}
+              </Text>
+            }
           </Box>
         ))}
       </Panel>
-      <Panel>
-        {availableSentences.map((sentence, index) => (
-          <Text draggable key={index} onDragStart={handleDragStart(index)}>
+      <Panel
+        onDrop={moveSentenceToRight}
+        onDragOver={(e) => e.preventDefault()}
+      >
+        {rightSentences.map((sentence, index) => (
+          <Text
+            draggable
+            key={index}
+            onDragStart={() => selectSentenceFromRight(index)}
+          >
             {sentence}
           </Text>
         ))}
