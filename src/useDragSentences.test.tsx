@@ -16,27 +16,41 @@ describe('useDragSentences', () => {
     );
   });
 
-  describe('putFromRightToLeft', () => {
+  describe('selectSentenceFromRight', () => {
+    it('should save the index of a sentence selected from the right', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: { initialSentences },
+      });
+
+      act(() => result.current.selectSentenceFromRight(0));
+
+      await waitFor(() =>
+        expect(result.current.selectedFromRightIndex).toBe(0),
+      );
+    });
+  });
+
+  describe('moveSentenceFromRightToLeft', () => {
     it.each([
       {
-        defaultPickedFromRightIndex: 0,
+        defaultSelectedFromRightIndex: 0,
         expectedRightSentences: [initialSentences[1]],
       },
       {
-        defaultPickedFromRightIndex: 1,
+        defaultSelectedFromRightIndex: 1,
         expectedRightSentences: [initialSentences[0]],
       },
     ])(
       'should remove sentence from right sentences',
-      async ({ defaultPickedFromRightIndex, expectedRightSentences }) => {
+      async ({ defaultSelectedFromRightIndex, expectedRightSentences }) => {
         const { result } = renderHook(useDragSentences, {
           initialProps: {
             initialSentences,
-            defaultPickedFromRightIndex,
+            defaultSelectedFromRightIndex,
           },
         });
 
-        act(() => result.current.putFromRightToLeft(0));
+        act(() => result.current.moveSentenceFromRightToLeft(0));
 
         await waitFor(() =>
           expect(result.current.rightSentences).toEqual(
@@ -65,11 +79,13 @@ describe('useDragSentences', () => {
         const { result } = renderHook(useDragSentences, {
           initialProps: {
             initialSentences,
-            defaultPickedFromRightIndex: 0,
+            defaultSelectedFromRightIndex: 0,
           },
         });
 
-        act(() => result.current.putFromRightToLeft(leftSentenceIndex));
+        act(() =>
+          result.current.moveSentenceFromRightToLeft(leftSentenceIndex),
+        );
 
         await waitFor(() =>
           expect(result.current.leftSentences).toEqual(

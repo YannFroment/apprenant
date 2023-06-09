@@ -2,37 +2,38 @@ import { useState } from 'react';
 
 type UseDragSentencesProps = {
   initialSentences: string[];
-  defaultPickedFromRightIndex?: number;
+  defaultSelectedFromRightIndex?: number;
 };
 
 type UseDragSentencesReturn = {
-  pickFromRight: (index: number) => void;
-  putFromRightToLeft: (leftSentenceIndex: number) => void;
+  selectSentenceFromRight: (index: number) => void;
+  moveSentenceFromRightToLeft: (leftSentenceIndex: number) => void;
   rightSentences: string[];
   leftSentences: string[];
+  selectedFromRightIndex?: number;
 };
 
 export const useDragSentences = ({
   initialSentences,
-  defaultPickedFromRightIndex,
+  defaultSelectedFromRightIndex,
 }: UseDragSentencesProps): UseDragSentencesReturn => {
-  const [pickedFromRightIndex, setPickedFromRightIndex] = useState<
+  const [selectedFromRightIndex, setSelectedFromRightIndex] = useState<
     number | undefined
-  >(defaultPickedFromRightIndex);
+  >(defaultSelectedFromRightIndex);
 
-  const pickFromRight = (index: number) => {
-    setPickedFromRightIndex(index);
+  const selectSentenceFromRight = (index: number) => {
+    setSelectedFromRightIndex(index);
   };
 
-  const putFromRightToLeft = (leftSentenceIndex: number) => {
-    if (pickedFromRightIndex !== undefined) {
+  const moveSentenceFromRightToLeft = (leftSentenceIndex: number) => {
+    if (selectedFromRightIndex !== undefined) {
       setLeftSentences([
         ...leftSentences.slice(0, leftSentenceIndex),
-        rightSentences[pickedFromRightIndex],
+        rightSentences[selectedFromRightIndex],
         ...leftSentences.slice(leftSentenceIndex + 1),
       ]);
       setRightSentences(
-        rightSentences.filter((_, index) => index !== pickedFromRightIndex),
+        rightSentences.filter((_, index) => index !== selectedFromRightIndex),
       );
     }
   };
@@ -45,9 +46,10 @@ export const useDragSentences = ({
     useState<string[]>(initialSentences);
 
   return {
-    pickFromRight,
-    putFromRightToLeft,
+    selectSentenceFromRight,
+    moveSentenceFromRightToLeft,
     rightSentences,
     leftSentences,
+    selectedFromRightIndex,
   };
 };
