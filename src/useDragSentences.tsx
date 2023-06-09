@@ -75,6 +75,8 @@ export const useDragSentences = ({
   };
 
   const moveSentenceFromRightToLeft = (leftSentenceIndex: number) => {
+    setSelectedSentenceFromRightIndex(undefined);
+
     if (leftSentences[leftSentenceIndex] !== '') {
       return;
     }

@@ -119,6 +119,22 @@ describe('useDragSentences', () => {
         ),
       );
     });
+
+    it('should erase the selected sentence index after move', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: ['A', 'B'],
+          defaultSelectedSentenceFromRightIndex: 0,
+          initialLeftSentences: ['C', '', ''],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromRightToLeft(0));
+
+      await waitFor(() =>
+        expect(result.current.selectedSentenceFromRightIndex).toBeUndefined(),
+      );
+    });
   });
 
   describe('selectSentenceFromLeft', () => {
