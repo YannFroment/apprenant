@@ -10,6 +10,7 @@ type UseDragSentencesReturn = {
   pickedFromRightIndex?: number;
   putToLeft: () => void;
   rightSentences: string[];
+  leftSentences: string[];
 };
 
 export const useDragSentences = ({
@@ -30,6 +31,8 @@ export const useDragSentences = ({
     );
   };
 
+  const [leftSentences] = useState<string[]>(initialSentences.map(() => ''));
+
   const [rightSentences, setRightSentences] =
     useState<string[]>(initialSentences);
 
@@ -38,5 +41,6 @@ export const useDragSentences = ({
     pickedFromRightIndex,
     putToLeft,
     rightSentences,
+    leftSentences,
   };
 };

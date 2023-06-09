@@ -4,6 +4,17 @@ import { useDragSentences } from './useDragSentences';
 const initialSentences = ['sentence 1', 'sentence 2'];
 
 describe('useDragSentences', () => {
+  it('should instantiate the left sentences with as many empty elements as the initial sentences list', async () => {
+    const { result } = renderHook(useDragSentences, {
+      initialProps: { initialSentences },
+    });
+
+    await waitFor(() =>
+      expect(result.current.leftSentences).toEqual(
+        expect.arrayContaining(['', '']),
+      ),
+    );
+  });
   it('should pick a sentence from the right', async () => {
     const { result } = renderHook(useDragSentences, {
       initialProps: { initialSentences },
