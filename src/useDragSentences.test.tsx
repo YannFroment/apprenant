@@ -45,7 +45,7 @@ describe('useDragSentences', () => {
           },
         });
 
-        act(() => result.current.putToLeft());
+        act(() => result.current.putToLeft(0));
 
         await waitFor(() =>
           expect(result.current.rightSentences).toEqual(
@@ -55,6 +55,35 @@ describe('useDragSentences', () => {
 
         await waitFor(() =>
           expect(result.current.rightSentences.length).toBe(1),
+        );
+      },
+    );
+
+    it.each([
+      {
+        leftSentenceIndex: 0,
+        expectedLeftSentences: [initialSentences[0], ''],
+      },
+      {
+        leftSentenceIndex: 1,
+        expectedLeftSentences: ['', initialSentences[0]],
+      },
+    ])(
+      'should add sentence to left sentences at a specific position',
+      async ({ leftSentenceIndex, expectedLeftSentences }) => {
+        const { result } = renderHook(useDragSentences, {
+          initialProps: {
+            initialSentences,
+            defaultPickedFromRightIndex: 0,
+          },
+        });
+
+        act(() => result.current.putToLeft(leftSentenceIndex));
+
+        await waitFor(() =>
+          expect(result.current.leftSentences).toEqual(
+            expect.arrayContaining(expectedLeftSentences),
+          ),
         );
       },
     );
