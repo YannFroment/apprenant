@@ -5,17 +5,20 @@ type UseDragSentencesProps = {
   initialLeftSentences?: string[];
   defaultSelectedSentenceFromLeftIndex?: number;
   defaultSelectedSentenceFromRightIndex?: number;
+  defaultTargetedSentenceFromLeftIndex?: number;
 };
 
 type UseDragSentencesReturn = {
   selectSentenceFromLeft: (index: number) => void;
   selectSentenceFromRight: (index: number) => void;
+  updateTargetedSentenceFromLeftIndex: (index?: number) => void;
   moveSentenceToRight: () => void;
   moveSentenceToLeft: (targetLeftSentenceIndex: number) => void;
   rightSentences: string[];
   leftSentences: string[];
   selectedSentenceFromLeftIndex?: number;
   selectedSentenceFromRightIndex?: number;
+  targetedSentenceFromLeftIndex?: number;
 };
 
 export const useDragSentences = ({
@@ -23,11 +26,14 @@ export const useDragSentences = ({
   initialLeftSentences,
   defaultSelectedSentenceFromLeftIndex,
   defaultSelectedSentenceFromRightIndex,
+  defaultTargetedSentenceFromLeftIndex,
 }: UseDragSentencesProps): UseDragSentencesReturn => {
   const [selectedSentenceFromRightIndex, setSelectedSentenceFromRightIndex] =
     useState<number | undefined>(defaultSelectedSentenceFromRightIndex);
   const [selectedSentenceFromLeftIndex, setSelectedSentenceFromLeftIndex] =
     useState<number | undefined>(defaultSelectedSentenceFromLeftIndex);
+  const [targetedSentenceFromLeftIndex, setTargetedSentenceFromLeftIndex] =
+    useState<number | undefined>(defaultTargetedSentenceFromLeftIndex);
 
   const selectSentenceFromLeft = (index: number) => {
     setSelectedSentenceFromLeftIndex(index);
@@ -35,6 +41,10 @@ export const useDragSentences = ({
 
   const selectSentenceFromRight = (index: number) => {
     setSelectedSentenceFromRightIndex(index);
+  };
+
+  const updateTargetedSentenceFromLeftIndex = (index?: number) => {
+    setTargetedSentenceFromLeftIndex(index);
   };
 
   const moveSentenceFromLeftToLeft = (targetLeftSentenceIndex: number) => {
@@ -118,11 +128,13 @@ export const useDragSentences = ({
   return {
     selectSentenceFromLeft,
     selectSentenceFromRight,
+    updateTargetedSentenceFromLeftIndex,
     moveSentenceToRight,
     moveSentenceToLeft,
     rightSentences,
     leftSentences,
     selectedSentenceFromRightIndex,
     selectedSentenceFromLeftIndex,
+    targetedSentenceFromLeftIndex,
   };
 };

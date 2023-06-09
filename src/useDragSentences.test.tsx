@@ -42,6 +42,33 @@ describe('useDragSentences', () => {
     });
   });
 
+  describe('updateTargetedSentenceFromLeftIndex', () => {
+    it.each([
+      { defaultTargetedSentenceFromLeftIndex: undefined, targetedLeftIndex: 0 },
+      { defaultTargetedSentenceFromLeftIndex: 0, targetedLeftIndex: undefined },
+    ])(
+      'should update the index of the targeted sentence from the left',
+      async ({ defaultTargetedSentenceFromLeftIndex, targetedLeftIndex }) => {
+        const { result } = renderHook(useDragSentences, {
+          initialProps: {
+            initialSentences: ['A', 'B'],
+            defaultTargetedSentenceFromLeftIndex,
+          },
+        });
+
+        act(() =>
+          result.current.updateTargetedSentenceFromLeftIndex(targetedLeftIndex),
+        );
+
+        await waitFor(() =>
+          expect(result.current.targetedSentenceFromLeftIndex).toBe(
+            targetedLeftIndex,
+          ),
+        );
+      },
+    );
+  });
+
   describe('moveSentenceToRight', () => {
     it('should replace moved sentence from the left by empty sentence', async () => {
       const { result } = renderHook(useDragSentences, {
