@@ -4,19 +4,7 @@ import { useDragSentences } from './useDragSentences';
 const initialSentences = ['sentence 1', 'sentence 2'];
 
 describe('useDragSentences', () => {
-  it('should return available sentences', async () => {
-    const { result } = renderHook(useDragSentences, {
-      initialProps: { initialSentences: initialSentences },
-    });
-
-    await waitFor(() =>
-      expect(result.current.initialSentences).toEqual(
-        expect.arrayContaining(initialSentences),
-      ),
-    );
-  });
-
-  it('should pick an available sentence', async () => {
+  it('should pick a sentence from the right', async () => {
     const { result } = renderHook(useDragSentences, {
       initialProps: { initialSentences },
     });
@@ -26,38 +14,40 @@ describe('useDragSentences', () => {
     await waitFor(() => expect(result.current.pickedFromRightIndex).toBe(0));
   });
 
-  it.each([
-    {
-      defaultPickedFromRightIndex: 0,
-      expectedAvailableSentences: [initialSentences[1]],
-    },
-    {
-      defaultPickedFromRightIndex: 1,
-      expectedAvailableSentences: [initialSentences[0]],
-    },
-  ])(
-    'should remove sentence from available sentences when put to left',
-    async ({ defaultPickedFromRightIndex, expectedAvailableSentences }) => {
-      const { result } = renderHook(useDragSentences, {
-        initialProps: {
-          initialSentences,
-          defaultPickedFromRightIndex,
-        },
-      });
+  describe('putToLeft', () => {
+    it.each([
+      {
+        defaultPickedFromRightIndex: 0,
+        expectedRightSentences: [initialSentences[1]],
+      },
+      {
+        defaultPickedFromRightIndex: 1,
+        expectedRightSentences: [initialSentences[0]],
+      },
+    ])(
+      'should remove sentence from right sentences',
+      async ({ defaultPickedFromRightIndex, expectedRightSentences }) => {
+        const { result } = renderHook(useDragSentences, {
+          initialProps: {
+            initialSentences,
+            defaultPickedFromRightIndex,
+          },
+        });
 
-      act(() => result.current.putToLeft());
+        act(() => result.current.putToLeft());
 
-      await waitFor(() =>
-        expect(result.current.availableSentences).toEqual(
-          expect.arrayContaining(expectedAvailableSentences),
-        ),
-      );
+        await waitFor(() =>
+          expect(result.current.rightSentences).toEqual(
+            expect.arrayContaining(expectedRightSentences),
+          ),
+        );
 
-      await waitFor(() =>
-        expect(result.current.availableSentences.length).toBe(1),
-      );
-    },
-  );
+        await waitFor(() =>
+          expect(result.current.rightSentences.length).toBe(1),
+        );
+      },
+    );
+  });
 });
 
 /**
