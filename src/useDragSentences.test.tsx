@@ -4,7 +4,7 @@ import { useDragSentences } from './useDragSentences';
 const initialSentences = ['sentence 1', 'sentence 2'];
 
 describe('useDragSentences', () => {
-  it('should instantiate the left sentences with as many empty elements as the initial sentences list', async () => {
+  it('should instantiate the left sentences with as many empty sentences as the initial sentences list', async () => {
     const { result } = renderHook(useDragSentences, {
       initialProps: { initialSentences },
     });
@@ -110,6 +110,22 @@ describe('useDragSentences', () => {
       await waitFor(() =>
         expect(result.current.selectedSentenceFromLeftIndex).toBe(0),
       );
+    });
+  });
+
+  describe('moveSentenceFromLeftToLeft', () => {
+    it('should replace sentence moved from the left by an empty sentence', async () => {
+      const { result } = renderHook(useDragSentences, {
+        initialProps: {
+          initialSentences: [initialSentences[1]],
+          defaultSelectedSentenceFromLeftIndex: 0,
+          initialLeftSentences: [initialSentences[0], ''],
+        },
+      });
+
+      act(() => result.current.moveSentenceFromLeftToLeft(1));
+
+      await waitFor(() => expect(result.current.leftSentences[0]).toBe(''));
     });
   });
 });
