@@ -29,4 +29,21 @@ describe('VoiceRecognizer', () => {
 
     expect(screen.queryByText('it is a match!')).toBeInTheDocument();
   });
+
+  it('should detect if recognition is not a match', async () => {
+    const context: ServiceContainer = {
+      voiceRecognition: {
+        recognize: () => false,
+      },
+    };
+    render(
+      <ServiceContainerContext.Provider value={context}>
+        <VoiceRecognizer />
+      </ServiceContainerContext.Provider>,
+    );
+
+    await userEvent.click(screen.queryByText('click me')!);
+
+    expect(screen.queryByText('not a match!')).toBeInTheDocument();
+  });
 });

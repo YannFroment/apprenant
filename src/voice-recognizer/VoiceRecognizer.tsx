@@ -9,6 +9,8 @@ export const VoiceRecognizer = () => {
   const handleClick = () => {
     if (voiceRecognition.recognize()) {
       setButtonText('it is a match!');
+    } else {
+      setButtonText('not a match!');
     }
   };
 
