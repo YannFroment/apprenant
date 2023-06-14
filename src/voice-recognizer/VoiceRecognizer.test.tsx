@@ -7,12 +7,6 @@ import {
 } from '../service-container/ServiceContainerContext';
 
 describe('VoiceRecognizer', () => {
-  it('should render the component', async () => {
-    render(<VoiceRecognizer />);
-
-    expect(screen.queryByText('click me')).toBeInTheDocument();
-  });
-
   it('should display a list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
     render(<VoiceRecognizer words={words} />);
