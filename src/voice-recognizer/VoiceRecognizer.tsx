@@ -29,6 +29,7 @@ export const VoiceRecognizer = (
         <div data-testid={word} key={word}>
           <p>{word}</p>
           <button>Écouter</button>
+          <button>Enregistrer</button>
         </div>
       ))}
     </div>

@@ -28,6 +28,18 @@ describe('VoiceRecognizer', () => {
     ).toBeInTheDocument();
   });
 
+  it('should display a word, its button to record', () => {
+    const words = ['chat'];
+    render(<VoiceRecognizer words={words} />);
+
+    expect(
+      within(screen.queryByTestId('chat')!).getByText('chat'),
+    ).toBeInTheDocument();
+    expect(
+      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+    ).toBeInTheDocument();
+  });
+
   it('should detect if recognition is a match', async () => {
     const context: ServiceContainer = {
       voiceRecognition: {
