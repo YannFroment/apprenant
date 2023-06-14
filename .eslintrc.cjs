@@ -14,7 +14,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.test.ts*'],
+      files: ['src/**/*.test.ts*', 'tests/**/*.ts*'],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
