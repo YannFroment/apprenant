@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 type VoiceRecognition = {
-  recognize: () => void;
+  recognize: () => boolean;
 };
 
 export type ServiceContainer = {

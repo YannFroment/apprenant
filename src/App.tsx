@@ -8,6 +8,7 @@ const context: ServiceContainer = {
   voiceRecognition: {
     recognize: () => {
       // this is the production implementation!
+      return false;
     },
   },
 };
