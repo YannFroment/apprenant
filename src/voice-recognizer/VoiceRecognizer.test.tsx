@@ -13,6 +13,15 @@ describe('VoiceRecognizer', () => {
     expect(screen.queryByText('click me')).toBeInTheDocument();
   });
 
+  it('should display a list of words', async () => {
+    const words = ['chat', 'chien', 'oiseau'];
+    render(<VoiceRecognizer words={words} />);
+
+    expect(screen.queryByText('chat')).toBeInTheDocument();
+    expect(screen.queryByText('chien')).toBeInTheDocument();
+    expect(screen.queryByText('oiseau')).toBeInTheDocument();
+  });
+
   it('should detect if recognition is a match', async () => {
     const context: ServiceContainer = {
       voiceRecognition: {
