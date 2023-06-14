@@ -12,7 +12,7 @@ export const VoiceRecognizer = (
 
   const { voiceRecognition, speechSynth } = useContext(ServiceContainerContext);
 
-  const handleSpeak = (word: string) => {
+  const handleSpeak = (word: string) => () => {
     speechSynth.speak(word);
   };
 
@@ -32,7 +32,7 @@ export const VoiceRecognizer = (
       {words?.map((word) => (
         <div data-testid={word} key={word}>
           <p>{word}</p>
-          <button onClick={() => handleSpeak(word)}>Écouter</button>
+          <button onClick={handleSpeak(word)}>Écouter</button>
           <button>Enregistrer</button>
         </div>
       ))}
