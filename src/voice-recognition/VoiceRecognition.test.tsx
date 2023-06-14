@@ -136,5 +136,22 @@ describe('VoiceRecognition', () => {
         ).toBeInTheDocument;
       });
     });
+    describe('when recording', () => {
+      it('should display Enregistrer after clicking on record button', async () => {
+        render(
+          <ServiceContainerContext.Provider value={defaultContainer}>
+            <VoiceRecognition words={['chat']} defaultIsRecording={true} />
+          </ServiceContainerContext.Provider>,
+        );
+        await userEvent.click(
+          within(screen.queryByTestId('chat')!).getByText(
+            "Arrêter l'enregistrement",
+          ),
+        );
+
+        expect(within(screen.queryByTestId('chat')!).getByText('Enregistrer'))
+          .toBeInTheDocument;
+      });
+    });
   });
 });

@@ -1,15 +1,19 @@
 import { useContext, useState } from 'react';
 import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
+import { useVoiceRecognition } from './UseVoiceRecognition';
 
 type VoiceRecognitionProps = {
   words?: string[];
+  defaultIsRecording?: boolean;
 };
 
 export const VoiceRecognition = (
-  { words }: VoiceRecognitionProps = { words: [] },
+  { words, defaultIsRecording }: VoiceRecognitionProps = { words: [] },
 ) => {
   const [buttonText, setButtonText] = useState('click me');
-  const [isRecording, setIsRecording] = useState(false);
+  const { isRecording, clickRecordButton } = useVoiceRecognition({
+    defaultIsRecording,
+  });
 
   const { voiceRecognition, speechSynth } = useContext(ServiceContainerContext);
 
@@ -26,7 +30,7 @@ export const VoiceRecognition = (
   };
 
   const handleRecord = () => {
-    setIsRecording(!isRecording);
+    clickRecordButton();
   };
 
   return (
