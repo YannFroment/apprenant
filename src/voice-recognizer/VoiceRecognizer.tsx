@@ -10,7 +10,11 @@ export const VoiceRecognizer = (
 ) => {
   const [buttonText, setButtonText] = useState('click me');
 
-  const { voiceRecognition } = useContext(ServiceContainerContext);
+  const { voiceRecognition, speechSynth } = useContext(ServiceContainerContext);
+
+  const handleSpeak = (word: string) => {
+    speechSynth.speak(word);
+  };
 
   const handleClick = () => {
     if (voiceRecognition.recognize()) {
@@ -28,7 +32,7 @@ export const VoiceRecognizer = (
       {words?.map((word) => (
         <div data-testid={word} key={word}>
           <p>{word}</p>
-          <button>Écouter</button>
+          <button onClick={() => handleSpeak(word)}>Écouter</button>
           <button>Enregistrer</button>
         </div>
       ))}

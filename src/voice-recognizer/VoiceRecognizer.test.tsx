@@ -6,6 +6,17 @@ import {
   ServiceContainerContext,
 } from '../service-container/ServiceContainerContext';
 
+const defaultContainer: ServiceContainer = {
+  voiceRecognition: { recognize: () => true },
+  speechSynth: { speak: (word: string) => {} },
+};
+
+const createContainer = (
+  overrideContainer: Partial<ServiceContainer>,
+): ServiceContainer => {
+  return { ...defaultContainer, ...overrideContainer };
+};
+
 describe('VoiceRecognizer', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
@@ -46,13 +57,11 @@ describe('VoiceRecognizer', () => {
   });
 
   it('should detect if recognition is a match', async () => {
-    const context: ServiceContainer = {
-      voiceRecognition: {
-        recognize: () => true,
-      },
-    };
+    const container = createContainer({
+      voiceRecognition: { recognize: () => true },
+    });
     render(
-      <ServiceContainerContext.Provider value={context}>
+      <ServiceContainerContext.Provider value={container}>
         <VoiceRecognizer />
       </ServiceContainerContext.Provider>,
     );
@@ -63,13 +72,11 @@ describe('VoiceRecognizer', () => {
   });
 
   it('should detect if recognition is not a match', async () => {
-    const context: ServiceContainer = {
-      voiceRecognition: {
-        recognize: () => false,
-      },
-    };
+    const container = createContainer({
+      voiceRecognition: { recognize: () => false },
+    });
     render(
-      <ServiceContainerContext.Provider value={context}>
+      <ServiceContainerContext.Provider value={container}>
         <VoiceRecognizer />
       </ServiceContainerContext.Provider>,
     );
@@ -77,5 +84,26 @@ describe('VoiceRecognizer', () => {
     await userEvent.click(screen.queryByText('click me')!);
 
     expect(screen.queryByText('not a match!')).toBeInTheDocument();
+  });
+
+  describe('play audio', () => {
+    it('should call the voice synthetiser for a given word when clicking on the "hear" button', async () => {
+      const speechSynth = {
+        speak: (word: string) => {},
+      };
+      const spyOnSpeak = jest.spyOn(speechSynth, 'speak');
+      const container = createContainer({
+        speechSynth,
+      });
+      render(
+        <ServiceContainerContext.Provider value={container}>
+          <VoiceRecognizer words={['chat']} />
+        </ServiceContainerContext.Provider>,
+      );
+      await userEvent.click(
+        within(screen.queryByTestId('chat')!).getByText('Écouter'),
+      );
+      expect(spyOnSpeak).toHaveBeenCalledWith('chat');
+    });
   });
 });
