@@ -1,10 +1,12 @@
-import VoiceRecorder from './VoiceRecorder';
 import { speechSynth } from './external-services/SpeechSynth';
 import { voiceRecognition } from './external-services/VoiceRecognition';
+
 import {
   ServiceContainer,
   ServiceContainerContext,
 } from './service-container/ServiceContainerContext';
+
+import { VoiceRecognition } from './voice-recognition/VoiceRecognition';
 
 const context: ServiceContainer = {
   voiceRecognition,
@@ -14,7 +16,7 @@ const context: ServiceContainer = {
 function App() {
   return (
     <ServiceContainerContext.Provider value={context}>
-      <VoiceRecorder />
+      <VoiceRecognition words={['voiture', 'bus', 'train']} />
     </ServiceContainerContext.Provider>
   );
 }
