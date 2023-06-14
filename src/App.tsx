@@ -1,17 +1,13 @@
 import VoiceRecorder from './VoiceRecorder';
 import { speechSynth } from './external-services/SpeechSynth';
+import { voiceRecognition } from './external-services/VoiceRecognition';
 import {
   ServiceContainer,
   ServiceContainerContext,
 } from './service-container/ServiceContainerContext';
 
 const context: ServiceContainer = {
-  voiceRecognition: {
-    recognize: () => {
-      // this is the production implementation!
-      return false;
-    },
-  },
+  voiceRecognition,
   speechSynth,
 };
 
