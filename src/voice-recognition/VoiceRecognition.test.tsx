@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { VoiceRecognizer } from './VoiceRecognizer';
+import { VoiceRecognition } from './VoiceRecognition';
 import {
   ServiceContainer,
   ServiceContainerContext,
@@ -17,10 +17,10 @@ const createContainer = (
   return { ...defaultContainer, ...overrideContainer };
 };
 
-describe('VoiceRecognizer', () => {
+describe('VoiceRecognition', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
-    render(<VoiceRecognizer words={words} />);
+    render(<VoiceRecognition words={words} />);
 
     expect(screen.queryByTestId('chat')).toBeInTheDocument();
     expect(screen.queryByTestId('chien')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('VoiceRecognizer', () => {
   describe('for each word of the list', () => {
     it('should display the word name', () => {
       const words = ['chat'];
-      render(<VoiceRecognizer words={words} />);
+      render(<VoiceRecognition words={words} />);
 
       expect(
         within(screen.queryByTestId('chat')!).getByText('chat'),
@@ -39,7 +39,7 @@ describe('VoiceRecognizer', () => {
 
     it('should display a button to hear', () => {
       const words = ['chat'];
-      render(<VoiceRecognizer words={words} />);
+      render(<VoiceRecognition words={words} />);
 
       expect(
         within(screen.queryByTestId('chat')!).getByText('Écouter'),
@@ -48,7 +48,7 @@ describe('VoiceRecognizer', () => {
 
     it('should display a button to record', () => {
       const words = ['chat'];
-      render(<VoiceRecognizer words={words} />);
+      render(<VoiceRecognition words={words} />);
 
       expect(
         within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
@@ -62,7 +62,7 @@ describe('VoiceRecognizer', () => {
     });
     render(
       <ServiceContainerContext.Provider value={container}>
-        <VoiceRecognizer />
+        <VoiceRecognition />
       </ServiceContainerContext.Provider>,
     );
 
@@ -77,7 +77,7 @@ describe('VoiceRecognizer', () => {
     });
     render(
       <ServiceContainerContext.Provider value={container}>
-        <VoiceRecognizer />
+        <VoiceRecognition />
       </ServiceContainerContext.Provider>,
     );
 
@@ -100,7 +100,7 @@ describe('VoiceRecognizer', () => {
 
       render(
         <ServiceContainerContext.Provider value={container}>
-          <VoiceRecognizer words={['chat']} />
+          <VoiceRecognition words={['chat']} />
         </ServiceContainerContext.Provider>,
       );
 

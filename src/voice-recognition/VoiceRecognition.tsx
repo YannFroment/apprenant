@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
 
-type VoiceRecognizerProps = {
+type VoiceRecognitionProps = {
   words?: string[];
 };
 
-export const VoiceRecognizer = (
-  { words }: VoiceRecognizerProps = { words: [] },
+export const VoiceRecognition = (
+  { words }: VoiceRecognitionProps = { words: [] },
 ) => {
   const [buttonText, setButtonText] = useState('click me');
 
