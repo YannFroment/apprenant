@@ -7,13 +7,13 @@ import {
 } from '../service-container/ServiceContainerContext';
 
 describe('VoiceRecognizer', () => {
-  it('should display a list of words', async () => {
+  it('should display a compoonent for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
     render(<VoiceRecognizer words={words} />);
 
-    expect(screen.queryByText('chat')).toBeInTheDocument();
-    expect(screen.queryByText('chien')).toBeInTheDocument();
-    expect(screen.queryByText('oiseau')).toBeInTheDocument();
+    expect(screen.queryByTestId('chat')).toBeInTheDocument();
+    expect(screen.queryByTestId('chien')).toBeInTheDocument();
+    expect(screen.queryByTestId('oiseau')).toBeInTheDocument();
   });
 
   it('should display a word, its button to hear', () => {
