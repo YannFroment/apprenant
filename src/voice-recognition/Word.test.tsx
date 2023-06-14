@@ -93,7 +93,7 @@ describe('Word', () => {
           within(screen.queryByTestId('chat')!).getByText(
             "Arrêter l'enregistrement",
           ),
-        ).toBeInTheDocument;
+        ).toBeInTheDocument();
       });
 
       describe('when recording', () => {
@@ -109,8 +109,9 @@ describe('Word', () => {
             ),
           );
 
-          expect(within(screen.queryByTestId('chat')!).getByText('Enregistrer'))
-            .toBeInTheDocument;
+          expect(
+            within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+          ).toBeInTheDocument();
         });
       });
     });

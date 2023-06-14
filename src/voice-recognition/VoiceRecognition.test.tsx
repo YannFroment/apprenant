@@ -71,9 +71,10 @@ describe('VoiceRecognition', () => {
       within(screen.queryByTestId('chat')!).getByText(
         "Arrêter l'enregistrement",
       ),
-    ).toBeInTheDocument;
+    ).toBeInTheDocument();
 
-    expect(within(screen.queryByTestId('chien')!).getByText('Enregistrer'))
-      .toBeInTheDocument;
+    expect(
+      within(screen.queryByTestId('chien')!).getByText('Enregistrer'),
+    ).toBeInTheDocument();
   });
 });
