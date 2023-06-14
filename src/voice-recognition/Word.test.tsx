@@ -1,22 +1,8 @@
 import { render, within, screen } from '@testing-library/react';
 import { Word } from './Word';
-import {
-  ServiceContainer,
-  ServiceContainerContext,
-} from '../service-container/ServiceContainerContext';
+import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
 import userEvent from '@testing-library/user-event';
-
-// TODO remove duplication for these vars
-const defaultContainer: ServiceContainer = {
-  voiceRecognition: { recognize: () => true },
-  speechSynth: { speak: () => {} },
-};
-
-const createContainer = (
-  overrideContainer: Partial<ServiceContainer>,
-): ServiceContainer => {
-  return { ...defaultContainer, ...overrideContainer };
-};
+import { createContainer, defaultContainer } from '../../tests/utils';
 
 describe('Word', () => {
   it('should display the word name', () => {
