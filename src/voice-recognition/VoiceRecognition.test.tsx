@@ -111,4 +111,30 @@ describe('VoiceRecognition', () => {
       expect(spyOnSpeak).toHaveBeenCalledWith('chat');
     });
   });
+
+  describe('record', () => {
+    // au click sur le bouton enregistrer le texte devient arrêter l'enregistrement
+    // la fonction record est déclenché
+    // l'utilisateur prononce un mot
+    // l'utilisateur clique sur arrêter l'enregistrement
+
+    describe('when not recording', () => {
+      it('should display Arrêter l/enregistrement after clicking on record button', async () => {
+        render(
+          <ServiceContainerContext.Provider value={defaultContainer}>
+            <VoiceRecognition words={['chat']} />
+          </ServiceContainerContext.Provider>,
+        );
+        await userEvent.click(
+          within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+        );
+
+        expect(
+          within(screen.queryByTestId('chat')!).getByText(
+            "Arrêter l'enregistrement",
+          ),
+        ).toBeInTheDocument;
+      });
+    });
+  });
 });
