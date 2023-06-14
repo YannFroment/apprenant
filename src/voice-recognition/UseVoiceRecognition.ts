@@ -5,11 +5,19 @@ type UseVoiceRecognitionReturn = {
   clickRecordButton: () => void;
 };
 
-export const useVoiceRecognition = (): UseVoiceRecognitionReturn => {
-  const [isRecording, setIsRecording] = useState(false);
+type useVoiceRecognitionArgs = {
+  defaultIsRecording: boolean;
+};
+
+export const useVoiceRecognition = (
+  { defaultIsRecording }: useVoiceRecognitionArgs = {
+    defaultIsRecording: false,
+  },
+): UseVoiceRecognitionReturn => {
+  const [isRecording, setIsRecording] = useState(defaultIsRecording);
 
   const clickRecordButton = () => {
-    setIsRecording(true);
+    setIsRecording(!isRecording);
   };
 
   return { isRecording, clickRecordButton };

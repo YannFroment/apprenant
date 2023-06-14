@@ -16,5 +16,15 @@ describe('use voice recognition', () => {
 
       await waitFor(() => expect(result.current.isRecording).toBe(true));
     });
+
+    it('should set isRecording to false if isRecording was true', async () => {
+      const { result } = renderHook(useVoiceRecognition, {
+        initialProps: { defaultIsRecording: true },
+      });
+
+      await act(() => result.current.clickRecordButton());
+
+      await waitFor(() => expect(result.current.isRecording).toBe(false));
+    });
   });
 });
