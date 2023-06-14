@@ -1,4 +1,5 @@
 import VoiceRecorder from './VoiceRecorder';
+import { speechSynth } from './external-services/SpeechSynth';
 import {
   ServiceContainer,
   ServiceContainerContext,
@@ -11,6 +12,7 @@ const context: ServiceContainer = {
       return false;
     },
   },
+  speechSynth,
 };
 
 function App() {

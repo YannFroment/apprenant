@@ -91,18 +91,23 @@ describe('VoiceRecognizer', () => {
       const speechSynth = {
         speak: (word: string) => {},
       };
+
       const spyOnSpeak = jest.spyOn(speechSynth, 'speak');
+
       const container = createContainer({
         speechSynth,
       });
+
       render(
         <ServiceContainerContext.Provider value={container}>
           <VoiceRecognizer words={['chat']} />
         </ServiceContainerContext.Provider>,
       );
+
       await userEvent.click(
         within(screen.queryByTestId('chat')!).getByText('Écouter'),
       );
+
       expect(spyOnSpeak).toHaveBeenCalledWith('chat');
     });
   });
