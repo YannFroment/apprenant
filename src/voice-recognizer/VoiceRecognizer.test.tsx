@@ -7,7 +7,7 @@ import {
 } from '../service-container/ServiceContainerContext';
 
 describe('VoiceRecognizer', () => {
-  it('should display a compoonent for each word of the list of words', async () => {
+  it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
     render(<VoiceRecognizer words={words} />);
 
@@ -16,28 +16,33 @@ describe('VoiceRecognizer', () => {
     expect(screen.queryByTestId('oiseau')).toBeInTheDocument();
   });
 
-  it('should display a word, its button to hear', () => {
-    const words = ['chat'];
-    render(<VoiceRecognizer words={words} />);
+  describe('for each word of the list', () => {
+    it('should display the word name', () => {
+      const words = ['chat'];
+      render(<VoiceRecognizer words={words} />);
 
-    expect(
-      within(screen.queryByTestId('chat')!).getByText('chat'),
-    ).toBeInTheDocument();
-    expect(
-      within(screen.queryByTestId('chat')!).getByText('Écouter'),
-    ).toBeInTheDocument();
-  });
+      expect(
+        within(screen.queryByTestId('chat')!).getByText('chat'),
+      ).toBeInTheDocument();
+    });
 
-  it('should display a word, its button to record', () => {
-    const words = ['chat'];
-    render(<VoiceRecognizer words={words} />);
+    it('should display a button to hear', () => {
+      const words = ['chat'];
+      render(<VoiceRecognizer words={words} />);
 
-    expect(
-      within(screen.queryByTestId('chat')!).getByText('chat'),
-    ).toBeInTheDocument();
-    expect(
-      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
-    ).toBeInTheDocument();
+      expect(
+        within(screen.queryByTestId('chat')!).getByText('Écouter'),
+      ).toBeInTheDocument();
+    });
+
+    it('should display a button to record', () => {
+      const words = ['chat'];
+      render(<VoiceRecognizer words={words} />);
+
+      expect(
+        within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+      ).toBeInTheDocument();
+    });
   });
 
   it('should detect if recognition is a match', async () => {
