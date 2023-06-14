@@ -8,7 +8,7 @@ import {
 
 const defaultContainer: ServiceContainer = {
   voiceRecognition: { recognize: () => true },
-  speechSynth: { speak: (word: string) => {} },
+  speechSynth: { speak: () => {} },
 };
 
 const createContainer = (
@@ -89,7 +89,7 @@ describe('VoiceRecognition', () => {
   describe('play audio', () => {
     it('should call the voice synthetiser for a given word when clicking on the "hear" button', async () => {
       const speechSynth = {
-        speak: (word: string) => {},
+        speak: () => {},
       };
 
       const spyOnSpeak = jest.spyOn(speechSynth, 'speak');

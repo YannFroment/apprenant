@@ -12,4 +12,13 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
+  overrides: [
+    {
+      files: ['src/**/*.test.ts*'],
+      rules: {
+        '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+      },
+    },
+  ],
 };
