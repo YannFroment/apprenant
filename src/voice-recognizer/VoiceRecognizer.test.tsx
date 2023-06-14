@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VoiceRecognizer } from './VoiceRecognizer';
 import {
@@ -14,6 +14,18 @@ describe('VoiceRecognizer', () => {
     expect(screen.queryByText('chat')).toBeInTheDocument();
     expect(screen.queryByText('chien')).toBeInTheDocument();
     expect(screen.queryByText('oiseau')).toBeInTheDocument();
+  });
+
+  it('should display a word, its button to hear', () => {
+    const words = ['chat'];
+    render(<VoiceRecognizer words={words} />);
+
+    expect(
+      within(screen.queryByTestId('chat')!).getByText('chat'),
+    ).toBeInTheDocument();
+    expect(
+      within(screen.queryByTestId('chat')!).getByText('Écouter'),
+    ).toBeInTheDocument();
   });
 
   it('should detect if recognition is a match', async () => {

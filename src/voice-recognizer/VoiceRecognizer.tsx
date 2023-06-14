@@ -26,7 +26,10 @@ export const VoiceRecognizer = (
         {buttonText}
       </button>
       {words?.map((word) => (
-        <p key={word}>{word}</p>
+        <div data-testid={word} key={word}>
+          <p>{word}</p>
+          <button>Écouter</button>
+        </div>
       ))}
     </div>
   );
