@@ -1,42 +1,28 @@
 import { useEffect, useState } from 'react';
 
-type RecognizerArgs = {
-  setTranscript: (transcript: string) => void;
-  startListening: () => void;
-  stopListening: () => void;
-};
-
-type Recognizer = ({
-  setTranscript,
-  startListening,
-  stopListening,
-}: RecognizerArgs) => {
+type Recorder = (saveTranscript: (transcript: string) => void) => {
   start: () => void;
   stop: () => void;
 };
 
-const recognizer: Recognizer = ({
-  setTranscript,
-  startListening,
-  stopListening,
-}) => {
+const recorder: Recorder = (saveTranscript) => {
   const recognition = new (window.SpeechRecognition ||
     window.webkitSpeechRecognition)();
   recognition.continuous = true;
   recognition.interimResults = false;
+
   let transcript = '';
   const handleRecognitionResult = (event: SpeechRecognitionEvent) => {
     transcript = event.results[0][0].transcript;
   };
+
   recognition.onresult = handleRecognitionResult;
   recognition.onend = () => {
-    setTranscript(transcript);
-    stopListening();
+    saveTranscript(transcript);
   };
 
   const start = () => {
     recognition.start();
-    startListening();
   };
 
   const stop = () => {
@@ -54,11 +40,7 @@ export const SpeechRecognitionComponent = () => {
   const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
-    const { start, stop } = recognizer({
-      setTranscript,
-      startListening: () => setIsListening(true),
-      stopListening: () => setIsListening(false),
-    });
+    const { start, stop } = recorder(setTranscript);
     if (isListening) {
       start();
     }
