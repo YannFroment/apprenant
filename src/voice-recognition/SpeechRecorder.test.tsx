@@ -137,4 +137,58 @@ describe('SpeechRecorder', () => {
       expect(spyOnStop).toHaveBeenCalled();
     });
   });
+
+  it('should display the transcript if learner mispronounced the text', async () => {
+    const recorder: Recorder = (saveTranscript) => {
+      return {
+        start: () => {},
+        stop: () => {
+          saveTranscript('chat mal prononcé');
+        },
+      };
+    };
+    const container = createContainer({
+      recorder,
+    });
+
+    render(
+      <VoiceRecognitionContext.Provider value={container}>
+        <SpeechRecorder text={'chat'} />
+      </VoiceRecognitionContext.Provider>,
+    );
+    await userEvent.click(
+      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+    );
+
+    expect(
+      within(screen.queryByTestId('chat-transcript')!).getByText(
+        'chat mal prononcé',
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('should not display the transcript if learner pronounced the text correctly', async () => {
+    const recorder: Recorder = (saveTranscript) => {
+      return {
+        start: () => {},
+        stop: () => {
+          saveTranscript('chat');
+        },
+      };
+    };
+    const container = createContainer({
+      recorder,
+    });
+
+    render(
+      <VoiceRecognitionContext.Provider value={container}>
+        <SpeechRecorder text={'chat'} />
+      </VoiceRecognitionContext.Provider>,
+    );
+    await userEvent.click(
+      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+    );
+
+    expect(screen.queryByTestId('chat-transcript')).not.toBeInTheDocument();
+  });
 });
