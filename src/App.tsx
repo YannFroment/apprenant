@@ -1,5 +1,5 @@
 import { VoiceRecognitionTraining } from './voice-recognition';
-import { SpeechRecognitionComponent } from './voice-recognition/sandbox';
+import { SpeechRecognitionComponent } from './voice-recognition/SpeechRecorder';
 
 function App() {
   return (
