@@ -1,45 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 
-type Recorder = (saveTranscript: (transcript: string) => void) => {
-  start: () => void;
-  stop: () => void;
-};
-
-const recorder: Recorder = (saveTranscript) => {
-  const recognition = new (window.SpeechRecognition ||
-    window.webkitSpeechRecognition)();
-  recognition.continuous = true;
-  recognition.interimResults = false;
-
-  let transcript = '';
-  const handleRecognitionResult = (event: SpeechRecognitionEvent) => {
-    transcript = event.results[0][0].transcript;
-  };
-
-  recognition.onresult = handleRecognitionResult;
-  recognition.onend = () => {
-    saveTranscript(transcript);
-  };
-
-  const start = () => {
-    recognition.start();
-  };
-
-  const stop = () => {
-    recognition.stop();
-  };
-
-  return {
-    start,
-    stop,
-  };
-};
-
-export const SpeechRecognitionComponent = () => {
+export const SpeechRecorder = () => {
   const [transcript, setTranscript] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const { recorder } = useContext(VoiceRecognitionContext);
 
   useEffect(() => {
+    console.log(recorder);
     const { start, stop } = recorder(setTranscript);
     if (isListening) {
       start();
@@ -48,7 +16,7 @@ export const SpeechRecognitionComponent = () => {
     return () => {
       stop();
     };
-  }, [isListening]);
+  }, [isListening, recorder]);
 
   const text = 'le chat a mangé la souris';
 

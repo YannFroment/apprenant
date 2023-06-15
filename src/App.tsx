@@ -1,11 +1,11 @@
 import { VoiceRecognitionTraining } from './voice-recognition';
-import { SpeechRecognitionComponent } from './voice-recognition/SpeechRecorder';
+import { SpeechRecorder } from './voice-recognition/SpeechRecorder';
 
 function App() {
   return (
     <>
       <VoiceRecognitionTraining />
-      <SpeechRecognitionComponent />
+      <SpeechRecorder />
     </>
   );
 }

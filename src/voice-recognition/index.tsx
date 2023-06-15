@@ -1,3 +1,4 @@
+import { recorder } from './external-services/Recorder';
 import { speechSynth } from './external-services/SpeechSynth';
 import { voiceRecognition } from './external-services/VoiceRecognition';
 import {
@@ -9,6 +10,7 @@ import { VoiceRecognition } from './VoiceRecognition';
 const context: VoiceRecognitionServiceContainer = {
   voiceRecognition,
   speechSynth,
+  recorder,
 };
 
 export const VoiceRecognitionTraining = () => {
