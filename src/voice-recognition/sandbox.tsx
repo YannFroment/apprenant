@@ -16,12 +16,15 @@ const recognizerFactory = ({
     window.webkitSpeechRecognition)();
   recognition.continuous = true;
   recognition.interimResults = false;
+  let transcript = '';
   const handleRecognitionResult = (event: SpeechRecognitionEvent) => {
-    const transcript = event.results[0][0].transcript;
-    setTranscript(transcript);
+    transcript = event.results[0][0].transcript;
   };
   recognition.onresult = handleRecognitionResult;
-  recognition.onend = () => setIsListening(false);
+  recognition.onend = () => {
+    setTranscript(transcript);
+    setIsListening(false);
+  };
 
   const startRecognition = () => {
     recognition.start();
@@ -30,8 +33,6 @@ const recognizerFactory = ({
 
   const stopRecognition = () => {
     recognition.stop();
-    recognition.onresult = null;
-    setIsListening(false);
   };
 
   return {
@@ -58,7 +59,7 @@ export function SpeechRecognitionComponent() {
     };
   }, [isListening]);
 
-  const word = 'chien';
+  const text = 'le chat a mangé la souris';
 
   return (
     <div>
@@ -66,7 +67,7 @@ export function SpeechRecognitionComponent() {
         {isListening ? 'Stop Listening' : 'Start Listening'}
       </button>
       <p>Transcript: {transcript}</p>
-      <div>{word === transcript ? 'réussi !' : 'raté'}</div>
+      <div>{text === transcript.toLowerCase() ? 'réussi !' : 'raté'}</div>
     </div>
   );
 }
