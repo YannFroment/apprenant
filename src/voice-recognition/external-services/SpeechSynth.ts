@@ -1,4 +1,4 @@
-import { SpeechSynth } from '../domain/SpeechSynth';
+import { SpeechSynth } from '../../domain/SpeechSynth';
 
 export const speechSynth: SpeechSynth = {
   speak: (word: string) => {

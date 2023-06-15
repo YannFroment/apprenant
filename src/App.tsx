@@ -1,5 +1,5 @@
-import { speechSynth } from './external-services/SpeechSynth';
-import { voiceRecognition } from './external-services/VoiceRecognition';
+import { speechSynth } from './voice-recognition/external-services/SpeechSynth';
+import { voiceRecognition } from './voice-recognition/external-services/VoiceRecognition';
 
 import {
   ServiceContainer,
