@@ -3,11 +3,17 @@ import { VoiceRecognitionContext } from './service-container/ServiceContainerCon
 
 type SpeechRecorderProps = {
   text: string;
+  defaultIsRecording?: boolean;
 };
 
-export const SpeechRecorder = ({ text }: SpeechRecorderProps) => {
+export const SpeechRecorder = ({
+  text,
+  defaultIsRecording,
+}: SpeechRecorderProps) => {
   const [transcript, setTranscript] = useState('');
-  const [isListening, setIsListening] = useState(false);
+  const [isListening, setIsListening] = useState<boolean>(
+    defaultIsRecording ?? false,
+  );
   const { recorder } = useContext(VoiceRecognitionContext);
 
   useEffect(() => {

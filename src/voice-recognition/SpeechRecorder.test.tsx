@@ -55,4 +55,32 @@ describe('SpeechRecorder', () => {
       ).toBeInTheDocument();
     });
   });
+
+  describe('when recording', () => {
+    it('should display Enregistrer after clicking on record button', async () => {
+      const recorder: Recorder = () => {
+        return {
+          start: () => {},
+          stop: () => {},
+        };
+      };
+      const container = createContainer({
+        recorder,
+      });
+      render(
+        <VoiceRecognitionContext.Provider value={container}>
+          <SpeechRecorder text={'chat'} defaultIsRecording={true} />
+        </VoiceRecognitionContext.Provider>,
+      );
+      await userEvent.click(
+        within(screen.queryByTestId('chat')!).getByText(
+          "Arrêter l'enregistrement",
+        ),
+      );
+
+      expect(
+        within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+      ).toBeInTheDocument();
+    });
+  });
 });
