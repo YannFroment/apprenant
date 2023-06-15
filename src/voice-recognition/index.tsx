@@ -5,6 +5,7 @@ import {
   VoiceRecognitionContext,
   VoiceRecognitionServiceContainer,
 } from './service-container/ServiceContainerContext';
+import { SpeechRecorder } from './SpeechRecorder';
 import { VoiceRecognition } from './VoiceRecognition';
 
 const context: VoiceRecognitionServiceContainer = {
@@ -17,6 +18,7 @@ export const VoiceRecognitionTraining = () => {
   return (
     <VoiceRecognitionContext.Provider value={context}>
       <VoiceRecognition words={['voiture', 'bus', 'train']} />
+      <SpeechRecorder />
     </VoiceRecognitionContext.Provider>
   );
 };

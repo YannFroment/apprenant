@@ -7,7 +7,6 @@ export const SpeechRecorder = () => {
   const { recorder } = useContext(VoiceRecognitionContext);
 
   useEffect(() => {
-    console.log(recorder);
     const { start, stop } = recorder(setTranscript);
     if (isListening) {
       start();
