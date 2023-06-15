@@ -1,6 +1,6 @@
 import { render, within, screen } from '@testing-library/react';
 import { Word } from './Word';
-import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
+import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import userEvent from '@testing-library/user-event';
 import { createContainer, defaultContainer } from '../../tests/utils';
 
@@ -45,9 +45,9 @@ describe('Word', () => {
       });
 
       render(
-        <ServiceContainerContext.Provider value={container}>
+        <VoiceRecognitionContext.Provider value={container}>
           <Word word={'chat'} />
-        </ServiceContainerContext.Provider>,
+        </VoiceRecognitionContext.Provider>,
       );
 
       await userEvent.click(
@@ -67,9 +67,9 @@ describe('Word', () => {
     describe('when not recording', () => {
       it('should display Arrêter l/enregistrement after clicking on record button', async () => {
         render(
-          <ServiceContainerContext.Provider value={defaultContainer}>
+          <VoiceRecognitionContext.Provider value={defaultContainer}>
             <Word word={'chat'} />
-          </ServiceContainerContext.Provider>,
+          </VoiceRecognitionContext.Provider>,
         );
         await userEvent.click(
           within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
@@ -85,9 +85,9 @@ describe('Word', () => {
       describe('when recording', () => {
         it('should display Enregistrer after clicking on record button', async () => {
           render(
-            <ServiceContainerContext.Provider value={defaultContainer}>
+            <VoiceRecognitionContext.Provider value={defaultContainer}>
               <Word word={'chat'} defaultIsRecording={true} />
-            </ServiceContainerContext.Provider>,
+            </VoiceRecognitionContext.Provider>,
           );
           await userEvent.click(
             within(screen.queryByTestId('chat')!).getByText(

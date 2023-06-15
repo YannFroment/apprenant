@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
+import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import { useVoiceRecognition } from './UseVoiceRecognition';
 
 type WordProps = {
@@ -8,7 +8,7 @@ type WordProps = {
 };
 
 export const Word = ({ word, defaultIsRecording }: WordProps) => {
-  const { speechSynth } = useContext(ServiceContainerContext);
+  const { speechSynth } = useContext(VoiceRecognitionContext);
   const { isRecording, clickRecordButton } = useVoiceRecognition({
     defaultIsRecording,
   });

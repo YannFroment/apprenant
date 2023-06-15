@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
+import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import { Word } from './Word';
 
 type VoiceRecognitionProps = {
@@ -12,7 +12,7 @@ export const VoiceRecognition = (
 ) => {
   const [buttonText, setButtonText] = useState('click me');
 
-  const { voiceRecognition } = useContext(ServiceContainerContext);
+  const { voiceRecognition } = useContext(VoiceRecognitionContext);
 
   const handleClick = () => {
     if (voiceRecognition.recognize()) {

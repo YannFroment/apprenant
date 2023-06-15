@@ -2,22 +2,22 @@ import { speechSynth } from './voice-recognition/external-services/SpeechSynth';
 import { voiceRecognition } from './voice-recognition/external-services/VoiceRecognition';
 
 import {
-  ServiceContainer,
-  ServiceContainerContext,
-} from './service-container/ServiceContainerContext';
+  VoiceRecognitionServiceContainer,
+  VoiceRecognitionContext,
+} from './voice-recognition/service-container/ServiceContainerContext';
 
 import { VoiceRecognition } from './voice-recognition/VoiceRecognition';
 
-const context: ServiceContainer = {
+const context: VoiceRecognitionServiceContainer = {
   voiceRecognition,
   speechSynth,
 };
 
 function App() {
   return (
-    <ServiceContainerContext.Provider value={context}>
+    <VoiceRecognitionContext.Provider value={context}>
       <VoiceRecognition words={['voiture', 'bus', 'train']} />
-    </ServiceContainerContext.Provider>
+    </VoiceRecognitionContext.Provider>
   );
 }
 

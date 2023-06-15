@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VoiceRecognition } from './VoiceRecognition';
-import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
+import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import { createContainer, defaultContainer } from '../../tests/utils';
 
 describe('VoiceRecognition', () => {
@@ -19,9 +19,9 @@ describe('VoiceRecognition', () => {
       voiceRecognition: { recognize: () => true },
     });
     render(
-      <ServiceContainerContext.Provider value={container}>
+      <VoiceRecognitionContext.Provider value={container}>
         <VoiceRecognition />
-      </ServiceContainerContext.Provider>,
+      </VoiceRecognitionContext.Provider>,
     );
 
     await userEvent.click(screen.queryByText('click me')!);
@@ -34,9 +34,9 @@ describe('VoiceRecognition', () => {
       voiceRecognition: { recognize: () => false },
     });
     render(
-      <ServiceContainerContext.Provider value={container}>
+      <VoiceRecognitionContext.Provider value={container}>
         <VoiceRecognition />
-      </ServiceContainerContext.Provider>,
+      </VoiceRecognitionContext.Provider>,
     );
 
     await userEvent.click(screen.queryByText('click me')!);
@@ -46,9 +46,9 @@ describe('VoiceRecognition', () => {
 
   it('should not change record button text for a word when clicking record button for another word', async () => {
     render(
-      <ServiceContainerContext.Provider value={defaultContainer}>
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
         <VoiceRecognition words={['chat', 'chien']} />
-      </ServiceContainerContext.Provider>,
+      </VoiceRecognitionContext.Provider>,
     );
     await userEvent.click(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
