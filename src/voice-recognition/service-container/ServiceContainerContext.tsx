@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { SpeechSynth } from '../../domain/SpeechSynth';
-import { VoiceRecognition } from '../../domain/VoiceRecognition';
+import { SpeechSynth } from '../domain/SpeechSynth';
+import { VoiceRecognition } from '../domain/VoiceRecognition';
 
 export type VoiceRecognitionServiceContainer = {
   voiceRecognition: VoiceRecognition;

@@ -1,4 +1,4 @@
-import { VoiceRecognition } from '../../domain/VoiceRecognition';
+import { VoiceRecognition } from '../domain/VoiceRecognition';
 
 export const voiceRecognition: VoiceRecognition = {
   recognize: () => {
