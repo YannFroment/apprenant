@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react';
 
-type Recognizer = {
+type RecognizerArgs = {
+  setTranscript: (transcript: string) => void;
+  startListening: () => void;
+  stopListening: () => void;
+};
+
+type Recognizer = ({
+  setTranscript,
+  startListening,
+  stopListening,
+}: RecognizerArgs) => {
   start: () => void;
   stop: () => void;
 };
 
-const recognizerFactory = ({
+const recognizer: Recognizer = ({
   setTranscript,
-  setIsListening,
-}: {
-  setTranscript: (transcript: string) => void;
-  setIsListening: (isListening: boolean) => void;
-}): Recognizer => {
+  startListening,
+  stopListening,
+}) => {
   const recognition = new (window.SpeechRecognition ||
     window.webkitSpeechRecognition)();
   recognition.continuous = true;
@@ -23,32 +31,33 @@ const recognizerFactory = ({
   recognition.onresult = handleRecognitionResult;
   recognition.onend = () => {
     setTranscript(transcript);
-    setIsListening(false);
+    stopListening();
   };
 
-  const startRecognition = () => {
+  const start = () => {
     recognition.start();
-    setIsListening(true);
+    startListening();
   };
 
-  const stopRecognition = () => {
+  const stop = () => {
     recognition.stop();
   };
 
   return {
-    start: startRecognition,
-    stop: stopRecognition,
+    start,
+    stop,
   };
 };
 
-export function SpeechRecognitionComponent() {
+export const SpeechRecognitionComponent = () => {
   const [transcript, setTranscript] = useState('');
   const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
-    const { start, stop } = recognizerFactory({
+    const { start, stop } = recognizer({
       setTranscript,
-      setIsListening,
+      startListening: () => setIsListening(true),
+      stopListening: () => setIsListening(false),
     });
     if (isListening) {
       start();
@@ -64,10 +73,10 @@ export function SpeechRecognitionComponent() {
   return (
     <div>
       <button onClick={() => setIsListening(!isListening)}>
-        {isListening ? 'Stop Listening' : 'Start Listening'}
+        {isListening ? "Arrêter l'enregistrement" : 'Enregistrer'}
       </button>
       <p>Transcript: {transcript}</p>
       <div>{text === transcript.toLowerCase() ? 'réussi !' : 'raté'}</div>
     </div>
   );
-}
+};
