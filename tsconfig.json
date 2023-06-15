@@ -19,7 +19,7 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom", "@types/dom-speech-recognition"]
   },
   "include": ["src", "tests"],
   "references": [{ "path": "./tsconfig.node.json" }]

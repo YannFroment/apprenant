@@ -11,8 +11,11 @@ const Container = styled.div`
 function VoiceRecorder() {
   const words = ['Chat', 'Poisson', 'Bocal'];
   const [recording, setRecording] = useState(false);
-  const [mediaRecorder, setMediaRecorder] = useState(null);
-  const [speechRecognition, setSpeechRecognition] = useState(null);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
+    null,
+  );
+  const [speechRecognition, setSpeechRecognition] =
+    useState<SpeechRecognition | null>(null);
 
   function playAudio(word: string | undefined) {
     const utterance = new SpeechSynthesisUtterance(word);
@@ -39,12 +42,12 @@ function VoiceRecorder() {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    recognition.onresult = (event: { results: { transcript: any }[][] }) => {
+    recognition.onresult = (event) => {
       const result = event.results[0][0].transcript;
       if (word.toLowerCase() === result) alert('Réussi');
     };
 
-    recognition.onerror = (error: any) => {
+    recognition.onerror = (error) => {
       console.error('Erreur de reconnaissance vocale :', error);
     };
 

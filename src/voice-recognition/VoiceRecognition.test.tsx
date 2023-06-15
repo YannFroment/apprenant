@@ -1,21 +1,8 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VoiceRecognition } from './VoiceRecognition';
-import {
-  ServiceContainer,
-  ServiceContainerContext,
-} from '../service-container/ServiceContainerContext';
-
-const defaultContainer: ServiceContainer = {
-  voiceRecognition: { recognize: () => true },
-  speechSynth: { speak: () => {} },
-};
-
-const createContainer = (
-  overrideContainer: Partial<ServiceContainer>,
-): ServiceContainer => {
-  return { ...defaultContainer, ...overrideContainer };
-};
+import { ServiceContainerContext } from '../service-container/ServiceContainerContext';
+import { createContainer, defaultContainer } from '../../tests/utils';
 
 describe('VoiceRecognition', () => {
   it('should display a component for each word of the list of words', async () => {
