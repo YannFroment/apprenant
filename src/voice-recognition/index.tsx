@@ -18,7 +18,7 @@ export const VoiceRecognitionTraining = () => {
   return (
     <VoiceRecognitionContext.Provider value={context}>
       <VoiceRecognition words={['voiture', 'bus', 'train']} />
-      <SpeechRecorder />
+      <SpeechRecorder text={'voiture'} />
     </VoiceRecognitionContext.Provider>
   );
 };

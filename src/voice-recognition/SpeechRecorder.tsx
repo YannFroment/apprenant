@@ -1,7 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 
-export const SpeechRecorder = () => {
+type SpeechRecorderProps = {
+  text: string;
+};
+
+export const SpeechRecorder = ({ text }: SpeechRecorderProps) => {
   const [transcript, setTranscript] = useState('');
   const [isListening, setIsListening] = useState(false);
   const { recorder } = useContext(VoiceRecognitionContext);
@@ -17,10 +21,8 @@ export const SpeechRecorder = () => {
     };
   }, [isListening, recorder]);
 
-  const text = 'le chat a mangé la souris';
-
   return (
-    <div>
+    <div data-testid={text}>
       <button onClick={() => setIsListening(!isListening)}>
         {isListening ? "Arrêter l'enregistrement" : 'Enregistrer'}
       </button>
