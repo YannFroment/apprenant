@@ -54,6 +54,32 @@ describe('SpeechRecorder', () => {
         ),
       ).toBeInTheDocument();
     });
+
+    it('should start recording when clicking on Enregistrer', async () => {
+      const recorderReturn: ReturnType<Recorder> = {
+        start: () => {},
+        stop: () => {},
+      };
+      const spyOnStart = jest.spyOn(recorderReturn, 'start');
+
+      const recorder: Recorder = () => {
+        return recorderReturn;
+      };
+      const container = createContainer({
+        recorder,
+      });
+
+      render(
+        <VoiceRecognitionContext.Provider value={container}>
+          <SpeechRecorder text={'chat'} />
+        </VoiceRecognitionContext.Provider>,
+      );
+      await userEvent.click(
+        within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+      );
+
+      expect(spyOnStart).toHaveBeenCalled();
+    });
   });
 
   describe('when recording', () => {
