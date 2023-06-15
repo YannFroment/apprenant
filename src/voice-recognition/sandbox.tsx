@@ -12,31 +12,26 @@ const recognizerFactory = ({
   setTranscript: (transcript: string) => void;
   setIsListening: (isListening: boolean) => void;
 }): Recognizer => {
-  let recognition: SpeechRecognition | null = null;
+  const recognition = new (window.SpeechRecognition ||
+    window.webkitSpeechRecognition)();
+  recognition.continuous = true;
+  recognition.interimResults = false;
+  const handleRecognitionResult = (event: SpeechRecognitionEvent) => {
+    const transcript = event.results[0][0].transcript;
+    setTranscript(transcript);
+  };
+  recognition.onresult = handleRecognitionResult;
+  recognition.onend = () => setIsListening(false);
 
   const startRecognition = () => {
-    recognition = new (window.SpeechRecognition ||
-      window.webkitSpeechRecognition)();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.onresult = handleRecognitionResult;
-    recognition.onend = () => setIsListening(false);
     recognition.start();
     setIsListening(true);
   };
 
-  const handleRecognitionResult = (event: SpeechRecognitionEvent) => {
-    const transcript = event.results[0][0].transcript;
-
-    setTranscript(transcript);
-  };
-
   const stopRecognition = () => {
-    if (recognition) {
-      recognition.stop();
-      recognition.onresult = null;
-      setIsListening(false);
-    }
+    recognition.stop();
+    recognition.onresult = null;
+    setIsListening(false);
   };
 
   return {
