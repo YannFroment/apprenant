@@ -32,10 +32,9 @@ export const SpeechRecorder = ({
       <button onClick={() => setIsRecording(!isRecording)}>
         {isRecording ? "Arrêter l'enregistrement" : 'Enregistrer'}
       </button>
-      {text !== transcript.toLowerCase() && (
+      {text !== transcript.toLowerCase() ? (
         <p data-testid={`${text}-transcript`}>{transcript}</p>
-      )}
-      {text === transcript.toLowerCase() && (
+      ) : (
         <p data-testid={`${text}-success`}>&#9989;</p>
       )}
     </div>
