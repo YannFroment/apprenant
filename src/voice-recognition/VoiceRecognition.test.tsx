@@ -1,16 +1,15 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VoiceRecognition } from './VoiceRecognition';
-import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
-import { defaultContainer } from '../../tests/utils';
+import { TestContainer } from '../../tests/utils';
 
 describe('VoiceRecognition', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <VoiceRecognition words={words} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
 
     expect(screen.queryByTestId('chat')).toBeInTheDocument();
@@ -20,9 +19,9 @@ describe('VoiceRecognition', () => {
 
   it('should not change record button text for a word when clicking record button for another word', async () => {
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <VoiceRecognition words={['chat', 'chien']} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
     await userEvent.click(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),

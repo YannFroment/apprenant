@@ -4,7 +4,7 @@ import {
   VoiceRecognitionServiceContainer,
 } from '../src/voice-recognition/service-container/ServiceContainerContext';
 
-export const defaultContainer: VoiceRecognitionServiceContainer = {
+const defaultContainer: VoiceRecognitionServiceContainer = {
   speechSynth: { speak: () => {} },
   recorder: () => {
     return {
@@ -14,7 +14,7 @@ export const defaultContainer: VoiceRecognitionServiceContainer = {
   },
 };
 
-export const createContainer = (
+const createContainer = (
   overrideContainer: Partial<VoiceRecognitionServiceContainer>,
 ): VoiceRecognitionServiceContainer => {
   return { ...defaultContainer, ...overrideContainer };

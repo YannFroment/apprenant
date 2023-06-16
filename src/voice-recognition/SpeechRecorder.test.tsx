@@ -1,13 +1,8 @@
 import { render, within, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SpeechRecorder } from './SpeechRecorder';
-import {
-  TestContainer,
-  createContainer,
-  defaultContainer,
-} from '../../tests/utils';
+import { TestContainer } from '../../tests/utils';
 import { Recorder } from './domain/Recorder';
-import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {
@@ -27,9 +22,9 @@ describe('SpeechRecorder', () => {
   describe('when not recording', () => {
     it('should display Arrêter l/enregistrement after clicking on record button', async () => {
       render(
-        <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <TestContainer>
           <SpeechRecorder text={'chat'} />
-        </VoiceRecognitionContext.Provider>,
+        </TestContainer>,
       );
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -54,14 +49,11 @@ describe('SpeechRecorder', () => {
       const recorder: Recorder = () => {
         return recorderReturn;
       };
-      const container = createContainer({
-        recorder,
-      });
 
       render(
-        <VoiceRecognitionContext.Provider value={container}>
+        <TestContainer overrideServices={{ recorder }}>
           <SpeechRecorder text={'chat'} />
-        </VoiceRecognitionContext.Provider>,
+        </TestContainer>,
       );
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -76,9 +68,9 @@ describe('SpeechRecorder', () => {
   describe('when recording', () => {
     it('should display Enregistrer after clicking on record button', async () => {
       render(
-        <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <TestContainer>
           <SpeechRecorder text={'chat'} defaultIsRecording={true} />
-        </VoiceRecognitionContext.Provider>,
+        </TestContainer>,
       );
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -103,14 +95,11 @@ describe('SpeechRecorder', () => {
       const recorder: Recorder = () => {
         return recorderReturn;
       };
-      const container = createContainer({
-        recorder,
-      });
 
       render(
-        <VoiceRecognitionContext.Provider value={container}>
+        <TestContainer overrideServices={{ recorder }}>
           <SpeechRecorder text={'chat'} defaultIsRecording={true} />
-        </VoiceRecognitionContext.Provider>,
+        </TestContainer>,
       );
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -131,14 +120,11 @@ describe('SpeechRecorder', () => {
         },
       };
     };
-    const container = createContainer({
-      recorder,
-    });
 
     render(
-      <VoiceRecognitionContext.Provider value={container}>
+      <TestContainer overrideServices={{ recorder }}>
         <SpeechRecorder text={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
     await userEvent.click(
       within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -162,14 +148,11 @@ describe('SpeechRecorder', () => {
         },
       };
     };
-    const container = createContainer({
-      recorder,
-    });
 
     render(
-      <VoiceRecognitionContext.Provider value={container}>
+      <TestContainer overrideServices={{ recorder }}>
         <SpeechRecorder text={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
     await userEvent.click(
       within(screen.queryByTestId('chat-speech-recorder')!).getByText(

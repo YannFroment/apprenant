@@ -1,15 +1,14 @@
 import { render, within, screen } from '@testing-library/react';
 import { Word } from './Word';
-import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import userEvent from '@testing-library/user-event';
-import { createContainer, defaultContainer } from '../../tests/utils';
+import { TestContainer } from '../../tests/utils';
 
 describe('Word', () => {
   it('should display the word name', () => {
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <Word word={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
 
     expect(
@@ -19,9 +18,9 @@ describe('Word', () => {
 
   it('should display a button to hear', () => {
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <Word word={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
 
     expect(
@@ -31,9 +30,9 @@ describe('Word', () => {
 
   it('should display a button to record', () => {
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <Word word={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
 
     expect(
@@ -49,14 +48,10 @@ describe('Word', () => {
 
       const spyOnSpeak = jest.spyOn(speechSynth, 'speak');
 
-      const container = createContainer({
-        speechSynth,
-      });
-
       render(
-        <VoiceRecognitionContext.Provider value={container}>
+        <TestContainer overrideServices={{ speechSynth }}>
           <Word word={'chat'} />
-        </VoiceRecognitionContext.Provider>,
+        </TestContainer>,
       );
 
       await userEvent.click(
@@ -69,9 +64,9 @@ describe('Word', () => {
 
   it('should display VoiceRecognition component', () => {
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <Word word={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
     expect(screen.queryByTestId('chat-speech-recorder')).toBeInTheDocument();
   });
