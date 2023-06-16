@@ -1,16 +1,20 @@
 import { render, within, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SpeechRecorder } from './SpeechRecorder';
-import { createContainer, defaultContainer } from '../../tests/utils';
+import {
+  TestContainer,
+  createContainer,
+  defaultContainer,
+} from '../../tests/utils';
 import { Recorder } from './domain/Recorder';
 import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {
     render(
-      <VoiceRecognitionContext.Provider value={defaultContainer}>
+      <TestContainer>
         <SpeechRecorder text={'chat'} />
-      </VoiceRecognitionContext.Provider>,
+      </TestContainer>,
     );
 
     expect(
