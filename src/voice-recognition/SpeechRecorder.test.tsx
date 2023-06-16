@@ -23,7 +23,9 @@ describe('SpeechRecorder', () => {
     );
 
     expect(
-      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+      within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+        'Enregistrer',
+      ),
     ).toBeInTheDocument();
   });
 
@@ -45,11 +47,13 @@ describe('SpeechRecorder', () => {
         </VoiceRecognitionContext.Provider>,
       );
       await userEvent.click(
-        within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+        within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+          'Enregistrer',
+        ),
       );
 
       expect(
-        within(screen.queryByTestId('chat')!).getByText(
+        within(screen.queryByTestId('chat-speech-recorder')!).getByText(
           "Arrêter l'enregistrement",
         ),
       ).toBeInTheDocument();
@@ -75,7 +79,9 @@ describe('SpeechRecorder', () => {
         </VoiceRecognitionContext.Provider>,
       );
       await userEvent.click(
-        within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+        within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+          'Enregistrer',
+        ),
       );
 
       expect(spyOnStart).toHaveBeenCalled();
@@ -99,13 +105,15 @@ describe('SpeechRecorder', () => {
         </VoiceRecognitionContext.Provider>,
       );
       await userEvent.click(
-        within(screen.queryByTestId('chat')!).getByText(
+        within(screen.queryByTestId('chat-speech-recorder')!).getByText(
           "Arrêter l'enregistrement",
         ),
       );
 
       expect(
-        within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+        within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+          'Enregistrer',
+        ),
       ).toBeInTheDocument();
     });
 
@@ -129,7 +137,7 @@ describe('SpeechRecorder', () => {
         </VoiceRecognitionContext.Provider>,
       );
       await userEvent.click(
-        within(screen.queryByTestId('chat')!).getByText(
+        within(screen.queryByTestId('chat-speech-recorder')!).getByText(
           "Arrêter l'enregistrement",
         ),
       );
@@ -157,7 +165,9 @@ describe('SpeechRecorder', () => {
       </VoiceRecognitionContext.Provider>,
     );
     await userEvent.click(
-      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+      within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+        'Enregistrer',
+      ),
     );
 
     expect(
@@ -186,7 +196,9 @@ describe('SpeechRecorder', () => {
       </VoiceRecognitionContext.Provider>,
     );
     await userEvent.click(
-      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
+      within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+        'Enregistrer',
+      ),
     );
 
     expect(screen.queryByTestId('chat-transcript')).not.toBeInTheDocument();

@@ -6,8 +6,11 @@ import { createContainer, defaultContainer } from '../../tests/utils';
 
 describe('Word', () => {
   it('should display the word name', () => {
-    const word = 'chat';
-    render(<Word word={word} />);
+    render(
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <Word word={'chat'} />
+      </VoiceRecognitionContext.Provider>,
+    );
 
     expect(
       within(screen.queryByTestId('chat')!).getByText('chat'),
@@ -15,8 +18,11 @@ describe('Word', () => {
   });
 
   it('should display a button to hear', () => {
-    const word = 'chat';
-    render(<Word word={word} />);
+    render(
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <Word word={'chat'} />
+      </VoiceRecognitionContext.Provider>,
+    );
 
     expect(
       within(screen.queryByTestId('chat')!).getByText('Écouter'),
@@ -24,8 +30,11 @@ describe('Word', () => {
   });
 
   it('should display a button to record', () => {
-    const word = 'chat';
-    render(<Word word={word} />);
+    render(
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <Word word={'chat'} />
+      </VoiceRecognitionContext.Provider>,
+    );
 
     expect(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
@@ -58,48 +67,12 @@ describe('Word', () => {
     });
   });
 
-  describe('record', () => {
-    // au click sur le bouton enregistrer le texte devient arrêter l'enregistrement
-    // la fonction record est déclenché
-    // l'utilisateur prononce un mot
-    // l'utilisateur clique sur arrêter l'enregistrement
-
-    describe('when not recording', () => {
-      it('should display Arrêter l/enregistrement after clicking on record button', async () => {
-        render(
-          <VoiceRecognitionContext.Provider value={defaultContainer}>
-            <Word word={'chat'} />
-          </VoiceRecognitionContext.Provider>,
-        );
-        await userEvent.click(
-          within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
-        );
-
-        expect(
-          within(screen.queryByTestId('chat')!).getByText(
-            "Arrêter l'enregistrement",
-          ),
-        ).toBeInTheDocument();
-      });
-
-      describe('when recording', () => {
-        it('should display Enregistrer after clicking on record button', async () => {
-          render(
-            <VoiceRecognitionContext.Provider value={defaultContainer}>
-              <Word word={'chat'} defaultIsRecording={true} />
-            </VoiceRecognitionContext.Provider>,
-          );
-          await userEvent.click(
-            within(screen.queryByTestId('chat')!).getByText(
-              "Arrêter l'enregistrement",
-            ),
-          );
-
-          expect(
-            within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
-          ).toBeInTheDocument();
-        });
-      });
-    });
+  it('should display VoiceRecognition component', () => {
+    render(
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <Word word={'chat'} />
+      </VoiceRecognitionContext.Provider>,
+    );
+    expect(screen.queryByTestId('chat-speech-recorder')).toBeInTheDocument();
   });
 });

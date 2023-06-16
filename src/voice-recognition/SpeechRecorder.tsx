@@ -28,7 +28,7 @@ export const SpeechRecorder = ({
   }, [isRecording, recorder]);
 
   return (
-    <div data-testid={text}>
+    <div data-testid={`${text}-speech-recorder`}>
       <button onClick={() => setIsRecording(!isRecording)}>
         {isRecording ? "Arrêter l'enregistrement" : 'Enregistrer'}
       </button>

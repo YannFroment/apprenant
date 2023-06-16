@@ -7,7 +7,11 @@ import { defaultContainer } from '../../tests/utils';
 describe('VoiceRecognition', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
-    render(<VoiceRecognition words={words} />);
+    render(
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
+        <VoiceRecognition words={words} />
+      </VoiceRecognitionContext.Provider>,
+    );
 
     expect(screen.queryByTestId('chat')).toBeInTheDocument();
     expect(screen.queryByTestId('chien')).toBeInTheDocument();
