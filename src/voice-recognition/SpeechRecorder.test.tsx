@@ -1,23 +1,14 @@
 import { render, within, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SpeechRecorder } from './SpeechRecorder';
-import { createContainer } from '../../tests/utils';
+import { createContainer, defaultContainer } from '../../tests/utils';
 import { Recorder } from './domain/Recorder';
 import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {
-    const recorder: Recorder = () => {
-      return {
-        start: () => {},
-        stop: () => {},
-      };
-    };
-    const container = createContainer({
-      recorder,
-    });
     render(
-      <VoiceRecognitionContext.Provider value={container}>
+      <VoiceRecognitionContext.Provider value={defaultContainer}>
         <SpeechRecorder text={'chat'} />
       </VoiceRecognitionContext.Provider>,
     );
@@ -31,18 +22,8 @@ describe('SpeechRecorder', () => {
 
   describe('when not recording', () => {
     it('should display Arrêter l/enregistrement after clicking on record button', async () => {
-      const recorder: Recorder = () => {
-        return {
-          start: () => {},
-          stop: () => {},
-        };
-      };
-      const container = createContainer({
-        recorder,
-      });
-
       render(
-        <VoiceRecognitionContext.Provider value={container}>
+        <VoiceRecognitionContext.Provider value={defaultContainer}>
           <SpeechRecorder text={'chat'} />
         </VoiceRecognitionContext.Provider>,
       );
@@ -90,17 +71,8 @@ describe('SpeechRecorder', () => {
 
   describe('when recording', () => {
     it('should display Enregistrer after clicking on record button', async () => {
-      const recorder: Recorder = () => {
-        return {
-          start: () => {},
-          stop: () => {},
-        };
-      };
-      const container = createContainer({
-        recorder,
-      });
       render(
-        <VoiceRecognitionContext.Provider value={container}>
+        <VoiceRecognitionContext.Provider value={defaultContainer}>
           <SpeechRecorder text={'chat'} defaultIsRecording={true} />
         </VoiceRecognitionContext.Provider>,
       );
