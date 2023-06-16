@@ -35,7 +35,9 @@ export const SpeechRecorder = ({
       {text !== transcript.toLowerCase() && (
         <p data-testid={`${text}-transcript`}>{transcript}</p>
       )}
-      <div>{text === transcript.toLowerCase() ? 'réussi !' : 'raté'}</div>
+      {text === transcript.toLowerCase() && (
+        <p data-testid={`${text}-success`}>&#9989;</p>
+      )}
     </div>
   );
 };

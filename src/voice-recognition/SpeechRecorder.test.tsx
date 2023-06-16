@@ -162,4 +162,28 @@ describe('SpeechRecorder', () => {
 
     expect(screen.queryByTestId('chat-transcript')).not.toBeInTheDocument();
   });
+
+  it('should display check icon if learner pronounced the text correctly', async () => {
+    const recorder: Recorder = (saveTranscript) => {
+      return {
+        start: () => {},
+        stop: () => {
+          saveTranscript('chat');
+        },
+      };
+    };
+
+    render(
+      <TestContainer overrideServices={{ recorder }}>
+        <SpeechRecorder text={'chat'} />
+      </TestContainer>,
+    );
+    await userEvent.click(
+      within(screen.queryByTestId('chat-speech-recorder')!).getByText(
+        'Enregistrer',
+      ),
+    );
+
+    expect(screen.queryByTestId('chat-success')).toBeInTheDocument();
+  });
 });
