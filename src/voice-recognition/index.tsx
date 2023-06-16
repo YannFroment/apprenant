@@ -1,6 +1,5 @@
 import { recorder } from './external-services/Recorder';
 import { speechSynth } from './external-services/SpeechSynth';
-import { voiceRecognition } from './external-services/VoiceRecognition';
 import {
   VoiceRecognitionContext,
   VoiceRecognitionServiceContainer,
@@ -9,7 +8,6 @@ import { SpeechRecorder } from './SpeechRecorder';
 import { VoiceRecognition } from './VoiceRecognition';
 
 const context: VoiceRecognitionServiceContainer = {
-  voiceRecognition,
   speechSynth,
   recorder,
 };
