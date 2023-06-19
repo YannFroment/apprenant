@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StrictModeDroppable } from '../StrictModeDroppable';
+import { StrictModeDroppable } from './StrictModeDroppable';
 import { TaskElement, TaskList } from './TaskElement';
 import { Column, Task } from './columnMapper';
 
