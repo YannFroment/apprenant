@@ -6,7 +6,6 @@ describe('columnMapper', () => {
 
     const initialData = columnMapper(sentences);
 
-    // Expected shape of the result
     const expectedInitialData = {
       tasks: {
         'sentence-1': { id: 'sentence-1', content: 'Phrase 3' },
@@ -30,8 +29,8 @@ describe('columnMapper', () => {
 
     expect(initialData.tasks).toEqual(expectedInitialData.tasks);
     expect(initialData.columns).toEqual(expectedInitialData.columns);
-    // expect(initialData.columnOrder).toEqual(
-    //   expect.arrayContaining(expectedInitialData.columnOrder),
-    // );
+    expect(initialData.columnOrder).toEqual(
+      expect.arrayContaining(expectedInitialData.columnOrder),
+    );
   });
 });

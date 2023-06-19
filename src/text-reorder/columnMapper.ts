@@ -1,28 +1,28 @@
 import { InitialData, Task } from '../initial-data';
 
 export const columnMapper = (sentences: string[]): InitialData => {
-  const taskIds = sentences.map((_, index) => `sentence-${index + 1}`);
+  const tasks = sentences.reduce(
+    (
+      tasksAccumulator: Record<string, Task>,
+      sentence: string,
+      index: number,
+    ) => {
+      const id = `sentence-${index + 1}`;
+      const tasks = {
+        ...tasksAccumulator,
+        [id]: {
+          id,
+          content: sentence,
+        },
+      };
+
+      return tasks;
+    },
+    {},
+  );
 
   return {
-    tasks: sentences.reduce(
-      (
-        tasksAccumulator: Record<string, Task>,
-        sentence: string,
-        index: number,
-      ) => {
-        const id = `sentence-${index + 1}`;
-        const tasks = {
-          ...tasksAccumulator,
-          [id]: {
-            id,
-            content: sentence,
-          },
-        };
-
-        return tasks;
-      },
-      {},
-    ),
+    tasks,
     columns: {
       'work-zone': {
         id: 'work-zone',
@@ -32,7 +32,7 @@ export const columnMapper = (sentences: string[]): InitialData => {
       'picking-zone': {
         id: 'picking-zone',
         title: 'picking-zone',
-        taskIds,
+        taskIds: Object.keys(tasks),
       },
     },
     columnOrder: ['work-zone', 'picking-zone'],
