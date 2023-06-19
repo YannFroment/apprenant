@@ -6,13 +6,23 @@ type WordProps = {
   word: string;
 };
 
-export const Word = ({ word }: WordProps) => {
-  const [imageUrl, setImageUrl] = useState('');
-  const { speechSynth, pictures } = useContext(VoiceRecognitionContext);
+type ListenProps = {
+  word: string;
+};
+
+const Listen = ({ word }: ListenProps) => {
+  const { speechSynth } = useContext(VoiceRecognitionContext);
 
   const handleSpeak = (word: string) => () => {
     speechSynth.speak(word);
   };
+
+  return <button onClick={handleSpeak(word)}>Écouter</button>;
+};
+
+export const Word = ({ word }: WordProps) => {
+  const [imageUrl, setImageUrl] = useState('');
+  const { pictures } = useContext(VoiceRecognitionContext);
 
   useEffect(() => {
     pictures.get(word).then((url) => {
@@ -24,7 +34,7 @@ export const Word = ({ word }: WordProps) => {
     <div data-testid={word}>
       <img src={imageUrl} alt={word} data-testid={`img-${word}`} />
       <p>{word}</p>
-      <button onClick={handleSpeak(word)}>Écouter</button>
+      <Listen word={word} />
       <SpeechRecorder text={word} />
     </div>
   );
