@@ -14,7 +14,7 @@ export const SpeechRecorder = ({
   const [isRecording, setIsRecording] = useState<boolean>(
     defaultIsRecording ?? false,
   );
-  const { createSpeechRecorder: createSpeechRecorder } = useContext(
+  const { speechRecorderFactory: createSpeechRecorder } = useContext(
     VoiceRecognitionContext,
   );
 

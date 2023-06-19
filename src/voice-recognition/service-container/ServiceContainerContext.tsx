@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 import { SpeechSynth } from '../domain/SpeechSynth';
-import { CreateSpeechRecorder } from '../domain/CreateSpeechRecorder';
+import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { Pictures } from '../domain/Pictures';
 
 export type VoiceRecognitionServiceContainer = {
   speechSynth: SpeechSynth;
-  createSpeechRecorder: CreateSpeechRecorder;
+  speechRecorderFactory: SpeechRecorderFactory;
   pictures: Pictures;
 };
 

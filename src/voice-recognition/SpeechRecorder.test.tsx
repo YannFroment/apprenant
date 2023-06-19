@@ -2,7 +2,7 @@ import { render, within, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SpeechRecorder } from './SpeechRecorder';
 import { TestContainer } from '../../tests/utils';
-import { CreateSpeechRecorder } from './domain/CreateSpeechRecorder';
+import { SpeechRecorderFactory } from './domain/SpeechRecorderFactory';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {
@@ -40,19 +40,19 @@ describe('SpeechRecorder', () => {
     });
 
     it('should start recording when clicking on Enregistrer', async () => {
-      const createRecorderReturn: ReturnType<CreateSpeechRecorder> = {
+      const createRecorderReturn: ReturnType<SpeechRecorderFactory> = {
         start: () => {},
         stop: () => {},
       };
       const spyOnStart = jest.spyOn(createRecorderReturn, 'start');
 
-      const createRecorder: CreateSpeechRecorder = () => {
+      const createRecorder: SpeechRecorderFactory = () => {
         return createRecorderReturn;
       };
 
       render(
         <TestContainer
-          overrideServices={{ createSpeechRecorder: createRecorder }}
+          overrideServices={{ speechRecorderFactory: createRecorder }}
         >
           <SpeechRecorder text={'chat'} />
         </TestContainer>,
@@ -88,19 +88,19 @@ describe('SpeechRecorder', () => {
     });
 
     it("should stop recording when clicking on Arrêter l'enregistrement", async () => {
-      const createRecorderReturn: ReturnType<CreateSpeechRecorder> = {
+      const createRecorderReturn: ReturnType<SpeechRecorderFactory> = {
         start: () => {},
         stop: () => {},
       };
       const spyOnStop = jest.spyOn(createRecorderReturn, 'stop');
 
-      const createRecorder: CreateSpeechRecorder = () => {
+      const createRecorder: SpeechRecorderFactory = () => {
         return createRecorderReturn;
       };
 
       render(
         <TestContainer
-          overrideServices={{ createSpeechRecorder: createRecorder }}
+          overrideServices={{ speechRecorderFactory: createRecorder }}
         >
           <SpeechRecorder text={'chat'} defaultIsRecording={true} />
         </TestContainer>,
@@ -116,7 +116,7 @@ describe('SpeechRecorder', () => {
   });
 
   it('should display the transcript if learner mispronounced the text', async () => {
-    const createRecorder: CreateSpeechRecorder = (saveTranscript) => {
+    const createRecorder: SpeechRecorderFactory = (saveTranscript) => {
       return {
         start: () => {},
         stop: () => {
@@ -127,7 +127,7 @@ describe('SpeechRecorder', () => {
 
     render(
       <TestContainer
-        overrideServices={{ createSpeechRecorder: createRecorder }}
+        overrideServices={{ speechRecorderFactory: createRecorder }}
       >
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
@@ -146,7 +146,7 @@ describe('SpeechRecorder', () => {
   });
 
   it('should not display the transcript if learner pronounced the text correctly', async () => {
-    const createRecorder: CreateSpeechRecorder = (saveTranscript) => {
+    const createRecorder: SpeechRecorderFactory = (saveTranscript) => {
       return {
         start: () => {},
         stop: () => {
@@ -157,7 +157,7 @@ describe('SpeechRecorder', () => {
 
     render(
       <TestContainer
-        overrideServices={{ createSpeechRecorder: createRecorder }}
+        overrideServices={{ speechRecorderFactory: createRecorder }}
       >
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
@@ -172,7 +172,7 @@ describe('SpeechRecorder', () => {
   });
 
   it('should display check icon if learner pronounced the text correctly', async () => {
-    const createRecorder: CreateSpeechRecorder = (saveTranscript) => {
+    const createRecorder: SpeechRecorderFactory = (saveTranscript) => {
       return {
         start: () => {},
         stop: () => {
@@ -183,7 +183,7 @@ describe('SpeechRecorder', () => {
 
     render(
       <TestContainer
-        overrideServices={{ createSpeechRecorder: createRecorder }}
+        overrideServices={{ speechRecorderFactory: createRecorder }}
       >
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
