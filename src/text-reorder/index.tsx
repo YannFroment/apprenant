@@ -90,14 +90,43 @@ export const TextReorderTraining = () => {
       return;
     }
 
-    const column = data.columns[source.droppableId];
-    const newTaskIds = [...column.taskIds];
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
-    const newColumn: Column = { ...column, taskIds: newTaskIds };
+    const startColumn = data.columns[source.droppableId];
+    const finishColumn = data.columns[destination.droppableId];
+
+    if (startColumn === finishColumn) {
+      const newTaskIds = [...startColumn.taskIds];
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+      const newColumn: Column = { ...startColumn, taskIds: newTaskIds };
+      setData({
+        ...data,
+        columns: { ...data.columns, [newColumn.id]: newColumn },
+      });
+
+      return;
+    }
+
+    const startTaskIds = [...startColumn.taskIds];
+    startTaskIds.splice(source.index, 1);
+    const newStartColumn = {
+      ...startColumn,
+      taskIds: startTaskIds,
+    };
+
+    const finishTaskIds = [...finishColumn.taskIds];
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    const newFinishColumn = {
+      ...finishColumn,
+      taskIds: finishTaskIds,
+    };
+
     setData({
       ...data,
-      columns: { ...data.columns, [newColumn.id]: newColumn },
+      columns: {
+        ...data.columns,
+        [newStartColumn.id]: newStartColumn,
+        [newFinishColumn.id]: newFinishColumn,
+      },
     });
   };
 
