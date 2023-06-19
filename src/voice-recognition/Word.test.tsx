@@ -1,6 +1,5 @@
 import { render, within, screen, waitFor } from '@testing-library/react';
 import { Word } from './Word';
-import userEvent from '@testing-library/user-event';
 import { TestContainer } from '../../tests/utils';
 import { Pictures } from './domain/Pictures';
 
@@ -60,28 +59,6 @@ describe('Word', () => {
           .getByTestId('img-chat')
           .getAttribute('src'),
       ).toBe('chat.jpg');
-    });
-  });
-
-  describe('play audio', () => {
-    it('should call the voice synthetiser for a given word when clicking on the "hear" button', async () => {
-      const speechSynth = {
-        speak: () => {},
-      };
-
-      const spyOnSpeak = jest.spyOn(speechSynth, 'speak');
-
-      render(
-        <TestContainer overrideServices={{ speechSynth }}>
-          <Word word={'chat'} />
-        </TestContainer>,
-      );
-
-      await userEvent.click(
-        within(screen.queryByTestId('chat')!).getByText('Écouter'),
-      );
-
-      expect(spyOnSpeak).toHaveBeenCalledWith('chat');
     });
   });
 

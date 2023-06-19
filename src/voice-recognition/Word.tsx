@@ -1,23 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import { SpeechRecorder } from './SpeechRecorder';
+import { Listen } from './Listen';
 
 type WordProps = {
   word: string;
-};
-
-type ListenProps = {
-  word: string;
-};
-
-const Listen = ({ word }: ListenProps) => {
-  const { speechSynth } = useContext(VoiceRecognitionContext);
-
-  const handleSpeak = (word: string) => () => {
-    speechSynth.speak(word);
-  };
-
-  return <button onClick={handleSpeak(word)}>Écouter</button>;
 };
 
 export const Word = ({ word }: WordProps) => {
