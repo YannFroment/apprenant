@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { Column, InitialData, Task, initialData } from '../initial-data';
 import { StrictModeDroppable } from '../StrictModeDroppable';
+import { TaskElement } from './TaskElement';
 
 const Container = styled.div`
   margin: 8px;
@@ -19,35 +20,13 @@ const TaskList = styled.div<{ isDraggingOver: boolean }>`
     props.isDraggingOver ? 'darkgrey' : 'inherit'};
 `;
 
-const TaskContainer = styled.div<{ isDragging: boolean }>`
+export const TaskContainer = styled.div<{ isDragging: boolean }>`
   border: 1px solid lightgrey;
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
   background-color: ${(props) => (props.isDragging ? 'red' : 'inherit')};
 `;
-
-type TaskElementProps = {
-  task: Task;
-  index: number;
-};
-
-const TaskElement = ({ task, index }: TaskElementProps) => {
-  return (
-    <Draggable draggableId={task.id} index={index}>
-      {(provided, snapshot) => (
-        <TaskContainer
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          isDragging={snapshot.isDragging}
-        >
-          {task.content}
-        </TaskContainer>
-      )}
-    </Draggable>
-  );
-};
 
 type ColumnProps = {
   column: Column;
