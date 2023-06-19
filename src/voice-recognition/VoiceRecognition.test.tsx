@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VoiceRecognition } from './VoiceRecognition';
 import { TestContainer } from '../../tests/utils';
@@ -12,9 +12,11 @@ describe('VoiceRecognition', () => {
       </TestContainer>,
     );
 
-    expect(screen.queryByTestId('chat')).toBeInTheDocument();
-    expect(screen.queryByTestId('chien')).toBeInTheDocument();
-    expect(screen.queryByTestId('oiseau')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByTestId('chat')).toBeInTheDocument();
+      expect(screen.queryByTestId('chien')).toBeInTheDocument();
+      expect(screen.queryByTestId('oiseau')).toBeInTheDocument();
+    });
   });
 
   it('should not change record button text for a word when clicking record button for another word', async () => {

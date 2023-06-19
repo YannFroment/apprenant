@@ -3,28 +3,31 @@ import { Word } from './Word';
 import { TestContainer } from '../../tests/utils';
 
 describe('Word', () => {
-  it('should display the word name', () => {
+  it('should display the word name', async () => {
     render(
       <TestContainer>
         <Word word={'chat'} />
       </TestContainer>,
     );
-
-    expect(
-      within(screen.queryByTestId('chat')!).getByText('chat'),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        within(screen.queryByTestId('chat')!).getByText('chat'),
+      ).toBeInTheDocument();
+    });
   });
 
-  it('should display a button to hear', () => {
+  it('should display a button to hear', async () => {
     render(
       <TestContainer>
         <Word word={'chat'} />
       </TestContainer>,
     );
 
-    expect(
-      within(screen.queryByTestId('chat')!).queryByTestId('listen-chat'),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        within(screen.queryByTestId('chat')!).queryByTestId('listen-chat'),
+      ).toBeInTheDocument();
+    });
   });
 
   it('should display a Picture component', async () => {
@@ -41,12 +44,15 @@ describe('Word', () => {
     });
   });
 
-  it('should display VoiceRecognition component', () => {
+  it('should display VoiceRecognition component', async () => {
     render(
       <TestContainer>
         <Word word={'chat'} />
       </TestContainer>,
     );
-    expect(screen.queryByTestId('chat-speech-recorder')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('chat-speech-recorder')).toBeInTheDocument();
+    });
   });
 });
