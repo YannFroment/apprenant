@@ -24,7 +24,7 @@ describe('Word', () => {
     );
 
     expect(
-      within(screen.queryByTestId('chat')!).getByText('Écouter'),
+      within(screen.queryByTestId('chat')!).queryByTestId('listen-chat'),
     ).toBeInTheDocument();
   });
 

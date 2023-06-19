@@ -12,5 +12,9 @@ export const Listen = ({ word }: ListenProps) => {
     speechSynth.speak(word);
   };
 
-  return <button onClick={handleSpeak(word)}>Écouter</button>;
+  return (
+    <button data-testid={`listen-${word}`} onClick={handleSpeak(word)}>
+      Écouter
+    </button>
+  );
 };
