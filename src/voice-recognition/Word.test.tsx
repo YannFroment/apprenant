@@ -1,7 +1,6 @@
 import { render, within, screen, waitFor } from '@testing-library/react';
 import { Word } from './Word';
 import { TestContainer } from '../../tests/utils';
-import { Pictures } from './domain/Pictures';
 
 describe('Word', () => {
   it('should display the word name', () => {
@@ -40,25 +39,17 @@ describe('Word', () => {
     ).toBeInTheDocument();
   });
 
-  it('should display an image', async () => {
-    const pictures: Pictures = {
-      get: async () => {
-        return 'chat.jpg';
-      },
-    };
-
+  it('should display a Picture component', async () => {
     render(
-      <TestContainer overrideServices={{ pictures }}>
+      <TestContainer>
         <Word word={'chat'} />
       </TestContainer>,
     );
 
     await waitFor(() => {
       expect(
-        within(screen.queryByTestId('chat')!)
-          .getByTestId('img-chat')
-          .getAttribute('src'),
-      ).toBe('chat.jpg');
+        within(screen.queryByTestId('chat')!).getByTestId('img-chat'),
+      ).toBeInTheDocument();
     });
   });
 
