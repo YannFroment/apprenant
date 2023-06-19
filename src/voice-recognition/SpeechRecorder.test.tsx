@@ -2,7 +2,7 @@ import { render, within, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SpeechRecorder } from './SpeechRecorder';
 import { TestContainer } from '../../tests/utils';
-import { Recorder } from './domain/Recorder';
+import { CreateSpeechRecorder } from './domain/CreateSpeechRecorder';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {
@@ -40,18 +40,18 @@ describe('SpeechRecorder', () => {
     });
 
     it('should start recording when clicking on Enregistrer', async () => {
-      const recorderReturn: ReturnType<Recorder> = {
+      const recorderReturn: ReturnType<CreateSpeechRecorder> = {
         start: () => {},
         stop: () => {},
       };
       const spyOnStart = jest.spyOn(recorderReturn, 'start');
 
-      const recorder: Recorder = () => {
+      const recorder: CreateSpeechRecorder = () => {
         return recorderReturn;
       };
 
       render(
-        <TestContainer overrideServices={{ recorder }}>
+        <TestContainer overrideServices={{ createSpeechRecorder: recorder }}>
           <SpeechRecorder text={'chat'} />
         </TestContainer>,
       );
@@ -86,18 +86,18 @@ describe('SpeechRecorder', () => {
     });
 
     it("should stop recording when clicking on Arrêter l'enregistrement", async () => {
-      const recorderReturn: ReturnType<Recorder> = {
+      const recorderReturn: ReturnType<CreateSpeechRecorder> = {
         start: () => {},
         stop: () => {},
       };
       const spyOnStop = jest.spyOn(recorderReturn, 'stop');
 
-      const recorder: Recorder = () => {
+      const recorder: CreateSpeechRecorder = () => {
         return recorderReturn;
       };
 
       render(
-        <TestContainer overrideServices={{ recorder }}>
+        <TestContainer overrideServices={{ createSpeechRecorder: recorder }}>
           <SpeechRecorder text={'chat'} defaultIsRecording={true} />
         </TestContainer>,
       );
@@ -112,7 +112,7 @@ describe('SpeechRecorder', () => {
   });
 
   it('should display the transcript if learner mispronounced the text', async () => {
-    const recorder: Recorder = (saveTranscript) => {
+    const recorder: CreateSpeechRecorder = (saveTranscript) => {
       return {
         start: () => {},
         stop: () => {
@@ -122,7 +122,7 @@ describe('SpeechRecorder', () => {
     };
 
     render(
-      <TestContainer overrideServices={{ recorder }}>
+      <TestContainer overrideServices={{ createSpeechRecorder: recorder }}>
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
     );
@@ -140,7 +140,7 @@ describe('SpeechRecorder', () => {
   });
 
   it('should not display the transcript if learner pronounced the text correctly', async () => {
-    const recorder: Recorder = (saveTranscript) => {
+    const recorder: CreateSpeechRecorder = (saveTranscript) => {
       return {
         start: () => {},
         stop: () => {
@@ -150,7 +150,7 @@ describe('SpeechRecorder', () => {
     };
 
     render(
-      <TestContainer overrideServices={{ recorder }}>
+      <TestContainer overrideServices={{ createSpeechRecorder: recorder }}>
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
     );
@@ -164,7 +164,7 @@ describe('SpeechRecorder', () => {
   });
 
   it('should display check icon if learner pronounced the text correctly', async () => {
-    const recorder: Recorder = (saveTranscript) => {
+    const recorder: CreateSpeechRecorder = (saveTranscript) => {
       return {
         start: () => {},
         stop: () => {
@@ -174,7 +174,7 @@ describe('SpeechRecorder', () => {
     };
 
     render(
-      <TestContainer overrideServices={{ recorder }}>
+      <TestContainer overrideServices={{ createSpeechRecorder: recorder }}>
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
     );

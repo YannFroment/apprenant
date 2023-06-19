@@ -6,7 +6,7 @@ import {
 
 const defaultContainer: VoiceRecognitionServiceContainer = {
   speechSynth: { speak: () => {} },
-  recorder: () => {
+  createSpeechRecorder: () => {
     return {
       start: () => {},
       stop: () => {},

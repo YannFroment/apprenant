@@ -14,10 +14,12 @@ export const SpeechRecorder = ({
   const [isRecording, setIsRecording] = useState<boolean>(
     defaultIsRecording ?? false,
   );
-  const { recorder } = useContext(VoiceRecognitionContext);
+  const { createSpeechRecorder: createSpeechRecorder } = useContext(
+    VoiceRecognitionContext,
+  );
 
   useEffect(() => {
-    const { start, stop } = recorder(setTranscript);
+    const { start, stop } = createSpeechRecorder(setTranscript);
     if (isRecording) {
       start();
     }
@@ -25,7 +27,7 @@ export const SpeechRecorder = ({
     return () => {
       stop();
     };
-  }, [isRecording, recorder]);
+  }, [isRecording, createSpeechRecorder]);
 
   return (
     <div data-testid={`${text}-speech-recorder`}>
