@@ -1,6 +1,8 @@
 import { CreateSpeechRecorder } from '../domain/CreateSpeechRecorder';
 
-export const recorder: CreateSpeechRecorder = (saveTranscript) => {
+export const createWindowSpeechRecorder: CreateSpeechRecorder = (
+  saveTranscript,
+) => {
   const recognition = new (window.SpeechRecognition ||
     window.webkitSpeechRecognition)();
   recognition.continuous = true;
