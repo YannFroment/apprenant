@@ -1,6 +1,8 @@
 import { InitialData, Task } from '../initial-data';
 
 export const columnMapper = (sentences: string[]): InitialData => {
+  const taskIds = sentences.map((_, index) => `sentence-${index + 1}`);
+
   return {
     tasks: sentences.reduce(
       (
@@ -22,17 +24,17 @@ export const columnMapper = (sentences: string[]): InitialData => {
       {},
     ),
     columns: {
-      'column-1': {
-        id: 'column-1',
-        title: 'left ',
+      'work-zone': {
+        id: 'work-zone',
+        title: 'work-zone',
         taskIds: [],
       },
-      'column-2': {
-        id: 'column-2',
-        title: 'right',
-        taskIds: ['task-1', 'task-2'],
+      'picking-zone': {
+        id: 'picking-zone',
+        title: 'picking-zone',
+        taskIds,
       },
     },
-    columnOrder: ['column-1', 'column-2'],
+    columnOrder: ['work-zone', 'picking-zone'],
   };
 };

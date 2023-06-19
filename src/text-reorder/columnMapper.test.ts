@@ -17,19 +17,19 @@ describe('columnMapper', () => {
         'work-zone': {
           id: 'work-zone',
           title: 'work-zone',
-          taskIds: ['sentence-1', 'sentence-2', 'sentence-3'],
+          taskIds: [],
         },
         'picking-zone': {
           id: 'picking-zone',
           title: 'picking-zone',
-          taskIds: [],
+          taskIds: ['sentence-1', 'sentence-2', 'sentence-3'],
         },
       },
       columnOrder: ['work-zone', 'picking-zone'],
     };
 
     expect(initialData.tasks).toEqual(expectedInitialData.tasks);
-    // expect(initialData.columns).toEqual(expectedInitialData.columns);
+    expect(initialData.columns).toEqual(expectedInitialData.columns);
     // expect(initialData.columnOrder).toEqual(
     //   expect.arrayContaining(expectedInitialData.columnOrder),
     // );
