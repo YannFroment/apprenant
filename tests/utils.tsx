@@ -12,6 +12,11 @@ const defaultContainer: VoiceRecognitionServiceContainer = {
       stop: () => {},
     };
   },
+  pictures: {
+    get: async (searchKey) => {
+      return searchKey;
+    },
+  },
 };
 
 const createContainer = (
