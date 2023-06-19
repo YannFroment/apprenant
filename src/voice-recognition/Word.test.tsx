@@ -1,7 +1,8 @@
-import { render, within, screen } from '@testing-library/react';
+import { render, within, screen, waitFor } from '@testing-library/react';
 import { Word } from './Word';
 import userEvent from '@testing-library/user-event';
 import { TestContainer } from '../../tests/utils';
+import { Pictures } from './domain/Pictures';
 
 describe('Word', () => {
   it('should display the word name', () => {
@@ -40,18 +41,26 @@ describe('Word', () => {
     ).toBeInTheDocument();
   });
 
-  it('should display an image', () => {
+  it('should display an image', async () => {
+    const pictures: Pictures = {
+      get: async () => {
+        return 'chat.jpg';
+      },
+    };
+
     render(
-      <TestContainer>
+      <TestContainer overrideServices={{ pictures }}>
         <Word word={'chat'} />
       </TestContainer>,
     );
 
-    expect(
-      within(screen.queryByTestId('chat')!)
-        .getByTestId('img-chat')
-        .getAttribute('src'),
-    ).toBe('chat.jpg');
+    await waitFor(() => {
+      expect(
+        within(screen.queryByTestId('chat')!)
+          .getByTestId('img-chat')
+          .getAttribute('src'),
+      ).toBe('chat.jpg');
+    });
   });
 
   describe('play audio', () => {

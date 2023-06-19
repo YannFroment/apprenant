@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 import { SpeechRecorder } from './SpeechRecorder';
 
@@ -7,15 +7,22 @@ type WordProps = {
 };
 
 export const Word = ({ word }: WordProps) => {
-  const { speechSynth } = useContext(VoiceRecognitionContext);
+  const [imageUrl, setImageUrl] = useState('');
+  const { speechSynth, pictures } = useContext(VoiceRecognitionContext);
 
   const handleSpeak = (word: string) => () => {
     speechSynth.speak(word);
   };
 
+  useEffect(() => {
+    pictures.get(word).then((url) => {
+      setImageUrl(url);
+    });
+  }, [word, pictures]);
+
   return (
     <div data-testid={word}>
-      <img src="chat.jpg" alt={word} data-testid={`img-${word}`} />
+      <img src={imageUrl} alt={word} data-testid={`img-${word}`} />
       <p>{word}</p>
       <button onClick={handleSpeak(word)}>Écouter</button>
       <SpeechRecorder text={word} />
