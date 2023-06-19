@@ -7,13 +7,12 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-type VoiceRecognitionProps = {
+type WordsContainerProps = {
   words?: string[];
-  defaultIsRecording?: boolean;
 };
 
-export const VoiceRecognition = (
-  { words }: VoiceRecognitionProps = { words: [] },
+export const WordsContainer = (
+  { words }: WordsContainerProps = { words: [] },
 ) => {
   return (
     <Container>

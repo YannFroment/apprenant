@@ -1,14 +1,14 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { VoiceRecognition } from './VoiceRecognition';
+import { WordsContainer } from './WordsContainer';
 import { TestContainer } from '../../tests/utils';
 
-describe('VoiceRecognition', () => {
+describe('WordsContainer', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
     render(
       <TestContainer>
-        <VoiceRecognition words={words} />
+        <WordsContainer words={words} />
       </TestContainer>,
     );
 
@@ -22,7 +22,7 @@ describe('VoiceRecognition', () => {
   it('should not change record button text for a word when clicking record button for another word', async () => {
     render(
       <TestContainer>
-        <VoiceRecognition words={['chat', 'chien']} />
+        <WordsContainer words={['chat', 'chien']} />
       </TestContainer>,
     );
     await userEvent.click(
