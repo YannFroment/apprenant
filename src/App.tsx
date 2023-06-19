@@ -4,7 +4,7 @@ import { VoiceRecognitionTraining } from './voice-recognition';
 function App() {
   return (
     <>
-      <TextReorderTraining />
+      <TextReorderTraining sentences={['Phrase 3', 'Phrase 1', 'Phrase 2']} />
       <VoiceRecognitionTraining />
     </>
   );

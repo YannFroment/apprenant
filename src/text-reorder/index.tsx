@@ -3,7 +3,13 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Column, InitialData, initialData } from '../initial-data';
 import { ColumnElement } from './ColumnElement';
 
-export const TextReorderTraining = () => {
+type TextReorderTrainingProps = {
+  sentences: string[];
+};
+
+export const TextReorderTraining = ({
+  sentences,
+}: TextReorderTrainingProps) => {
   const [data, setData] = useState<InitialData>(initialData);
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) {
