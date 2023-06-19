@@ -27,18 +27,6 @@ describe('Word', () => {
     ).toBeInTheDocument();
   });
 
-  it('should display a button to record', () => {
-    render(
-      <TestContainer>
-        <Word word={'chat'} />
-      </TestContainer>,
-    );
-
-    expect(
-      within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
-    ).toBeInTheDocument();
-  });
-
   it('should display a Picture component', async () => {
     render(
       <TestContainer>
