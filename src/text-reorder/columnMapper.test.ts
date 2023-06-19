@@ -1,7 +1,7 @@
 import { columnMapper } from './columnMapper';
 
 describe('columnMapper', () => {
-  it('should transform sentences into initial data for text reordering', () => {
+  it('should format sentences into initial data for text reordering', () => {
     const sentences = ['Phrase 3', 'Phrase 1', 'Phrase 2'];
 
     const initialData = columnMapper(sentences);

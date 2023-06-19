@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import { Task } from '../initial-data';
+import { Task } from './columnMapper';
 
 export const TaskList = styled.div<{ isDraggingOver: boolean }>`
   padding: 8px;

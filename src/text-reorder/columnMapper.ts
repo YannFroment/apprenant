@@ -1,6 +1,16 @@
-import { InitialData, Task } from '../initial-data';
+type TaskId = string;
+type ColumnId = string;
 
-export const columnMapper = (sentences: string[]): InitialData => {
+export type Task = { id: TaskId; content: string };
+export type Column = { id: ColumnId; title: string; taskIds: TaskId[] };
+
+export type ColumnsFormat = {
+  tasks: Record<TaskId, Task>;
+  columns: Record<ColumnId, Column>;
+  columnOrder: ColumnId[];
+};
+
+export const columnMapper = (sentences: string[]): ColumnsFormat => {
   const tasks = sentences.reduce(
     (
       tasksAccumulator: Record<string, Task>,

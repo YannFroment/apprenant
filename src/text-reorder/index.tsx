@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { Column, InitialData, initialData } from '../initial-data';
 import { ColumnElement } from './ColumnElement';
+import { Column, ColumnsFormat, columnMapper } from './columnMapper';
 
 type TextReorderTrainingProps = {
   sentences: string[];
@@ -10,7 +10,7 @@ type TextReorderTrainingProps = {
 export const TextReorderTraining = ({
   sentences,
 }: TextReorderTrainingProps) => {
-  const [data, setData] = useState<InitialData>(initialData);
+  const [data, setData] = useState<ColumnsFormat>(columnMapper(sentences));
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) {
       return;
