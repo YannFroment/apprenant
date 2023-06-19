@@ -1,17 +1,17 @@
 import { Pictures } from '../domain/Pictures';
-import { createClient } from 'pexels';
+import { PhotosWithTotalResults, createClient } from 'pexels';
 
 const client = createClient(
   'MxfAMFGikKpGKlWfKig5KPiffb7pimPKlKsAN7QBTMRBVsdujYQiws9j',
 );
 
-export const pictures: Pictures = {
+export const pexelPictures: Pictures = {
   get: async (searchKey) => {
-    const picture = await client.photos.search({
+    const picture = (await client.photos.search({
       query: searchKey,
       per_page: 1,
-    });
-    console.log(picture.photos);
-    return picture.photos[0].url;
+    })) as PhotosWithTotalResults;
+
+    return picture.photos[0].src.medium;
   },
 };

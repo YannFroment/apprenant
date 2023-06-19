@@ -1,4 +1,4 @@
-import { pictures } from './external-services/Pictures';
+import { pexelPictures } from './external-services/Pictures';
 import { recorder } from './external-services/Recorder';
 import { speechSynth } from './external-services/SpeechSynth';
 import {
@@ -10,7 +10,7 @@ import { VoiceRecognition } from './VoiceRecognition';
 const context: VoiceRecognitionServiceContainer = {
   speechSynth,
   recorder,
-  pictures,
+  pictures: pexelPictures,
 };
 
 export const VoiceRecognitionTraining = () => {
