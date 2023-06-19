@@ -15,6 +15,7 @@ export const Word = ({ word }: WordProps) => {
 
   return (
     <div data-testid={word}>
+      <img src="chat.jpg" alt={word} data-testid={`img-${word}`} />
       <p>{word}</p>
       <button onClick={handleSpeak(word)}>Écouter</button>
       <SpeechRecorder text={word} />

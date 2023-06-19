@@ -40,6 +40,20 @@ describe('Word', () => {
     ).toBeInTheDocument();
   });
 
+  it('should display an image', () => {
+    render(
+      <TestContainer>
+        <Word word={'chat'} />
+      </TestContainer>,
+    );
+
+    expect(
+      within(screen.queryByTestId('chat')!)
+        .getByTestId('img-chat')
+        .getAttribute('src'),
+    ).toBe('chat.jpg');
+  });
+
   describe('play audio', () => {
     it('should call the voice synthetiser for a given word when clicking on the "hear" button', async () => {
       const speechSynth = {
