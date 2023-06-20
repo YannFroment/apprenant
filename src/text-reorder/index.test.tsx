@@ -1,5 +1,6 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { TextReorderTraining } from '.';
+import { ColumnsFormat } from './columnMapper';
 
 describe('TextReorderTraining', () => {
   it('should display sentences in the initial columns and positions', async () => {
@@ -7,7 +8,12 @@ describe('TextReorderTraining', () => {
     const sentenceB = 'B';
     const sentenceAId = 'sentence-1';
     const sentenceBId = 'sentence-2';
-    render(<TextReorderTraining sentences={[sentenceA, sentenceB]} />);
+    render(
+      <TextReorderTraining
+        orderedSentences={[sentenceA, sentenceB]}
+        randomizedSentences={[sentenceA, sentenceB]}
+      />,
+    );
 
     await waitFor(() => {
       const workZone = screen.queryByTestId('column-work-zone');
@@ -40,15 +46,66 @@ describe('text ordered', () => {
   it('it should show check if text is completely ordered', () => {
     const sentenceA = 'A';
     const sentenceB = 'B';
-    render(<TextReorderTraining sentences={[sentenceA, sentenceB]} />);
+    const columnsFormat: ColumnsFormat = {
+      tasks: {
+        'sentence-1': { id: 'sentence-1', content: 'A' },
+        'sentence-2': { id: 'sentence-2', content: 'B' },
+      },
+      columns: {
+        'work-zone': {
+          id: 'work-zone',
+          title: 'work-zone',
+          taskIds: ['sentence-1', 'sentence-2'],
+        },
+        'picking-zone': {
+          id: 'picking-zone',
+          title: 'picking-zone',
+          taskIds: [],
+        },
+      },
+      columnOrder: ['work-zone', 'picking-zone'],
+    };
+    render(
+      <TextReorderTraining
+        orderedSentences={[sentenceA, sentenceB]}
+        randomizedSentences={[sentenceA, sentenceB]}
+        defaultColumnsFormat={columnsFormat}
+      />,
+    );
 
-    expect(screen.getByTestId('text-success')).toBeInTheDocument();
+    expect(screen.queryByTestId('text-success')).toBeInTheDocument();
   });
+
   it('it should not show check if text is not completely ordered', () => {
     const sentenceA = 'A';
     const sentenceB = 'B';
-    render(<TextReorderTraining sentences={[sentenceB, sentenceA]} />);
+    const columnsFormat: ColumnsFormat = {
+      tasks: {
+        'sentence-1': { id: 'sentence-1', content: 'A' },
+        'sentence-2': { id: 'sentence-2', content: 'B' },
+      },
+      columns: {
+        'work-zone': {
+          id: 'work-zone',
+          title: 'work-zone',
+          taskIds: ['sentence-2', 'sentence-1'],
+        },
+        'picking-zone': {
+          id: 'picking-zone',
+          title: 'picking-zone',
+          taskIds: [],
+        },
+      },
+      columnOrder: ['work-zone', 'picking-zone'],
+    };
+    render(
+      <TextReorderTraining
+        orderedSentences={[sentenceA, sentenceB]}
+        randomizedSentences={[sentenceB, sentenceA]}
+        defaultColumnsFormat={columnsFormat}
+      />,
+    );
 
-    expect(screen.getByTestId('text-success')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('text-success')).not.toBeInTheDocument();
   });
 });

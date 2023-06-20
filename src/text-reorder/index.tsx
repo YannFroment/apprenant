@@ -2,18 +2,21 @@ import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { ColumnElement } from './ColumnElement';
 import { Column, ColumnsFormat, columnMapper } from './columnMapper';
+import { columnChecker } from './columnChecker';
 
 type TextReorderTrainingProps = {
-  sentences: string[];
+  orderedSentences: string[];
+  randomizedSentences: string[];
   defaultColumnsFormat?: ColumnsFormat;
 };
 
 export const TextReorderTraining = ({
-  sentences,
+  orderedSentences,
+  randomizedSentences,
   defaultColumnsFormat,
 }: TextReorderTrainingProps) => {
   const [data, setData] = useState<ColumnsFormat>(
-    defaultColumnsFormat ?? columnMapper(sentences),
+    defaultColumnsFormat ?? columnMapper(randomizedSentences),
   );
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) {
@@ -67,6 +70,8 @@ export const TextReorderTraining = ({
     });
   };
 
+  const textIsReordered = columnChecker(orderedSentences, data);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       {data.columnOrder.map((columnId) => {
@@ -75,7 +80,7 @@ export const TextReorderTraining = ({
 
         return <ColumnElement key={column.id} column={column} tasks={tasks} />;
       })}
-      <div data-testid="text-success"></div>
+      {textIsReordered && <div data-testid="text-success">&#9989;</div>}
     </DragDropContext>
   );
 };
