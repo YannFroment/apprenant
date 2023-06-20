@@ -1,14 +1,32 @@
+import { Exercices } from './pages/exercices';
 import { TextReorder } from './text-reorder';
 import { VoiceRecognition } from './voice-recognition';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-function App() {
-  return (
-    <>
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Exercices />,
+  },
+  {
+    path: '/text-reorder',
+    element: (
       <TextReorder
         orderedSentences={['Phrase 1', 'Phrase 2', 'Phrase 3']}
         randomizedSentences={['Phrase 3', 'Phrase 1', 'Phrase 2']}
       />
-      <VoiceRecognition />
+    ),
+  },
+  {
+    path: '/voice-recognition',
+    element: <VoiceRecognition />,
+  },
+]);
+
+function App() {
+  return (
+    <>
+      <RouterProvider router={router} />
     </>
   );
 }
