@@ -1,5 +1,5 @@
 import { pexelPictures } from './external-services/Pictures';
-import { createWindowSpeechRecorder } from './external-services/CreateSpeechRecorder';
+import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import { windowSpeechSynth } from './external-services/SpeechSynth';
 import {
   VoiceRecognitionContext,
@@ -9,11 +9,11 @@ import { WordsContainer } from './WordsContainer';
 
 const context: VoiceRecognitionServiceContainer = {
   speechSynth: windowSpeechSynth,
-  speechRecorderFactory: createWindowSpeechRecorder,
+  speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
 };
 
-export const VoiceRecognitionTraining = () => {
+export const VoiceRecognition = () => {
   return (
     <VoiceRecognitionContext.Provider value={context}>
       <WordsContainer words={['voiture', 'bus', 'camion']} />

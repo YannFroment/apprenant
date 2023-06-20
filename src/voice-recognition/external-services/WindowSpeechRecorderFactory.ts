@@ -1,6 +1,6 @@
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 
-export const createWindowSpeechRecorder: SpeechRecorderFactory = (
+export const windowSpeechRecorderFactory: SpeechRecorderFactory = (
   saveTranscript,
 ) => {
   const recognition = new (window.SpeechRecognition ||

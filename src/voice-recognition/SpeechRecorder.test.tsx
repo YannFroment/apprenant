@@ -40,19 +40,21 @@ describe('SpeechRecorder', () => {
     });
 
     it('should start recording when clicking on Enregistrer', async () => {
-      const createRecorderReturn: ReturnType<SpeechRecorderFactory> = {
+      const recorderFactoryReturn: ReturnType<SpeechRecorderFactory> = {
         start: () => {},
         stop: () => {},
       };
-      const spyOnStart = jest.spyOn(createRecorderReturn, 'start');
+      const spyOnStart = jest.spyOn(recorderFactoryReturn, 'start');
 
-      const createRecorder: SpeechRecorderFactory = () => {
-        return createRecorderReturn;
+      const speechRecorderFactoryMock: SpeechRecorderFactory = () => {
+        return recorderFactoryReturn;
       };
 
       render(
         <TestContainer
-          overrideServices={{ speechRecorderFactory: createRecorder }}
+          overrideServices={{
+            speechRecorderFactory: speechRecorderFactoryMock,
+          }}
         >
           <SpeechRecorder text={'chat'} />
         </TestContainer>,
@@ -88,19 +90,21 @@ describe('SpeechRecorder', () => {
     });
 
     it("should stop recording when clicking on Arrêter l'enregistrement", async () => {
-      const createRecorderReturn: ReturnType<SpeechRecorderFactory> = {
+      const recorderFactoryReturn: ReturnType<SpeechRecorderFactory> = {
         start: () => {},
         stop: () => {},
       };
-      const spyOnStop = jest.spyOn(createRecorderReturn, 'stop');
+      const spyOnStop = jest.spyOn(recorderFactoryReturn, 'stop');
 
-      const createRecorder: SpeechRecorderFactory = () => {
-        return createRecorderReturn;
+      const speechRecorderFactoryMock: SpeechRecorderFactory = () => {
+        return recorderFactoryReturn;
       };
 
       render(
         <TestContainer
-          overrideServices={{ speechRecorderFactory: createRecorder }}
+          overrideServices={{
+            speechRecorderFactory: speechRecorderFactoryMock,
+          }}
         >
           <SpeechRecorder text={'chat'} defaultIsRecording={true} />
         </TestContainer>,
@@ -116,7 +120,9 @@ describe('SpeechRecorder', () => {
   });
 
   it('should display the transcript if learner mispronounced the text', async () => {
-    const createRecorder: SpeechRecorderFactory = (saveTranscript) => {
+    const speechRecorderFactoryMock: SpeechRecorderFactory = (
+      saveTranscript,
+    ) => {
       return {
         start: () => {},
         stop: () => {
@@ -127,7 +133,7 @@ describe('SpeechRecorder', () => {
 
     render(
       <TestContainer
-        overrideServices={{ speechRecorderFactory: createRecorder }}
+        overrideServices={{ speechRecorderFactory: speechRecorderFactoryMock }}
       >
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
@@ -146,7 +152,9 @@ describe('SpeechRecorder', () => {
   });
 
   it('should not display the transcript if learner pronounced the text correctly', async () => {
-    const createRecorder: SpeechRecorderFactory = (saveTranscript) => {
+    const speechRecorderFactoryMock: SpeechRecorderFactory = (
+      saveTranscript,
+    ) => {
       return {
         start: () => {},
         stop: () => {
@@ -157,7 +165,7 @@ describe('SpeechRecorder', () => {
 
     render(
       <TestContainer
-        overrideServices={{ speechRecorderFactory: createRecorder }}
+        overrideServices={{ speechRecorderFactory: speechRecorderFactoryMock }}
       >
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
@@ -172,7 +180,9 @@ describe('SpeechRecorder', () => {
   });
 
   it('should display check icon if learner pronounced the text correctly', async () => {
-    const createRecorder: SpeechRecorderFactory = (saveTranscript) => {
+    const speechRecorderFactoryMock: SpeechRecorderFactory = (
+      saveTranscript,
+    ) => {
       return {
         start: () => {},
         stop: () => {
@@ -183,7 +193,7 @@ describe('SpeechRecorder', () => {
 
     render(
       <TestContainer
-        overrideServices={{ speechRecorderFactory: createRecorder }}
+        overrideServices={{ speechRecorderFactory: speechRecorderFactoryMock }}
       >
         <SpeechRecorder text={'chat'} />
       </TestContainer>,
