@@ -5,12 +5,16 @@ import { Column, ColumnsFormat, columnMapper } from './columnMapper';
 
 type TextReorderTrainingProps = {
   sentences: string[];
+  defaultColumnsFormat?: ColumnsFormat;
 };
 
 export const TextReorderTraining = ({
   sentences,
+  defaultColumnsFormat,
 }: TextReorderTrainingProps) => {
-  const [data, setData] = useState<ColumnsFormat>(columnMapper(sentences));
+  const [data, setData] = useState<ColumnsFormat>(
+    defaultColumnsFormat ?? columnMapper(sentences),
+  );
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) {
       return;

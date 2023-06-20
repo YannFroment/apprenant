@@ -44,4 +44,11 @@ describe('text ordered', () => {
 
     expect(screen.getByTestId('text-success')).toBeInTheDocument();
   });
+  it('it should not show check if text is not completely ordered', () => {
+    const sentenceA = 'A';
+    const sentenceB = 'B';
+    render(<TextReorderTraining sentences={[sentenceB, sentenceA]} />);
+
+    expect(screen.getByTestId('text-success')).not.toBeInTheDocument();
+  });
 });
