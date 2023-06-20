@@ -1,10 +1,19 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { TextReorderTraining } from '.';
 
 describe('TextReorderTraining', () => {
   it('should display sentences in the initial columns and positions', async () => {
     const sentenceA = 'A';
     const sentenceB = 'B';
+    const sentenceAId = 'sentence-1';
+    const sentenceBId = 'sentence-2';
     render(<TextReorderTraining sentences={[sentenceA, sentenceB]} />);
 
     await waitFor(() => {
@@ -24,12 +33,18 @@ describe('TextReorderTraining', () => {
       expect(pickingZoneTaskList).toBeInTheDocument();
 
       expect(
-        within(pickingZone!).queryByTestId(`task-${sentenceA}`),
+        within(pickingZone!).queryByTestId(`task-${sentenceAId}`),
       ).toBeInTheDocument();
       expect(
-        within(pickingZone!).queryByTestId(`task-${sentenceB}`),
+        within(pickingZone!).queryByTestId(`task-${sentenceBId}`),
       ).toBeInTheDocument();
       expect(pickingZoneTaskList?.textContent).toBe(`${sentenceA}${sentenceB}`);
     });
+
+    // const sentenceAElement = screen.queryByTestId(`task-${sentenceA}`);
+    // console.info('sentenceAElement', sentenceAElement);
+    // await act(() => {
+    //   fireEvent.dragStart(sentenceAElement!);
+    // });
   });
 });
