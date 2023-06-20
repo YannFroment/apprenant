@@ -71,6 +71,7 @@ export const TextReorderTraining = ({
 
         return <ColumnElement key={column.id} column={column} tasks={tasks} />;
       })}
+      <div data-testid="text-success"></div>
     </DragDropContext>
   );
 };

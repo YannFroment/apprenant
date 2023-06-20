@@ -35,3 +35,13 @@ describe('TextReorderTraining', () => {
     });
   });
 });
+
+describe('text ordered', () => {
+  it('it should show check if text is completely ordered', () => {
+    const sentenceA = 'A';
+    const sentenceB = 'B';
+    render(<TextReorderTraining sentences={[sentenceA, sentenceB]} />);
+
+    expect(screen.getByTestId('text-success')).toBeInTheDocument();
+  });
+});
