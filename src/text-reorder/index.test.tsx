@@ -1,6 +1,6 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { TextReorderTraining } from '.';
-import { ColumnsFormat } from './columnMapper';
+import { ColumnsData } from './columnMapper';
 
 describe('TextReorderTraining', () => {
   it('should display sentences in the initial columns and positions', async () => {
@@ -46,7 +46,7 @@ describe('text ordered', () => {
   it('it should show check if text is completely ordered', () => {
     const sentenceA = 'A';
     const sentenceB = 'B';
-    const columnsFormat: ColumnsFormat = {
+    const columnsData: ColumnsData = {
       tasks: {
         'sentence-1': { id: 'sentence-1', content: 'A' },
         'sentence-2': { id: 'sentence-2', content: 'B' },
@@ -69,7 +69,7 @@ describe('text ordered', () => {
       <TextReorderTraining
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceA, sentenceB]}
-        defaultColumnsFormat={columnsFormat}
+        defaultColumnsFormat={columnsData}
       />,
     );
 
@@ -79,7 +79,7 @@ describe('text ordered', () => {
   it('it should not show check if text is not completely ordered', () => {
     const sentenceA = 'A';
     const sentenceB = 'B';
-    const columnsFormat: ColumnsFormat = {
+    const columnsData: ColumnsData = {
       tasks: {
         'sentence-1': { id: 'sentence-1', content: 'A' },
         'sentence-2': { id: 'sentence-2', content: 'B' },
@@ -102,7 +102,7 @@ describe('text ordered', () => {
       <TextReorderTraining
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceB, sentenceA]}
-        defaultColumnsFormat={columnsFormat}
+        defaultColumnsFormat={columnsData}
       />,
     );
 

@@ -4,13 +4,13 @@ type ColumnId = string;
 export type Task = { id: TaskId; content: string };
 export type Column = { id: ColumnId; title: string; taskIds: TaskId[] };
 
-export type ColumnsFormat = {
+export type ColumnsData = {
   tasks: Record<TaskId, Task>;
   columns: Record<ColumnId, Column>;
   columnOrder: ColumnId[];
 };
 
-export const columnMapper = (sentences: string[]): ColumnsFormat => {
+export const columnMapper = (sentences: string[]): ColumnsData => {
   const tasks = sentences.reduce(
     (
       tasksAccumulator: Record<string, Task>,

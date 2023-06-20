@@ -1,13 +1,13 @@
-import { ColumnsFormat } from './columnMapper';
+import { ColumnsData } from './columnMapper';
 
 export const columnChecker = (
   orderedSentences: string[],
-  columnsFormat: ColumnsFormat,
+  columnsData: ColumnsData,
 ) => {
   const orderedText = orderedSentences.join('');
-  const proposedText = columnsFormat.columns['work-zone'].taskIds.reduce(
+  const proposedText = columnsData.columns['work-zone'].taskIds.reduce(
     (text: string, taskId) => {
-      const sentence = columnsFormat.tasks[taskId].content;
+      const sentence = columnsData.tasks[taskId].content;
 
       return text + sentence;
     },

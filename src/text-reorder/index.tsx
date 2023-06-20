@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { ColumnElement } from './ColumnElement';
-import { Column, ColumnsFormat, columnMapper } from './columnMapper';
+import { Column, ColumnsData, columnMapper } from './columnMapper';
 import { columnChecker } from './columnChecker';
 
 type TextReorderTrainingProps = {
   orderedSentences: string[];
   randomizedSentences: string[];
-  defaultColumnsFormat?: ColumnsFormat;
+  defaultColumnsFormat?: ColumnsData;
 };
 
 // TODO
 /**
- * rename ColumnsFormat
- * rename data setData
  * remove "training" suffix everywhere
  * rename columnChecker
  * rename columnMapper
@@ -26,7 +24,7 @@ export const TextReorderTraining = ({
   randomizedSentences,
   defaultColumnsFormat,
 }: TextReorderTrainingProps) => {
-  const [data, setData] = useState<ColumnsFormat>(
+  const [columnsData, setColumnsData] = useState<ColumnsData>(
     defaultColumnsFormat ?? columnMapper(randomizedSentences),
   );
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
@@ -41,17 +39,17 @@ export const TextReorderTraining = ({
       return;
     }
 
-    const startColumn = data.columns[source.droppableId];
-    const finishColumn = data.columns[destination.droppableId];
+    const startColumn = columnsData.columns[source.droppableId];
+    const finishColumn = columnsData.columns[destination.droppableId];
 
     if (startColumn === finishColumn) {
       const newTaskIds = [...startColumn.taskIds];
       newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, draggableId);
       const newColumn: Column = { ...startColumn, taskIds: newTaskIds };
-      setData({
-        ...data,
-        columns: { ...data.columns, [newColumn.id]: newColumn },
+      setColumnsData({
+        ...columnsData,
+        columns: { ...columnsData.columns, [newColumn.id]: newColumn },
       });
 
       return;
@@ -71,23 +69,23 @@ export const TextReorderTraining = ({
       taskIds: finishTaskIds,
     };
 
-    setData({
-      ...data,
+    setColumnsData({
+      ...columnsData,
       columns: {
-        ...data.columns,
+        ...columnsData.columns,
         [newStartColumn.id]: newStartColumn,
         [newFinishColumn.id]: newFinishColumn,
       },
     });
   };
 
-  const textIsReordered = columnChecker(orderedSentences, data);
+  const textIsReordered = columnChecker(orderedSentences, columnsData);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {data.columnOrder.map((columnId) => {
-        const column = data.columns[columnId];
-        const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+      {columnsData.columnOrder.map((columnId) => {
+        const column = columnsData.columns[columnId];
+        const tasks = column.taskIds.map((taskId) => columnsData.tasks[taskId]);
 
         return <ColumnElement key={column.id} column={column} tasks={tasks} />;
       })}
