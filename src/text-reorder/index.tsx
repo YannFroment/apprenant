@@ -10,6 +10,17 @@ type TextReorderTrainingProps = {
   defaultColumnsFormat?: ColumnsFormat;
 };
 
+// TODO
+/**
+ * rename ColumnsFormat
+ * rename data setData
+ * remove "training" suffix everywhere
+ * rename columnChecker
+ * rename columnMapper
+ * move togethre columnChecker & columnMapper
+ *
+ */
+
 export const TextReorderTraining = ({
   orderedSentences,
   randomizedSentences,
