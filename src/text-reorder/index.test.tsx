@@ -1,15 +1,15 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
-import { TextReorderTraining } from '.';
-import { ColumnsData } from './columnMapper';
+import { TextReorder } from '.';
+import { ColumnsData } from './toColumnsData';
 
-describe('TextReorderTraining', () => {
+describe('TextReorder', () => {
   it('should display sentences in the initial columns and positions', async () => {
     const sentenceA = 'A';
     const sentenceB = 'B';
     const sentenceAId = 'sentence-1';
     const sentenceBId = 'sentence-2';
     render(
-      <TextReorderTraining
+      <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceA, sentenceB]}
       />,
@@ -66,7 +66,7 @@ describe('text ordered', () => {
       columnOrder: ['work-zone', 'picking-zone'],
     };
     render(
-      <TextReorderTraining
+      <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceA, sentenceB]}
         defaultColumnsFormat={columnsData}
@@ -99,7 +99,7 @@ describe('text ordered', () => {
       columnOrder: ['work-zone', 'picking-zone'],
     };
     render(
-      <TextReorderTraining
+      <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceB, sentenceA]}
         defaultColumnsFormat={columnsData}

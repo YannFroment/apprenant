@@ -1,31 +1,26 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { ColumnElement } from './ColumnElement';
-import { Column, ColumnsData, columnMapper } from './columnMapper';
-import { columnChecker } from './columnChecker';
+import {
+  Column,
+  ColumnsData,
+  toColumnsData,
+  textChecker,
+} from './toColumnsData';
 
-type TextReorderTrainingProps = {
+type TextReorderProps = {
   orderedSentences: string[];
   randomizedSentences: string[];
   defaultColumnsFormat?: ColumnsData;
 };
 
-// TODO
-/**
- * remove "training" suffix everywhere
- * rename columnChecker
- * rename columnMapper
- * move togethre columnChecker & columnMapper
- *
- */
-
-export const TextReorderTraining = ({
+export const TextReorder = ({
   orderedSentences,
   randomizedSentences,
   defaultColumnsFormat,
-}: TextReorderTrainingProps) => {
+}: TextReorderProps) => {
   const [columnsData, setColumnsData] = useState<ColumnsData>(
-    defaultColumnsFormat ?? columnMapper(randomizedSentences),
+    defaultColumnsFormat ?? toColumnsData(randomizedSentences),
   );
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) {
@@ -79,7 +74,7 @@ export const TextReorderTraining = ({
     });
   };
 
-  const textIsReordered = columnChecker(orderedSentences, columnsData);
+  const textIsReordered = textChecker(orderedSentences, columnsData);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

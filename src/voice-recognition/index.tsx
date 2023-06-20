@@ -13,7 +13,7 @@ const context: VoiceRecognitionServiceContainer = {
   pictures: pexelPictures,
 };
 
-export const VoiceRecognitionTraining = () => {
+export const VoiceRecognition = () => {
   return (
     <VoiceRecognitionContext.Provider value={context}>
       <WordsContainer words={['voiture', 'bus', 'camion']} />

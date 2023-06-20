@@ -10,7 +10,7 @@ export type ColumnsData = {
   columnOrder: ColumnId[];
 };
 
-export const columnMapper = (sentences: string[]): ColumnsData => {
+export const toColumnsData = (sentences: string[]): ColumnsData => {
   const tasks = sentences.reduce(
     (
       tasksAccumulator: Record<string, Task>,
@@ -47,4 +47,21 @@ export const columnMapper = (sentences: string[]): ColumnsData => {
     },
     columnOrder: ['work-zone', 'picking-zone'],
   };
+};
+
+export const textChecker = (
+  orderedSentences: string[],
+  columnsData: ColumnsData,
+) => {
+  const orderedText = orderedSentences.join('');
+  const proposedText = columnsData.columns['work-zone'].taskIds.reduce(
+    (text: string, taskId) => {
+      const sentence = columnsData.tasks[taskId].content;
+
+      return text + sentence;
+    },
+    '',
+  );
+
+  return orderedText === proposedText;
 };
