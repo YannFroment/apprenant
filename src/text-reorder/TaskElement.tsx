@@ -30,6 +30,7 @@ export const TaskElement = ({ task, index }: TaskElementProps) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
+          data-testid={`task-${task.content}`}
         >
           {task.content}
         </TaskContainer>
