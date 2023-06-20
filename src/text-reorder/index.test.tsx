@@ -1,11 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { TextReorderTraining } from '.';
 
 describe('TextReorderTraining', () => {
@@ -40,11 +33,5 @@ describe('TextReorderTraining', () => {
       ).toBeInTheDocument();
       expect(pickingZoneTaskList?.textContent).toBe(`${sentenceA}${sentenceB}`);
     });
-
-    // const sentenceAElement = screen.queryByTestId(`task-${sentenceA}`);
-    // console.info('sentenceAElement', sentenceAElement);
-    // await act(() => {
-    //   fireEvent.dragStart(sentenceAElement!);
-    // });
   });
 });
