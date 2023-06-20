@@ -1,6 +1,6 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { TextReorder } from '.';
-import { ColumnsData } from './toColumnsData';
+import { ColumnsData } from './ColumnsData';
 
 describe('TextReorder', () => {
   it('should display sentences in the initial columns and positions', async () => {
