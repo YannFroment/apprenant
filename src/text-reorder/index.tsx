@@ -11,13 +11,13 @@ import {
 type TextReorderProps = {
   orderedSentences: string[];
   randomizedSentences: string[];
-  defaultColumnsFormat?: ColumnsData;
+  defaultColumnsData?: ColumnsData;
 };
 
 export const TextReorder = ({
   orderedSentences,
   randomizedSentences,
-  defaultColumnsFormat,
+  defaultColumnsData: defaultColumnsFormat,
 }: TextReorderProps) => {
   const [columnsData, setColumnsData] = useState<ColumnsData>(
     defaultColumnsFormat ?? toColumnsData(randomizedSentences),

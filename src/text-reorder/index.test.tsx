@@ -69,7 +69,7 @@ describe('text ordered', () => {
       <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceA, sentenceB]}
-        defaultColumnsFormat={columnsData}
+        defaultColumnsData={columnsData}
       />,
     );
 
@@ -102,7 +102,7 @@ describe('text ordered', () => {
       <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceB, sentenceA]}
-        defaultColumnsFormat={columnsData}
+        defaultColumnsData={columnsData}
       />,
     );
 
