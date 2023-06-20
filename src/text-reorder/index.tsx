@@ -17,10 +17,10 @@ type TextReorderProps = {
 export const TextReorder = ({
   orderedSentences,
   randomizedSentences,
-  defaultColumnsData: defaultColumnsFormat,
+  defaultColumnsData,
 }: TextReorderProps) => {
   const [columnsData, setColumnsData] = useState<ColumnsData>(
-    defaultColumnsFormat ?? toColumnsData(randomizedSentences),
+    defaultColumnsData ?? toColumnsData(randomizedSentences),
   );
   const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
     if (!destination) {
