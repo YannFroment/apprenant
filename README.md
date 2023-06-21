@@ -2,11 +2,18 @@
 
 Application de support d'enseignement à destination d'adultes en situation d'illettrisme.
 
+## Installer les dépendances
+
+`docker-compose run --rm frontend npm install`
+
 ## Lancer l'application en local
 
-`npm install`
-`npm run dev`
+`docker-compose up`
 
 ## Lancer les tests
 
-`npm run test`
+`docker-compose run --rm frontend npm run test`
+
+## Compiler
+
+`docker-compose run --rm frontend npm run build`
