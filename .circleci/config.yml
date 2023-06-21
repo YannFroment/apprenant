@@ -1,0 +1,24 @@
+version: '2.1'
+orbs:
+  node: circleci/node@5.0.3
+jobs:
+  lint-and-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: ~/project/frontend
+          pkg-manager: npm
+      - run:
+          command: npm run lint
+          name: Run linter
+          working_directory: ~/project/frontend
+      - run:
+          command: npm run test
+          name: Run unit tests
+          working_directory: ~/project/frontend
+workflows:
+  frontend:
+    jobs:
+      - lint-and-test
