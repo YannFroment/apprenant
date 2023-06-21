@@ -1,0 +1,11 @@
+version: "2.0"
+
+services:
+  frontend:
+    build: ./docker/node
+    environment:
+      NODE_ENV: development
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend:/usr/src/
