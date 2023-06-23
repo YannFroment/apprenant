@@ -1,6 +1,7 @@
-import { render, within, screen, waitFor } from '@testing-library/react';
-import { Word } from './Word';
+import { render, screen, waitFor, within } from '@testing-library/react';
+
 import { TestContainer } from '../../tests/utils';
+import { Word } from './Word';
 
 describe('Word', () => {
   it('should display the word name', async () => {

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+
 import { ColumnElement } from './ColumnElement';
-import { Column, ColumnsData, toColumnsData, textChecker } from './ColumnsData';
+import { Column, ColumnsData, textChecker, toColumnsData } from './ColumnsData';
 
 type TextReorderProps = {
   orderedSentences: string[];

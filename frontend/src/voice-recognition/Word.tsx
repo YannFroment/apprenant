@@ -1,6 +1,6 @@
-import { SpeechRecorder } from './SpeechRecorder';
 import { Listen } from './Listen';
 import { Picture } from './Picture';
+import { SpeechRecorder } from './SpeechRecorder';
 
 type WordProps = {
   word: string;

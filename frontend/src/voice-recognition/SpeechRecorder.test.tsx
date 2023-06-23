@@ -1,8 +1,9 @@
-import { render, within, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SpeechRecorder } from './SpeechRecorder';
+
 import { TestContainer } from '../../tests/utils';
 import { SpeechRecorderFactory } from './domain/SpeechRecorderFactory';
+import { SpeechRecorder } from './SpeechRecorder';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {

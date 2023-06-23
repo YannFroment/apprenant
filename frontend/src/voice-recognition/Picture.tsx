@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
 
 type PictureProps = {

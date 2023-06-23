@@ -1,6 +1,6 @@
 import { pexelPictures } from './external-services/Pictures';
-import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import { windowSpeechSynth } from './external-services/SpeechSynth';
+import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import {
   VoiceRecognitionContext,
   VoiceRecognitionServiceContainer,

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { Word } from './Word';
 
 const Container = styled.div`
