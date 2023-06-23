@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Exercices } from './pages/exercices';
+import { Exercices } from './pages/Exercices';
 import { TextReorder } from './text-reorder';
 import { VoiceRecognition } from './voice-recognition';
 

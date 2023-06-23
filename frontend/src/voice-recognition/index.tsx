@@ -6,6 +6,7 @@ import {
   VoiceRecognitionServiceContainer,
 } from './service-container/ServiceContainerContext';
 import { WordsContainer } from './WordsContainer';
+import { Layout } from '../pages/layouts/Layout';
 
 const context: VoiceRecognitionServiceContainer = {
   speechSynth: windowSpeechSynth,
@@ -15,8 +16,10 @@ const context: VoiceRecognitionServiceContainer = {
 
 export const VoiceRecognition = () => {
   return (
-    <VoiceRecognitionContext.Provider value={context}>
-      <WordsContainer words={['voiture', 'bus', 'camion']} />
-    </VoiceRecognitionContext.Provider>
+    <Layout headerLabel={'Voice recognition toto'}>
+      <VoiceRecognitionContext.Provider value={context}>
+        <WordsContainer words={['voiture', 'bus', 'camion']} />
+      </VoiceRecognitionContext.Provider>
+    </Layout>
   );
 };

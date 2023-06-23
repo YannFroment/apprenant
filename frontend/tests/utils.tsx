@@ -4,6 +4,9 @@ import {
   VoiceRecognitionContext,
   VoiceRecognitionServiceContainer,
 } from '../src/voice-recognition/service-container/ServiceContainerContext';
+import { theme } from '../src/theme';
+import { ThemeProvider } from 'styled-components';
+import { render } from '@testing-library/react';
 
 const defaultContainer: VoiceRecognitionServiceContainer = {
   speechSynth: { speak: () => {} },
@@ -39,4 +42,8 @@ export const TestContainer = ({
       {children}
     </VoiceRecognitionContext.Provider>
   );
+};
+
+export const renderWithinTheme = (children: ReactNode) => {
+  render(<ThemeProvider theme={theme}>{children}</ThemeProvider>);
 };

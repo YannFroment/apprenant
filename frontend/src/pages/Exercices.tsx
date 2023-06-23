@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import { Layout } from './layouts/Layout';
 
 export const Exercices = () => {
   return (
-    <div>
+    <Layout>
       <Link to="/text-reorder" relative="path">
         text-reorder
       </Link>
@@ -10,6 +11,6 @@ export const Exercices = () => {
       <Link to="/voice-recognition" relative="path">
         voice-recognition
       </Link>
-    </div>
+    </Layout>
   );
 };
