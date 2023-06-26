@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Link } from '../views/Link';
 import { Layout } from './layouts/Layout';
 
 const DashboardContainer = styled.div`

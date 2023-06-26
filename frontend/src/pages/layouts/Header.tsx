@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { Link } from '../../views/Link';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -16,24 +17,20 @@ const StyledImage = styled.img<{
   width: ${({ $width }) => $width};
 `;
 
-const HeaderImage = () => {
+const HeaderLogo = () => {
   return (
-    <NavLink to="/">
+    <Link to="/">
       <StyledImage
         src="https://res.cloudinary.com/apprenantv1-repo1/image/upload/v1687781189/logo_apprenant-X1_gris_rwzmnz.png"
         $height={'64px'}
         $width={'64px'}
       />
-    </NavLink>
+    </Link>
   );
 };
 
-const StyledLink = styled(NavLink)`
-  color: ${({ theme }) => theme.colors.blue};
-`;
-
 const HomeLink = () => {
-  return <StyledLink to="/">Accueil</StyledLink>;
+  return <Link to="/">Accueil</Link>;
 };
 
 const Nav = styled.nav`
@@ -46,7 +43,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Nav>
-        <HeaderImage />
+        <HeaderLogo />
         <HomeLink />
       </Nav>
     </StyledHeader>
