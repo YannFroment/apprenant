@@ -27,8 +27,9 @@ export const Footer = () => {
       <FooterTitle>NOUS SOMMES TOUS APPRENANTS</FooterTitle>
       <FooterText>
         Ce projet est inspiré des recherches de Francine Dessis, conseillère
-        pédagogique ainsi que des précieux travaux de Bernadette Gueritte Hess
-        et d'Elisabeth Pelloquin, expertes en pédagogie.
+        pédagogique <br />
+        ainsi que des précieux travaux de Bernadette Gueritte Hess et
+        d'Elisabeth Pelloquin, expertes en pédagogie.
       </FooterText>
     </StyledFooter>
   );

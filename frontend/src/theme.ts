@@ -6,7 +6,7 @@ export const theme = {
     size: {
       small: '12px',
       medium: '16px',
-      big: '42px',
+      big: '32px',
     },
     family: {
       default: 'Inter, Arial',
@@ -15,6 +15,6 @@ export const theme = {
   spacing: {
     small: '8px',
     medium: '16px',
-    big: '32px',
+    big: '24px',
   },
 };
