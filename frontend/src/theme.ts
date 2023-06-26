@@ -12,4 +12,9 @@ export const theme = {
       default: 'Inter, Arial',
     },
   },
+  spacing: {
+    small: '8px',
+    medium: '16px',
+    big: '32px',
+  },
 };
