@@ -1,7 +1,8 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { WordsContainer } from './WordsContainer';
+
 import { TestContainer } from '../../tests/utils';
+import { WordsContainer } from './WordsContainer';
 
 describe('WordsContainer', () => {
   it('should display a component for each word of the list of words', async () => {

@@ -1,4 +1,4 @@
-import { toColumnsData, ColumnsData, textChecker } from './ColumnsData';
+import { ColumnsData, textChecker, toColumnsData } from './ColumnsData';
 
 describe('toColumnsData', () => {
   it('should format sentences into initial data for text reordering', () => {

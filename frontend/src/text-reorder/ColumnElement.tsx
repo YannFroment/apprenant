@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+
+import { Column, Task } from './ColumnsData';
 import { StrictModeDroppable } from './StrictModeDroppable';
 import { TaskElement, TaskList } from './TaskElement';
-import { Column, Task } from './ColumnsData';
 
 export const Container = styled.div`
   margin: 8px;

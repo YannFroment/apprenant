@@ -1,4 +1,5 @@
-import { waitFor, render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+
 import { TestContainer } from '../../tests/utils';
 import { Pictures } from './domain/Pictures';
 import { Picture } from './Picture';

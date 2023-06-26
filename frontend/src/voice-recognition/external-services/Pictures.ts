@@ -1,5 +1,6 @@
+import { createClient, PhotosWithTotalResults } from 'pexels';
+
 import { Pictures } from '../domain/Pictures';
-import { PhotosWithTotalResults, createClient } from 'pexels';
 
 const client = createClient(
   'MxfAMFGikKpGKlWfKig5KPiffb7pimPKlKsAN7QBTMRBVsdujYQiws9j',
