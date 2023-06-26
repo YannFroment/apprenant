@@ -1,5 +1,8 @@
+import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
+import { ThemeProvider } from 'styled-components';
 
+import { theme } from '../src/theme';
 import {
   VoiceRecognitionContext,
   VoiceRecognitionServiceContainer,
@@ -39,4 +42,8 @@ export const TestContainer = ({
       {children}
     </VoiceRecognitionContext.Provider>
   );
+};
+
+export const renderWithinTheme = (children: ReactNode) => {
+  render(<ThemeProvider theme={theme}>{children}</ThemeProvider>);
 };

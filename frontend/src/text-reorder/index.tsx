@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
+import { Layout } from '../pages/layouts/Layout';
 import { ColumnElement } from './ColumnElement';
 import { Column, ColumnsData, textChecker, toColumnsData } from './ColumnsData';
 
@@ -73,14 +74,20 @@ export const TextReorder = ({
   const textIsReordered = textChecker(orderedSentences, columnsData);
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {columnsData.columnOrder.map((columnId) => {
-        const column = columnsData.columns[columnId];
-        const tasks = column.taskIds.map((taskId) => columnsData.tasks[taskId]);
+    <Layout>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {columnsData.columnOrder.map((columnId) => {
+          const column = columnsData.columns[columnId];
+          const tasks = column.taskIds.map(
+            (taskId) => columnsData.tasks[taskId],
+          );
 
-        return <ColumnElement key={column.id} column={column} tasks={tasks} />;
-      })}
-      {textIsReordered && <div data-testid="text-success">&#9989;</div>}
-    </DragDropContext>
+          return (
+            <ColumnElement key={column.id} column={column} tasks={tasks} />
+          );
+        })}
+        {textIsReordered && <div data-testid="text-success">&#9989;</div>}
+      </DragDropContext>
+    </Layout>
   );
 };

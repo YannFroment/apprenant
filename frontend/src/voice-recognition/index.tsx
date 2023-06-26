@@ -1,3 +1,4 @@
+import { Layout } from '../pages/layouts/Layout';
 import { pexelPictures } from './external-services/Pictures';
 import { windowSpeechSynth } from './external-services/SpeechSynth';
 import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
@@ -15,8 +16,10 @@ const context: VoiceRecognitionServiceContainer = {
 
 export const VoiceRecognition = () => {
   return (
-    <VoiceRecognitionContext.Provider value={context}>
-      <WordsContainer words={['voiture', 'bus', 'camion']} />
-    </VoiceRecognitionContext.Provider>
+    <Layout headerLabel={'Voice recognition toto'}>
+      <VoiceRecognitionContext.Provider value={context}>
+        <WordsContainer words={['voiture', 'bus', 'camion']} />
+      </VoiceRecognitionContext.Provider>
+    </Layout>
   );
 };
