@@ -1,6 +1,10 @@
 import { Link as BaseLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Link = styled(BaseLink)`
-  color: ${({ theme }) => theme.colors.blue};
+type LinkProps = {
+  $color?: string;
+};
+
+export const Link = styled(BaseLink)<LinkProps>`
+  color: ${({ theme, $color }) => $color ?? theme.colors.blue};
 `;
