@@ -16,7 +16,7 @@ const context: VoiceRecognitionServiceContainer = {
 
 export const VoiceRecognition = () => {
   return (
-    <Layout headerLabel={'Voice recognition toto'}>
+    <Layout>
       <VoiceRecognitionContext.Provider value={context}>
         <WordsContainer words={['voiture', 'bus', 'camion']} />
       </VoiceRecognitionContext.Provider>

@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { theme } from '../src/theme';
@@ -45,5 +46,9 @@ export const TestContainer = ({
 };
 
 export const renderWithinTheme = (children: ReactNode) => {
-  render(<ThemeProvider theme={theme}>{children}</ThemeProvider>);
+  render(
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>{children}</BrowserRouter>
+    </ThemeProvider>,
+  );
 };
