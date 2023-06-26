@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Exercices } from './pages/Exercices';
+import { Dashboard } from './pages/Dashboard';
 import { TextReorder } from './text-reorder';
 import { VoiceRecognition } from './voice-recognition';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Exercices />,
+    element: <Dashboard />,
   },
   {
     path: '/text-reorder',

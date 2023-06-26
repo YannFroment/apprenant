@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Layout } from './layouts/Layout';
 
-const ExercicesContainer = styled.div`
+const DashboardContainer = styled.div`
   padding-top: 72px;
   padding-left: 72px;
   display: flex;
@@ -11,17 +11,17 @@ const ExercicesContainer = styled.div`
   gap: ${({ theme }) => theme.spacing.small};
 `;
 
-export const Exercices = () => {
+export const Dashboard = () => {
   return (
     <Layout>
-      <ExercicesContainer>
+      <DashboardContainer>
         <Link to="/text-reorder" relative="path">
           Remettre le texte dans l'ordre
         </Link>
         <Link to="/voice-recognition" relative="path">
           Reconnaître les mots
         </Link>
-      </ExercicesContainer>
+      </DashboardContainer>
     </Layout>
   );
 };
