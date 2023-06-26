@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/voice-recognition',
+    path: '/word-recognition',
     element: <VoiceRecognition />,
   },
 ]);

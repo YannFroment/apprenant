@@ -18,7 +18,7 @@ export const Dashboard = () => {
         <Link to="/text-reorder" relative="path">
           Remettre le texte dans l'ordre
         </Link>
-        <Link to="/voice-recognition" relative="path">
+        <Link to="/word-recognition" relative="path">
           Reconnaître les mots
         </Link>
       </DashboardContainer>
