@@ -6,5 +6,5 @@ type LinkProps = {
 };
 
 export const Link = styled(BaseLink)<LinkProps>`
-  color: ${({ theme, $color }) => $color ?? theme.colors.blue};
+  color: ${({ theme, $color }) => ($color ? $color : theme.colors.blue)};
 `;

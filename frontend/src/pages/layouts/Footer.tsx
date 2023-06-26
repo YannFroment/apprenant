@@ -17,6 +17,8 @@ const FooterTitle = styled.h2`
 
 const FooterText = styled.p`
   font-size: ${({ theme }) => theme.font.size.small};
+  text-align: center;
+  line-height: 13px;
 `;
 
 export const Footer = () => {

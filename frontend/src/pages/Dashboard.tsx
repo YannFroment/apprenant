@@ -5,7 +5,7 @@ import { Layout } from './layouts/Layout';
 
 const DashboardContainer = styled.div`
   padding-top: 72px;
-  padding-left: 72px;
+  padding-left: 88px;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.small};
