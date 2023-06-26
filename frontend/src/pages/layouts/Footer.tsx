@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
-  background-color: aquamarine;
+  font-size: ${({ theme }) => theme.font.size.medium};
   height: 60px;
 `;
 

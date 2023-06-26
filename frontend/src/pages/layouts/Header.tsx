@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledHeader = styled.header`
   height: 60px;
-  background-color: ${({ theme }) => theme.colors.blue};
+  font-size: ${({ theme }) => theme.font.size.medium};
 `;
 
 type HeaderProps = {

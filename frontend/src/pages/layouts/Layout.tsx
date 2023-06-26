@@ -16,6 +16,7 @@ const LayoutContainer = styled.div`
     'header'
     'main'
     'footer';
+  font-family: ${({ theme }) => theme.font.family.default};
 `;
 
 export const Layout = ({ children, headerLabel }: LayoutProps) => {
