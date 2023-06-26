@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
+  display: flex;
   height: 80px;
   padding: ${({ theme }) => theme.spacing.small};
   font-size: ${({ theme }) => theme.font.size.medium};
@@ -28,17 +28,27 @@ const HeaderImage = () => {
   );
 };
 
-type HeaderProps = {
-  children: ReactNode;
+const StyledLink = styled(NavLink)`
+  color: ${({ theme }) => theme.colors.blue};
+`;
+
+const HomeLink = () => {
+  return <StyledLink to="/">Accueil</StyledLink>;
 };
 
-export const Header = ({ children }: HeaderProps) => {
+const Nav = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+export const Header = () => {
   return (
     <StyledHeader>
-      <>
+      <Nav>
         <HeaderImage />
-        {children}
-      </>
+        <HomeLink />
+      </Nav>
     </StyledHeader>
   );
 };
