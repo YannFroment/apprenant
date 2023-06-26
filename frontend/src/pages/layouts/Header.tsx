@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledHeader = styled.header`
@@ -17,11 +18,13 @@ const StyledImage = styled.img<{
 
 const HeaderImage = () => {
   return (
-    <StyledImage
-      src="https://res.cloudinary.com/apprenantv1-repo1/image/upload/v1687781189/logo_apprenant-X1_gris_rwzmnz.png"
-      $height={'64px'}
-      $width={'64px'}
-    />
+    <NavLink to="/">
+      <StyledImage
+        src="https://res.cloudinary.com/apprenantv1-repo1/image/upload/v1687781189/logo_apprenant-X1_gris_rwzmnz.png"
+        $height={'64px'}
+        $width={'64px'}
+      />
+    </NavLink>
   );
 };
 
