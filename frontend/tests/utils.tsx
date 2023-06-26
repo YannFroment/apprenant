@@ -1,12 +1,12 @@
+import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
+import { ThemeProvider } from 'styled-components';
 
+import { theme } from '../src/theme';
 import {
   VoiceRecognitionContext,
   VoiceRecognitionServiceContainer,
 } from '../src/voice-recognition/service-container/ServiceContainerContext';
-import { theme } from '../src/theme';
-import { ThemeProvider } from 'styled-components';
-import { render } from '@testing-library/react';
 
 const defaultContainer: VoiceRecognitionServiceContainer = {
   speechSynth: { speak: () => {} },

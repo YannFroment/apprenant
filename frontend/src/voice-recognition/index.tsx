@@ -1,3 +1,4 @@
+import { Layout } from '../pages/layouts/Layout';
 import { pexelPictures } from './external-services/Pictures';
 import { windowSpeechSynth } from './external-services/SpeechSynth';
 import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
@@ -6,7 +7,6 @@ import {
   VoiceRecognitionServiceContainer,
 } from './service-container/ServiceContainerContext';
 import { WordsContainer } from './WordsContainer';
-import { Layout } from '../pages/layouts/Layout';
 
 const context: VoiceRecognitionServiceContainer = {
   speechSynth: windowSpeechSynth,
