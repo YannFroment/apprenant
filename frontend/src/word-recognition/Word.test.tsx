@@ -45,7 +45,7 @@ describe('Word', () => {
     });
   });
 
-  it('should display VoiceRecognition component', async () => {
+  it('should display WordRecognition component', async () => {
     render(
       <TestContainer>
         <Word word={'chat'} />

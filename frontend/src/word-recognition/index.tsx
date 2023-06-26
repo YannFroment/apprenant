@@ -3,23 +3,23 @@ import { pexelPictures } from './external-services/Pictures';
 import { windowSpeechSynth } from './external-services/SpeechSynth';
 import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import {
-  VoiceRecognitionContext,
-  VoiceRecognitionServiceContainer,
+  WordRecognitionContext,
+  WordRecognitionServiceContainer,
 } from './service-container/ServiceContainerContext';
 import { WordsContainer } from './WordsContainer';
 
-const context: VoiceRecognitionServiceContainer = {
+const context: WordRecognitionServiceContainer = {
   speechSynth: windowSpeechSynth,
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
 };
 
-export const VoiceRecognition = () => {
+export const WordRecognition = () => {
   return (
     <Layout>
-      <VoiceRecognitionContext.Provider value={context}>
+      <WordRecognitionContext.Provider value={context}>
         <WordsContainer words={['voiture', 'bus', 'camion']} />
-      </VoiceRecognitionContext.Provider>
+      </WordRecognitionContext.Provider>
     </Layout>
   );
 };

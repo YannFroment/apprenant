@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Dashboard } from './pages/Dashboard';
 import { TextReorder } from './text-reorder';
-import { VoiceRecognition } from './voice-recognition';
+import { WordRecognition } from './word-recognition';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/word-recognition',
-    element: <VoiceRecognition />,
+    element: <WordRecognition />,
   },
 ]);
 

@@ -5,11 +5,11 @@ import { ThemeProvider } from 'styled-components';
 
 import { theme } from '../src/theme';
 import {
-  VoiceRecognitionContext,
-  VoiceRecognitionServiceContainer,
-} from '../src/voice-recognition/service-container/ServiceContainerContext';
+  WordRecognitionContext,
+  WordRecognitionServiceContainer,
+} from '../src/word-recognition/service-container/ServiceContainerContext';
 
-const defaultContainer: VoiceRecognitionServiceContainer = {
+const defaultContainer: WordRecognitionServiceContainer = {
   speechSynth: { speak: () => {} },
   speechRecorderFactory: () => {
     return {
@@ -25,8 +25,8 @@ const defaultContainer: VoiceRecognitionServiceContainer = {
 };
 
 const createContainer = (
-  overrideContainer: Partial<VoiceRecognitionServiceContainer>,
-): VoiceRecognitionServiceContainer => {
+  overrideContainer: Partial<WordRecognitionServiceContainer>,
+): WordRecognitionServiceContainer => {
   return { ...defaultContainer, ...overrideContainer };
 };
 
@@ -35,13 +35,13 @@ export const TestContainer = ({
   overrideServices,
 }: {
   children: ReactNode;
-  overrideServices?: Partial<VoiceRecognitionServiceContainer>;
+  overrideServices?: Partial<WordRecognitionServiceContainer>;
 }) => {
   const container = createContainer(overrideServices ?? {});
   return (
-    <VoiceRecognitionContext.Provider value={container}>
+    <WordRecognitionContext.Provider value={container}>
       {children}
-    </VoiceRecognitionContext.Provider>
+    </WordRecognitionContext.Provider>
   );
 };
 

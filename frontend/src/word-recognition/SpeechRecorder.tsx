@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { VoiceRecognitionContext } from './service-container/ServiceContainerContext';
+import { WordRecognitionContext } from './service-container/ServiceContainerContext';
 
 type SpeechRecorderProps = {
   text: string;
@@ -16,7 +16,7 @@ export const SpeechRecorder = ({
     defaultIsRecording ?? false,
   );
   const { speechRecorderFactory: createSpeechRecorder } = useContext(
-    VoiceRecognitionContext,
+    WordRecognitionContext,
   );
 
   useEffect(() => {

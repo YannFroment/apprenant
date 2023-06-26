@@ -4,13 +4,13 @@ import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechSynth } from '../domain/SpeechSynth';
 
-export type VoiceRecognitionServiceContainer = {
+export type WordRecognitionServiceContainer = {
   speechSynth: SpeechSynth;
   speechRecorderFactory: SpeechRecorderFactory;
   pictures: Pictures;
 };
 
-export const VoiceRecognitionContext =
-  createContext<VoiceRecognitionServiceContainer>(
-    {} as VoiceRecognitionServiceContainer,
+export const WordRecognitionContext =
+  createContext<WordRecognitionServiceContainer>(
+    {} as WordRecognitionServiceContainer,
   );
