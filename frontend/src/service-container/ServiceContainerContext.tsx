@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
-import { Pictures } from '../word-recognition/domain/Pictures';
-import { SpeechRecorderFactory } from '../word-recognition/domain/SpeechRecorderFactory';
-import { SpeechSynth } from '../word-recognition/domain/SpeechSynth';
+import { Pictures } from '../domain/Pictures';
+import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
+import { SpeechSynth } from '../domain/SpeechSynth';
 
 export type ServiceContainer = {
   speechSynth: SpeechSynth;

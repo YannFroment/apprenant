@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TestContainer } from '../../tests/utils';
-import { SpeechRecorderFactory } from './domain/SpeechRecorderFactory';
+import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechRecorder } from './SpeechRecorder';
 
 describe('SpeechRecorder', () => {

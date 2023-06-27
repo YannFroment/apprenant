@@ -1,4 +1,4 @@
-import { SpeechRecorderFactory } from '../word-recognition/domain/SpeechRecorderFactory';
+import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 
 export const windowSpeechRecorderFactory: SpeechRecorderFactory = (
   saveTranscript,
