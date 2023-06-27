@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { WordRecognitionContext } from './service-container/ServiceContainerContext';
+import { AppContext } from '../service-container/ServiceContainerContext';
 
 type PictureProps = {
   word: string;
@@ -8,7 +8,7 @@ type PictureProps = {
 
 export const Picture = ({ word }: PictureProps) => {
   const [imageUrl, setImageUrl] = useState('');
-  const { pictures } = useContext(WordRecognitionContext);
+  const { pictures } = useContext(AppContext);
 
   useEffect(() => {
     pictures.get(word).then((url) => {

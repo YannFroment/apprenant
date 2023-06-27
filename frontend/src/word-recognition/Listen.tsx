@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 
-import { WordRecognitionContext } from './service-container/ServiceContainerContext';
+import { AppContext } from '../service-container/ServiceContainerContext';
 
 type ListenProps = {
   word: string;
 };
 
 export const Listen = ({ word }: ListenProps) => {
-  const { speechSynth } = useContext(WordRecognitionContext);
+  const { speechSynth } = useContext(AppContext);
 
   const handleSpeak = (word: string) => () => {
     speechSynth.speak(word);
