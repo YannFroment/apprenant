@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppService } from './app.service';
+import { HealthCheck } from './app.service';
 
 describe('AppService', () => {
-  let appService: AppService;
+  let healthCheck: HealthCheck;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AppService],
+      providers: [HealthCheck],
     }).compile();
 
-    appService = module.get<AppService>(AppService);
+    healthCheck = module.get<HealthCheck>(HealthCheck);
   });
 
-  it('should return Hello World!', () => {
-    expect(appService.getHello()).toBe('Hello World!');
+  it('should return status', () => {
+    expect(healthCheck.getStatus()).toBe('Backend is running.');
   });
 });

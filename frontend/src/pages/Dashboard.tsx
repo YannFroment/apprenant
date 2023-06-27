@@ -26,7 +26,7 @@ const Text = styled.p`
 export const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get('http://localhost:3000/');
+      const { data } = await axios.get('http://localhost:3000/healthcheck');
       console.log(data);
     };
     fetchData();
