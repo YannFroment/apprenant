@@ -1,14 +1,15 @@
 import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { theme } from '../src/theme';
 import {
-  VoiceRecognitionContext,
-  VoiceRecognitionServiceContainer,
-} from '../src/voice-recognition/service-container/ServiceContainerContext';
+  WordRecognitionContext,
+  WordRecognitionServiceContainer,
+} from '../src/word-recognition/service-container/ServiceContainerContext';
 
-const defaultContainer: VoiceRecognitionServiceContainer = {
+const defaultContainer: WordRecognitionServiceContainer = {
   speechSynth: { speak: () => {} },
   speechRecorderFactory: () => {
     return {
@@ -24,8 +25,8 @@ const defaultContainer: VoiceRecognitionServiceContainer = {
 };
 
 const createContainer = (
-  overrideContainer: Partial<VoiceRecognitionServiceContainer>,
-): VoiceRecognitionServiceContainer => {
+  overrideContainer: Partial<WordRecognitionServiceContainer>,
+): WordRecognitionServiceContainer => {
   return { ...defaultContainer, ...overrideContainer };
 };
 
@@ -34,16 +35,20 @@ export const TestContainer = ({
   overrideServices,
 }: {
   children: ReactNode;
-  overrideServices?: Partial<VoiceRecognitionServiceContainer>;
+  overrideServices?: Partial<WordRecognitionServiceContainer>;
 }) => {
   const container = createContainer(overrideServices ?? {});
   return (
-    <VoiceRecognitionContext.Provider value={container}>
+    <WordRecognitionContext.Provider value={container}>
       {children}
-    </VoiceRecognitionContext.Provider>
+    </WordRecognitionContext.Provider>
   );
 };
 
 export const renderWithinTheme = (children: ReactNode) => {
-  render(<ThemeProvider theme={theme}>{children}</ThemeProvider>);
+  render(
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>{children}</BrowserRouter>
+    </ThemeProvider>,
+  );
 };

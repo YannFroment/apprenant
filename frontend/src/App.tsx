@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Exercices } from './pages/Exercices';
+import { Dashboard } from './pages/Dashboard';
 import { TextReorder } from './text-reorder';
-import { VoiceRecognition } from './voice-recognition';
+import { WordRecognition } from './word-recognition';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Exercices />,
+    element: <Dashboard />,
   },
   {
     path: '/text-reorder',
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/voice-recognition',
-    element: <VoiceRecognition />,
+    path: '/word-recognition',
+    element: <WordRecognition />,
   },
 ]);
 

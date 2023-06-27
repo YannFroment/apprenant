@@ -5,7 +5,7 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import { Main } from './Main';
 
-type LayoutProps = { children: ReactNode; headerLabel?: string };
+type LayoutProps = { children: ReactNode };
 
 const LayoutContainer = styled.div`
   height: 100vh;
@@ -16,12 +16,13 @@ const LayoutContainer = styled.div`
     'header'
     'main'
     'footer';
+  font-family: ${({ theme }) => theme.font.family.default};
 `;
 
-export const Layout = ({ children, headerLabel }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutContainer>
-      <Header>{headerLabel ?? 'Texte par défaut du header'}</Header>
+      <Header />
       <Main>{children}</Main>
       <Footer />
     </LayoutContainer>
