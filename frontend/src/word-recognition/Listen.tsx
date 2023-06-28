@@ -1,13 +1,11 @@
-import { useContext } from 'react';
-
-import { AppContext } from '../service-container/ServiceContainerContext';
+import { useAppContext } from '../service-container/ServiceContainerContext';
 
 type ListenProps = {
   word: string;
 };
 
 export const Listen = ({ word }: ListenProps) => {
-  const { speechSynth } = useContext(AppContext);
+  const { speechSynth } = useAppContext();
 
   const handleSpeak = (word: string) => () => {
     speechSynth.speak(word);

@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
@@ -13,3 +13,5 @@ export type ServiceContainer = {
 export const AppContext = createContext<ServiceContainer>(
   {} as ServiceContainer,
 );
+
+export const useAppContext = () => useContext(AppContext);

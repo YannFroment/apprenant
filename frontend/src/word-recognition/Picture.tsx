@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { AppContext } from '../service-container/ServiceContainerContext';
+import { useAppContext } from '../service-container/ServiceContainerContext';
 
 type PictureProps = {
   word: string;
@@ -8,7 +8,7 @@ type PictureProps = {
 
 export const Picture = ({ word }: PictureProps) => {
   const [imageUrl, setImageUrl] = useState('');
-  const { pictures } = useContext(AppContext);
+  const { pictures } = useAppContext();
 
   useEffect(() => {
     pictures.get(word).then((url) => {

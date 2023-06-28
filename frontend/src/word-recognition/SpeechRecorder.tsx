@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { AppContext } from '../service-container/ServiceContainerContext';
+import { useAppContext } from '../service-container/ServiceContainerContext';
 
 type SpeechRecorderProps = {
   text: string;
@@ -15,7 +15,7 @@ export const SpeechRecorder = ({
   const [isRecording, setIsRecording] = useState<boolean>(
     defaultIsRecording ?? false,
   );
-  const { speechRecorderFactory } = useContext(AppContext);
+  const { speechRecorderFactory } = useAppContext();
 
   useEffect(() => {
     const { start, stop } = speechRecorderFactory(setTranscript);
