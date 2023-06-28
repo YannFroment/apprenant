@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { TestContainer } from '../../tests/utils';
+import { renderWithinProviders } from '../../tests/utils';
 import { Listen } from './Listen';
 
 describe('play audio', () => {
@@ -12,11 +12,7 @@ describe('play audio', () => {
 
     const spyOnSpeak = jest.spyOn(speechSynth, 'speak');
 
-    render(
-      <TestContainer overrideServices={{ speechSynth }}>
-        <Listen word={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<Listen word={'chat'} />, { speechSynth });
 
     await userEvent.click(screen.getByText('Écouter'));
 

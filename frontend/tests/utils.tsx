@@ -30,7 +30,7 @@ const createContainer = (
   return { ...defaultContainer, ...overrideContainer };
 };
 
-export const TestContainer = ({
+const TestContainer = ({
   children,
   overrideServices,
 }: {

@@ -1,17 +1,13 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { TestContainer } from '../../tests/utils';
+import { renderWithinProviders } from '../../tests/utils';
 import { WordsContainer } from './WordsContainer';
 
 describe('WordsContainer', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
-    render(
-      <TestContainer>
-        <WordsContainer words={words} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<WordsContainer words={words} />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('chat')).toBeInTheDocument();
@@ -21,11 +17,7 @@ describe('WordsContainer', () => {
   });
 
   it('should not change record button text for a word when clicking record button for another word', async () => {
-    render(
-      <TestContainer>
-        <WordsContainer words={['chat', 'chien']} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<WordsContainer words={['chat', 'chien']} />);
     await userEvent.click(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
     );
