@@ -43,14 +43,6 @@ export const TestContainer = ({
   );
 };
 
-export const renderWithinTheme = (children: ReactNode) => {
-  render(
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>{children}</BrowserRouter>
-    </ThemeProvider>,
-  );
-};
-
 export const renderWithinProviders = (
   children: ReactNode,
   overrideServices?: Partial<ServiceContainer>,
