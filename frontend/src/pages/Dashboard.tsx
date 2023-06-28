@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useAppContext } from '../service-container/ServiceContainerContext';
@@ -24,14 +24,17 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
+  const [mess, setMess] = useState('');
+
   const { backend } = useAppContext();
   useEffect(() => {
     const fetchData = async () => {
       const result = await backend.get('http://localhost:3000/healthcheck');
       console.log(result);
+      setMess(result);
     };
     fetchData();
-  }, []);
+  }, [backend]);
   return (
     <Layout>
       <DashboardContainer>
