@@ -19,7 +19,7 @@ describe('Dashboard', () => {
       consoleSpy.mockRestore();
     });
   });
-  it('Backend should render a message', async () => {
+  it('Should call backend and render a message', async () => {
     const backend: Backend = {
       get: async () => {
         return 'hello world';
