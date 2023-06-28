@@ -22,6 +22,11 @@ const defaultContainer: ServiceContainer = {
       return searchKey;
     },
   },
+  backend: {
+    get: async (url) => {
+      return url;
+    },
+  },
 };
 
 const createContainer = (

@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
+import { useAppContext } from '../service-container/ServiceContainerContext';
 import { Link } from '../views/Link';
 import { Layout } from './layouts/Layout';
 
@@ -24,10 +24,11 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
+  const { backend } = useAppContext();
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get('http://localhost:3000/healthcheck');
-      console.log(data);
+      const result = await backend.get('http://localhost:3000/healthcheck');
+      console.log(result);
     };
     fetchData();
   }, []);

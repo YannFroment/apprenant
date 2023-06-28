@@ -22,6 +22,11 @@ describe('Picture', () => {
         return searchKey;
       },
     },
+    backend: {
+      get: async (url) => {
+        return url;
+      },
+    },
   };
   it('should display an image', async () => {
     const pictures: Pictures = {
