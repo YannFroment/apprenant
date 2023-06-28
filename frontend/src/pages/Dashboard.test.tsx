@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 
 import { renderWithinProviders } from '../../tests/utils';
 import { Backend } from '../domain/Backend';

@@ -24,14 +24,11 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
-  const [mess, setMess] = useState('');
-
   const { backend } = useAppContext();
   useEffect(() => {
     const fetchData = async () => {
       const result = await backend.get('http://localhost:3000/healthcheck');
       console.log(result);
-      setMess(result);
     };
     fetchData();
   }, [backend]);
