@@ -1,16 +1,17 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechSynth } from '../domain/SpeechSynth';
 
-export type WordRecognitionServiceContainer = {
+export type ServiceContainer = {
   speechSynth: SpeechSynth;
   speechRecorderFactory: SpeechRecorderFactory;
   pictures: Pictures;
 };
 
-export const WordRecognitionContext =
-  createContext<WordRecognitionServiceContainer>(
-    {} as WordRecognitionServiceContainer,
-  );
+export const AppContext = createContext<ServiceContainer>(
+  {} as ServiceContainer,
+);
+
+export const useAppContext = () => useContext(AppContext);

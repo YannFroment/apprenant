@@ -1,6 +1,6 @@
 import { screen, waitFor, within } from '@testing-library/react';
 
-import { renderWithinTheme } from '../../tests/utils';
+import { renderWithinProviders } from '../../tests/utils';
 import { TextReorder } from '.';
 import { ColumnsData } from './ColumnsData';
 
@@ -10,7 +10,7 @@ describe('TextReorder', () => {
     const sentenceB = 'B';
     const sentenceAId = 'sentence-1';
     const sentenceBId = 'sentence-2';
-    renderWithinTheme(
+    renderWithinProviders(
       <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceA, sentenceB]}
@@ -67,7 +67,7 @@ describe('text ordered', () => {
       },
       columnOrder: ['work-zone', 'picking-zone'],
     };
-    renderWithinTheme(
+    renderWithinProviders(
       <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceA, sentenceB]}
@@ -100,7 +100,7 @@ describe('text ordered', () => {
       },
       columnOrder: ['work-zone', 'picking-zone'],
     };
-    renderWithinTheme(
+    renderWithinProviders(
       <TextReorder
         orderedSentences={[sentenceA, sentenceB]}
         randomizedSentences={[sentenceB, sentenceA]}

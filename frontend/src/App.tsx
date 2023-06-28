@@ -1,6 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { pexelPictures } from './external-services/Pictures';
+import { windowSpeechSynth } from './external-services/SpeechSynth';
+import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import { Dashboard } from './pages/Dashboard';
+import {
+  AppContext,
+  ServiceContainer,
+} from './service-container/ServiceContainerContext';
 import { TextReorder } from './text-reorder';
 import { WordRecognition } from './word-recognition';
 
@@ -24,11 +31,17 @@ const router = createBrowserRouter([
   },
 ]);
 
+const context: ServiceContainer = {
+  speechSynth: windowSpeechSynth,
+  speechRecorderFactory: windowSpeechRecorderFactory,
+  pictures: pexelPictures,
+};
+
 function App() {
   return (
-    <>
+    <AppContext.Provider value={context}>
       <RouterProvider router={router} />
-    </>
+    </AppContext.Provider>
   );
 }
 

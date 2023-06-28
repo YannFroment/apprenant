@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { WordRecognitionContext } from './service-container/ServiceContainerContext';
+import { useAppContext } from '../service-container/ServiceContainerContext';
 
 type SpeechRecorderProps = {
   text: string;
@@ -15,12 +15,10 @@ export const SpeechRecorder = ({
   const [isRecording, setIsRecording] = useState<boolean>(
     defaultIsRecording ?? false,
   );
-  const { speechRecorderFactory: createSpeechRecorder } = useContext(
-    WordRecognitionContext,
-  );
+  const { speechRecorderFactory } = useAppContext();
 
   useEffect(() => {
-    const { start, stop } = createSpeechRecorder(setTranscript);
+    const { start, stop } = speechRecorderFactory(setTranscript);
     if (isRecording) {
       start();
     }
@@ -28,7 +26,7 @@ export const SpeechRecorder = ({
     return () => {
       stop();
     };
-  }, [isRecording, createSpeechRecorder]);
+  }, [isRecording, speechRecorderFactory]);
 
   return (
     <div data-testid={`${text}-speech-recorder`}>

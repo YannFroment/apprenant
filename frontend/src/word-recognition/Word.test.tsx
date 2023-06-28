@@ -1,15 +1,11 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 
-import { TestContainer } from '../../tests/utils';
+import { renderWithinProviders } from '../../tests/utils';
 import { Word } from './Word';
 
 describe('Word', () => {
   it('should display the word name', async () => {
-    render(
-      <TestContainer>
-        <Word word={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<Word word={'chat'} />);
     await waitFor(() => {
       expect(
         within(screen.queryByTestId('chat')!).getByText('chat'),
@@ -18,11 +14,7 @@ describe('Word', () => {
   });
 
   it('should display a button to hear', async () => {
-    render(
-      <TestContainer>
-        <Word word={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<Word word={'chat'} />);
 
     await waitFor(() => {
       expect(
@@ -32,11 +24,7 @@ describe('Word', () => {
   });
 
   it('should display a Picture component', async () => {
-    render(
-      <TestContainer>
-        <Word word={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<Word word={'chat'} />);
 
     await waitFor(() => {
       expect(
@@ -46,11 +34,7 @@ describe('Word', () => {
   });
 
   it('should display WordRecognition component', async () => {
-    render(
-      <TestContainer>
-        <Word word={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<Word word={'chat'} />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('chat-speech-recorder')).toBeInTheDocument();

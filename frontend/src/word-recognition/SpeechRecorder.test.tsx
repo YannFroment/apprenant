@@ -1,17 +1,13 @@
-import { render, screen, within } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { TestContainer } from '../../tests/utils';
-import { SpeechRecorderFactory } from './domain/SpeechRecorderFactory';
+import { renderWithinProviders } from '../../tests/utils';
+import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechRecorder } from './SpeechRecorder';
 
 describe('SpeechRecorder', () => {
   it('should display a button to record', () => {
-    render(
-      <TestContainer>
-        <SpeechRecorder text={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<SpeechRecorder text={'chat'} />);
 
     expect(
       within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -22,11 +18,7 @@ describe('SpeechRecorder', () => {
 
   describe('when not recording', () => {
     it('should display Arrêter l/enregistrement after clicking on record button', async () => {
-      render(
-        <TestContainer>
-          <SpeechRecorder text={'chat'} />
-        </TestContainer>,
-      );
+      renderWithinProviders(<SpeechRecorder text={'chat'} />);
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
           'Enregistrer',
@@ -51,15 +43,9 @@ describe('SpeechRecorder', () => {
         return recorderFactoryReturn;
       };
 
-      render(
-        <TestContainer
-          overrideServices={{
-            speechRecorderFactory: speechRecorderFactoryMock,
-          }}
-        >
-          <SpeechRecorder text={'chat'} />
-        </TestContainer>,
-      );
+      renderWithinProviders(<SpeechRecorder text={'chat'} />, {
+        speechRecorderFactory: speechRecorderFactoryMock,
+      });
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
           'Enregistrer',
@@ -72,10 +58,8 @@ describe('SpeechRecorder', () => {
 
   describe('when recording', () => {
     it('should display Enregistrer after clicking on record button', async () => {
-      render(
-        <TestContainer>
-          <SpeechRecorder text={'chat'} defaultIsRecording={true} />
-        </TestContainer>,
+      renderWithinProviders(
+        <SpeechRecorder text={'chat'} defaultIsRecording={true} />,
       );
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -101,14 +85,11 @@ describe('SpeechRecorder', () => {
         return recorderFactoryReturn;
       };
 
-      render(
-        <TestContainer
-          overrideServices={{
-            speechRecorderFactory: speechRecorderFactoryMock,
-          }}
-        >
-          <SpeechRecorder text={'chat'} defaultIsRecording={true} />
-        </TestContainer>,
+      renderWithinProviders(
+        <SpeechRecorder text={'chat'} defaultIsRecording={true} />,
+        {
+          speechRecorderFactory: speechRecorderFactoryMock,
+        },
       );
       await userEvent.click(
         within(screen.queryByTestId('chat-speech-recorder')!).getByText(
@@ -132,13 +113,9 @@ describe('SpeechRecorder', () => {
       };
     };
 
-    render(
-      <TestContainer
-        overrideServices={{ speechRecorderFactory: speechRecorderFactoryMock }}
-      >
-        <SpeechRecorder text={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<SpeechRecorder text={'chat'} />, {
+      speechRecorderFactory: speechRecorderFactoryMock,
+    });
     await userEvent.click(
       within(screen.queryByTestId('chat-speech-recorder')!).getByText(
         'Enregistrer',
@@ -164,13 +141,9 @@ describe('SpeechRecorder', () => {
       };
     };
 
-    render(
-      <TestContainer
-        overrideServices={{ speechRecorderFactory: speechRecorderFactoryMock }}
-      >
-        <SpeechRecorder text={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<SpeechRecorder text={'chat'} />, {
+      speechRecorderFactory: speechRecorderFactoryMock,
+    });
     await userEvent.click(
       within(screen.queryByTestId('chat-speech-recorder')!).getByText(
         'Enregistrer',
@@ -192,13 +165,9 @@ describe('SpeechRecorder', () => {
       };
     };
 
-    render(
-      <TestContainer
-        overrideServices={{ speechRecorderFactory: speechRecorderFactoryMock }}
-      >
-        <SpeechRecorder text={'chat'} />
-      </TestContainer>,
-    );
+    renderWithinProviders(<SpeechRecorder text={'chat'} />, {
+      speechRecorderFactory: speechRecorderFactoryMock,
+    });
     await userEvent.click(
       within(screen.queryByTestId('chat-speech-recorder')!).getByText(
         'Enregistrer',

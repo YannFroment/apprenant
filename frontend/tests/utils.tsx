@@ -3,13 +3,13 @@ import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { theme } from '../src/theme';
 import {
-  WordRecognitionContext,
-  WordRecognitionServiceContainer,
-} from '../src/word-recognition/service-container/ServiceContainerContext';
+  AppContext,
+  ServiceContainer,
+} from '../src/service-container/ServiceContainerContext';
+import { theme } from '../src/theme';
 
-const defaultContainer: WordRecognitionServiceContainer = {
+const defaultContainer: ServiceContainer = {
   speechSynth: { speak: () => {} },
   speechRecorderFactory: () => {
     return {
@@ -25,30 +25,33 @@ const defaultContainer: WordRecognitionServiceContainer = {
 };
 
 const createContainer = (
-  overrideContainer: Partial<WordRecognitionServiceContainer>,
-): WordRecognitionServiceContainer => {
+  overrideContainer: Partial<ServiceContainer>,
+): ServiceContainer => {
   return { ...defaultContainer, ...overrideContainer };
 };
 
-export const TestContainer = ({
+const TestContainer = ({
   children,
   overrideServices,
 }: {
   children: ReactNode;
-  overrideServices?: Partial<WordRecognitionServiceContainer>;
+  overrideServices?: Partial<ServiceContainer>;
 }) => {
   const container = createContainer(overrideServices ?? {});
   return (
-    <WordRecognitionContext.Provider value={container}>
-      {children}
-    </WordRecognitionContext.Provider>
+    <AppContext.Provider value={container}>{children}</AppContext.Provider>
   );
 };
 
-export const renderWithinTheme = (children: ReactNode) => {
+export const renderWithinProviders = (
+  children: ReactNode,
+  overrideServices?: Partial<ServiceContainer>,
+) => {
   render(
     <ThemeProvider theme={theme}>
-      <BrowserRouter>{children}</BrowserRouter>
+      <TestContainer overrideServices={overrideServices}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </TestContainer>
     </ThemeProvider>,
   );
 };

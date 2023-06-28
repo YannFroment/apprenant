@@ -21,6 +21,5 @@
 
     "types": ["jest", "@testing-library/jest-dom", "@types/dom-speech-recognition", "pexels"]
   },
-  "include": ["src", "tests"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "tests"]
 }
