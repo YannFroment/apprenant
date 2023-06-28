@@ -1,11 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import { renderWithinProviders } from '../../tests/utils';
 import { Pictures } from '../domain/Pictures';
-import {
-  AppContext,
-  ServiceContainer,
-} from '../service-container/ServiceContainerContext';
 import { Picture } from './Picture';
 describe('Picture', () => {
   it('should display an image', async () => {
