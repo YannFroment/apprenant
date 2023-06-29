@@ -2,10 +2,12 @@ import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+import { create } from 'zustand';
 
 import {
   AppContext,
   ServiceContainer,
+  StoreState,
 } from '../src/service-container/ServiceContainerContext';
 import { theme } from '../src/theme';
 
@@ -30,6 +32,10 @@ const defaultContainer: ServiceContainer = {
       return [];
     },
   },
+  useStore: create<StoreState>((set) => ({
+    bears: 0,
+    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+  })),
 };
 
 const createContainer = (

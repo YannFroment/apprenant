@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { useAppContext } from '../service-container/ServiceContainerContext';
+
 interface BearState {
   bears: number;
   increasePopulation: () => void;
@@ -13,12 +15,15 @@ export const useBearStore = create<BearState>((set) => ({
 }));
 
 function BearCounter() {
-  const bears = useBearStore((state) => state.bears);
+  const { useStore } = useAppContext();
+  const bears = useStore((state) => state.bears);
   return <h1 data-testid="bear-title">{bears}</h1>;
 }
 
 function Controls() {
-  const increasePopulation = useBearStore((state) => state.increasePopulation);
+  const { useStore } = useAppContext();
+
+  const increasePopulation = useStore((state) => state.increasePopulation);
   return (
     <button data-testid="bear-button" onClick={increasePopulation}>
       one up

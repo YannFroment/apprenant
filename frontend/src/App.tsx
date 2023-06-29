@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { create } from 'zustand';
 
 import { backend } from './external-services/Backend';
 import { pexelPictures } from './external-services/Pictures';
@@ -8,6 +9,7 @@ import { Dashboard } from './pages/Dashboard';
 import {
   AppContext,
   ServiceContainer,
+  StoreState,
 } from './service-container/ServiceContainerContext';
 import { TextReorder } from './text-reorder';
 import { WordRecognition } from './word-recognition';
@@ -32,11 +34,17 @@ const router = createBrowserRouter([
   },
 ]);
 
+const realStore = create<StoreState>((set) => ({
+  bears: 0,
+  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+}));
+
 const context: ServiceContainer = {
   speechSynth: windowSpeechSynth,
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
   backend: backend,
+  useStore: realStore,
 };
 
 function App() {
