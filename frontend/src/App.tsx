@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { backend } from './external-services/Backend';
 import { pexelPictures } from './external-services/Pictures';
 import { windowSpeechSynth } from './external-services/SpeechSynth';
 import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
@@ -35,6 +36,7 @@ const context: ServiceContainer = {
   speechSynth: windowSpeechSynth,
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
+  backend: backend,
 };
 
 function App() {

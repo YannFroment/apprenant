@@ -11,7 +11,9 @@ describe('Picture', () => {
         return 'chat.jpg';
       },
     };
+
     renderWithinProviders(<Picture word={'chat'} />, { pictures });
+
     await waitFor(() => {
       expect(screen.queryByTestId('img-chat')!.getAttribute('src')).toBe(
         'chat.jpg',
