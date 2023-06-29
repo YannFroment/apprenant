@@ -10,8 +10,11 @@ describe('Dashboard', () => {
       get: async () => {
         return '';
       },
+      getTextReorders: async () => {
+        return [];
+      },
     };
-    const backendGetSpy = jest.spyOn(backend, 'get');
+    const backendGetSpy = jest.spyOn(backend, 'getTextReorders');
 
     renderWithinProviders(<Dashboard />, { backend });
 
