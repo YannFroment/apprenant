@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { create, StoreApi, UseBoundStore } from 'zustand';
 
 import { backend } from './external-services/Backend';
 import { pexelPictures } from './external-services/Pictures';
@@ -9,8 +8,8 @@ import { Dashboard } from './pages/Dashboard';
 import {
   AppContext,
   ServiceContainer,
-  StoreState,
 } from './service-container/ServiceContainerContext';
+import { createUseStore } from './store';
 import { TextReorder } from './text-reorder';
 import { WordRecognition } from './word-recognition';
 
@@ -33,17 +32,6 @@ const router = createBrowserRouter([
     element: <WordRecognition />,
   },
 ]);
-
-export const createUseStore = (
-  args: Partial<StoreState> = {},
-): UseBoundStore<StoreApi<StoreState>> => {
-  return create<StoreState>((set) => ({
-    bears: args.bears ?? 0,
-    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-    increasePopulationBy: (by: number) =>
-      set((state) => ({ bears: state.bears + by })),
-  }));
-};
 
 const context: ServiceContainer = {
   speechSynth: windowSpeechSynth,

@@ -2,14 +2,12 @@ import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { create } from 'zustand';
 
-import { createUseStore } from '../src/App';
 import {
   AppContext,
   ServiceContainer,
-  StoreState,
 } from '../src/service-container/ServiceContainerContext';
+import { createUseStore } from '../src/store';
 import { theme } from '../src/theme';
 
 const defaultContainer: ServiceContainer = {

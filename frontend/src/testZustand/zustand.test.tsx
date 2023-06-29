@@ -1,8 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { createUseStore } from '../../src/store';
 import { renderWithinProviders } from '../../tests/utils';
-import { createUseStore } from '../App';
 import { BearWrapper } from './zustand';
 
 describe('Zustand', () => {
