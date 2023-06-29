@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { TextReorder } from '../domain/Backend';
 import { useAppContext } from '../service-container/ServiceContainerContext';
-import { BearWrapper } from '../testZustand/zustand';
+import { useTrainingsStore } from '../store';
 import { Link } from '../views/Link';
 import { Layout } from './layouts/Layout';
 
@@ -28,7 +27,7 @@ const Text = styled.p`
 export const Dashboard = () => {
   const { backend } = useAppContext();
 
-  const [textReorders, setTextReorders] = useState<TextReorder[]>([]);
+  const { setTextReorders } = useTrainingsStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,13 +37,12 @@ export const Dashboard = () => {
     };
 
     fetchData();
-  }, [backend]);
+  }, [backend, setTextReorders]);
 
   return (
     <Layout>
       <DashboardContainer>
         <WelcomeText>Bonjour</WelcomeText>
-        <BearWrapper />
         <Text>Vos entrainements :</Text>
         <Link to="/text-reorder" relative="path">
           Remettre le texte dans l'ordre

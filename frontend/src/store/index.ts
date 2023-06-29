@@ -1,9 +1,11 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
 
+import { TextReorder } from '../domain/Backend';
+import { useAppContext } from '../service-container/ServiceContainerContext';
+
 export type StoreState = {
-  bears: number;
-  increasePopulation: () => void;
-  increasePopulationBy: (by: number) => void;
+  textReorders: TextReorder[];
+  setTextReorders: (textReorders: TextReorder[]) => void;
 };
 
 export type UseStore = UseBoundStore<StoreApi<StoreState>>;
@@ -12,9 +14,19 @@ export const createUseStore = (
   args: Partial<StoreState> = {},
 ): UseBoundStore<StoreApi<StoreState>> => {
   return create<StoreState>((set) => ({
-    bears: args.bears ?? 0,
-    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-    increasePopulationBy: (by: number) =>
-      set((state) => ({ bears: state.bears + by })),
+    textReorders: args.textReorders ?? [],
+    setTextReorders: (textReorders: TextReorder[]) =>
+      set(() => ({ textReorders })),
   }));
+};
+
+export const useTrainingsStore = () => {
+  const { useStore } = useAppContext();
+  const textReorders = useStore((state) => state.textReorders);
+  const setTextReorders = useStore((state) => state.setTextReorders);
+
+  return {
+    textReorders,
+    setTextReorders,
+  };
 };

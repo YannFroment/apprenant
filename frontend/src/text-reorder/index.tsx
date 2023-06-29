@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import { Layout } from '../pages/layouts/Layout';
+import { useTrainingsStore } from '../store';
 import { ColumnElement } from './ColumnElement';
 import { Column, ColumnsData, textChecker, toColumnsData } from './ColumnsData';
 
@@ -16,6 +17,8 @@ export const TextReorder = ({
   randomizedSentences,
   defaultColumnsData,
 }: TextReorderProps) => {
+  const { textReorders } = useTrainingsStore();
+  console.log(textReorders);
   const [columnsData, setColumnsData] = useState<ColumnsData>(
     defaultColumnsData ?? toColumnsData(randomizedSentences),
   );
