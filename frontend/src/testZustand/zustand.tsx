@@ -1,5 +1,3 @@
-import { create } from 'zustand';
-
 import { useAppContext } from '../service-container/ServiceContainerContext';
 
 const useSimpleStore = () => {
