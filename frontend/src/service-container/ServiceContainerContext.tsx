@@ -9,6 +9,7 @@ import { SpeechSynth } from '../domain/SpeechSynth';
 export type StoreState = {
   bears: number;
   increasePopulation: () => void;
+  increasePopulationBy: (by: number) => void;
 };
 
 export type ServiceContainer = {

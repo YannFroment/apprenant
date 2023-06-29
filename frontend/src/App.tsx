@@ -37,6 +37,8 @@ const router = createBrowserRouter([
 const realStore = create<StoreState>((set) => ({
   bears: 0,
   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+  increasePopulationBy: (by: number) =>
+    set((state) => ({ bears: state.bears + by })),
 }));
 
 const context: ServiceContainer = {

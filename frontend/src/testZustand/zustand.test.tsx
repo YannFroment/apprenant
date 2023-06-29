@@ -19,6 +19,8 @@ describe('Zustand', () => {
     const customStore = create<StoreState>((set) => ({
       bears: 1,
       increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+      increasePopulationBy: (by: number) =>
+        set((state) => ({ bears: state.bears + by })),
     }));
     renderWithinProviders(<BearWrapper />, { useStore: customStore });
 

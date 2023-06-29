@@ -1,11 +1,14 @@
+import { useState } from 'react';
+
 import { useAppContext } from '../service-container/ServiceContainerContext';
 
 const useSimpleStore = () => {
   const { useStore } = useAppContext();
   const bears = useStore((state) => state.bears);
   const increasePopulation = useStore((state) => state.increasePopulation);
+  const increasePopulationBy = useStore((state) => state.increasePopulationBy);
 
-  return { bears, increasePopulation };
+  return { bears, increasePopulation, increasePopulationBy };
 };
 
 function BearCounter() {
@@ -23,11 +26,23 @@ function Controls() {
   );
 }
 
+function AddNumber() {
+  const [num, setNum] = useState(0);
+  const { increasePopulationBy } = useSimpleStore();
+  return (
+    <>
+      <input value={num} onChange={(e) => setNum(parseInt(e.target.value))} />
+      <button onClick={() => increasePopulationBy(num)}>Add</button>
+    </>
+  );
+}
+
 export const BearWrapper = () => {
   return (
     <>
       <BearCounter />
       <Controls />
+      <AddNumber />
     </>
   );
 };
