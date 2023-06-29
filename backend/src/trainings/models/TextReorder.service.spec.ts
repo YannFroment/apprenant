@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TextReorderService } from './TextReorder.service';
 import { TextReorders } from './TextReorders';
 
-class InMemoryTextReorders {
+export class InMemoryTextReorders implements TextReorders {
   async getAll() {
     return [
       {
