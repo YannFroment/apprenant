@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { create } from 'zustand';
+import { create, StoreApi, UseBoundStore } from 'zustand';
 
 import { backend } from './external-services/Backend';
 import { pexelPictures } from './external-services/Pictures';
@@ -34,19 +34,23 @@ const router = createBrowserRouter([
   },
 ]);
 
-const realStore = create<StoreState>((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  increasePopulationBy: (by: number) =>
-    set((state) => ({ bears: state.bears + by })),
-}));
+export const createUseStore = (
+  args: Partial<StoreState> = {},
+): UseBoundStore<StoreApi<StoreState>> => {
+  return create<StoreState>((set) => ({
+    bears: args.bears ?? 0,
+    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+    increasePopulationBy: (by: number) =>
+      set((state) => ({ bears: state.bears + by })),
+  }));
+};
 
 const context: ServiceContainer = {
   speechSynth: windowSpeechSynth,
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
   backend: backend,
-  useStore: realStore,
+  useStore: createUseStore(),
 };
 
 function App() {

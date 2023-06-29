@@ -1,9 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { create } from 'zustand';
 
 import { renderWithinProviders } from '../../tests/utils';
-import { StoreState } from '../service-container/ServiceContainerContext';
+import { createUseStore } from '../App';
 import { BearWrapper } from './zustand';
 
 describe('Zustand', () => {
@@ -16,12 +15,7 @@ describe('Zustand', () => {
   });
 
   it('should toto', async () => {
-    const customStore = create<StoreState>((set) => ({
-      bears: 1,
-      increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-      increasePopulationBy: (by: number) =>
-        set((state) => ({ bears: state.bears + by })),
-    }));
+    const customStore = createUseStore({ bears: 1 });
     renderWithinProviders(<BearWrapper />, { useStore: customStore });
 
     await userEvent.click(screen.queryByTestId('bear-button')!);

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { create } from 'zustand';
 
+import { createUseStore } from '../src/App';
 import {
   AppContext,
   ServiceContainer,
@@ -32,12 +33,7 @@ const defaultContainer: ServiceContainer = {
       return [];
     },
   },
-  useStore: create<StoreState>((set) => ({
-    bears: 0,
-    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-    increasePopulationBy: (by: number) =>
-      set((state) => ({ bears: state.bears + by })),
-  })),
+  useStore: createUseStore(),
 };
 
 const createContainer = (
