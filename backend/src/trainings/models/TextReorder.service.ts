@@ -1,16 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { TextReorder } from './TextReorder';
+import { TextReorders } from './TextReorders';
 
 @Injectable()
 export class TextReorderService {
-  getAll(): TextReorder[] {
-    return [
-      {
-        id: 1,
-        title: 'Article sud-ouest',
-        orderedSentences: ['a', 'b'],
-        randomizedSentences: ['b', 'a'],
-      },
-    ];
+  constructor(
+    @Inject(TextReorders) private readonly textReorders: TextReorders,
+  ) {}
+
+  async getAll(): Promise<TextReorder[]> {
+    return this.textReorders.getAll();
   }
 }
