@@ -25,13 +25,16 @@ const Text = styled.p`
 
 export const Dashboard = () => {
   const { backend } = useAppContext();
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await backend.get('http://localhost:3000/healthcheck');
       console.log(result);
     };
+
     fetchData();
   }, [backend]);
+
   return (
     <Layout>
       <DashboardContainer>
