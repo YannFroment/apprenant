@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Dashboard } from './pages/Dashboard';
@@ -32,30 +32,31 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
+const useLoadDataBeforeRendering = () => {
   const { backend } = useAppContext();
+  const [isLoading, setIsLoading] = useState(true);
 
   const { setTextReorders } = useTrainingsStore();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadData = async () => {
       const result = await backend.getTextReorders();
       setTextReorders(result);
-      console.log(result);
+      setIsLoading(false);
     };
 
-    fetchData();
+    loadData();
   }, [backend, setTextReorders]);
 
+  return isLoading;
+};
+
+function App() {
+  const isLoading = useLoadDataBeforeRendering();
+
   return (
-    <Suspense fallback={<Loading />}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <>{isLoading ? <div>loading</div> : <RouterProvider router={router} />}</>
   );
 }
 
 export default App;
-
-function Loading() {
-  return <h2>🌀 Loading...</h2>;
-}
