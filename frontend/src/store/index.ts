@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { create, StoreApi, UseBoundStore } from 'zustand';
+import { create } from 'zustand';
 
 import { TextReorder } from '../domain/Backend';
 
@@ -8,17 +8,11 @@ export type StoreState = {
   setTextReorders: (textReorders: TextReorder[]) => void;
 };
 
-export const createUseStore = (
-  args: Partial<StoreState> = {},
-): UseBoundStore<StoreApi<StoreState>> => {
-  return create<StoreState>((set) => ({
-    textReorders: args.textReorders ?? [],
-    setTextReorders: (textReorders: TextReorder[]) =>
-      set(() => ({ textReorders })),
-  }));
-};
-
-const useStore = createUseStore();
+const useStore = create<StoreState>((set) => ({
+  textReorders: [],
+  setTextReorders: (textReorders: TextReorder[]) =>
+    set(() => ({ textReorders })),
+}));
 
 export type UseTrainingsStore = () => {
   textReorders: TextReorder[];
