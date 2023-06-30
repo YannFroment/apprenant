@@ -13,7 +13,7 @@ import {
   AppContext,
   ServiceContainer,
 } from './service-container/ServiceContainerContext.tsx';
-import { useTrainingsStore } from './store/index.ts';
+import { createUseStore, useTrainingsStore } from './store/index.ts';
 import { theme } from './theme.ts';
 
 const context: ServiceContainer = {
@@ -22,6 +22,7 @@ const context: ServiceContainer = {
   pictures: pexelPictures,
   backend: backend,
   useTrainingsStore,
+  useStore: createUseStore(),
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

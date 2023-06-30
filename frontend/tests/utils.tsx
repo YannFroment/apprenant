@@ -7,6 +7,7 @@ import {
   AppContext,
   ServiceContainer,
 } from '../src/service-container/ServiceContainerContext';
+import { createUseStore } from '../src/store';
 import { theme } from '../src/theme';
 
 const defaultContainer: ServiceContainer = {
@@ -35,6 +36,7 @@ const defaultContainer: ServiceContainer = {
     setTextReorders: () => {},
     useCurrentTextReorder: () => undefined,
   }),
+  useStore: createUseStore(),
 };
 
 const createContainer = (

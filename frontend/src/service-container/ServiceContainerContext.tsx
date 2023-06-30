@@ -4,7 +4,7 @@ import { Backend } from '../domain/Backend';
 import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechSynth } from '../domain/SpeechSynth';
-import { UseTrainingsStore } from '../store';
+import { UseStore, UseTrainingsStore } from '../store';
 
 export type ServiceContainer = {
   speechSynth: SpeechSynth;
@@ -12,6 +12,7 @@ export type ServiceContainer = {
   pictures: Pictures;
   backend: Backend;
   useTrainingsStore: UseTrainingsStore;
+  useStore: UseStore;
 };
 
 export const AppContext = createContext<ServiceContainer>(

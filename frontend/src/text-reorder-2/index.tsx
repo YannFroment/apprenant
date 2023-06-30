@@ -1,11 +1,14 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { Layout } from '../pages/layouts/Layout';
 import { useAppContext } from '../service-container/ServiceContainerContext';
 
 const useCurrentTextReorder = () => {
-  const { useTrainingsStore } = useAppContext();
-  return useTrainingsStore().useCurrentTextReorder();
+  const { id } = useParams();
+  const { useStore } = useAppContext();
+  const { textReorders } = useStore();
+
+  return textReorders.find((el) => el.id.toString() === id);
 };
 
 export const TextReorder2 = () => {

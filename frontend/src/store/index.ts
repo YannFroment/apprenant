@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { create } from 'zustand';
+import { create, StoreApi, UseBoundStore } from 'zustand';
 
 import { TextReorder } from '../domain/Backend';
 
@@ -9,17 +9,20 @@ export type StoreState = {
 };
 
 const useStore = create<StoreState>((set) => ({
-  textReorders: [
-    {
-      id: 1,
-      orderedSentences: ['a', 'b'],
-      randomizedSentences: ['a', 'b'],
-      title: 'toto',
-    },
-  ],
+  textReorders: [],
   setTextReorders: (textReorders: TextReorder[]) =>
     set(() => ({ textReorders })),
 }));
+
+export type UseStore = UseBoundStore<StoreApi<StoreState>>;
+
+export const createUseStore = (args: Partial<StoreState> = {}): UseStore => {
+  return create<StoreState>((set) => ({
+    textReorders: args.textReorders ?? [],
+    setTextReorders: (textReorders: TextReorder[]) =>
+      set(() => ({ textReorders })),
+  }));
+};
 
 export type UseTrainingsStore = () => {
   textReorders: TextReorder[];
@@ -33,7 +36,6 @@ export const useTrainingsStore: UseTrainingsStore = () => {
 
   const useCurrentTextReorder = () => {
     const { id } = useParams();
-    console.info('id', id);
     return textReorders.find((el) => el.id.toString() === id);
   };
 
