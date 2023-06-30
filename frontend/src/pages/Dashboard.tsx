@@ -27,12 +27,11 @@ const Text = styled.p`
 export const Dashboard = () => {
   const { backend } = useAppContext();
 
-  const { setTextReorders } = useTrainingsStore();
+  const { setTextReorders, textReorders } = useTrainingsStore();
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await backend.getTextReorders();
-      console.log(result);
       setTextReorders(result);
     };
 
@@ -47,6 +46,13 @@ export const Dashboard = () => {
         <Link to="/text-reorder" relative="path">
           Remettre le texte dans l'ordre
         </Link>
+        {textReorders.map(({ id, title }) => {
+          return (
+            <Link to={`/text-reorder/${id}`} relative="path" key={id}>
+              {title}
+            </Link>
+          );
+        })}
         <Link to="/word-recognition" relative="path">
           Reconnaître les mots
         </Link>

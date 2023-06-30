@@ -1,22 +1,25 @@
-import { Navigate, useParams } from 'react-router-dom';
-
 import { Layout } from '../pages/layouts/Layout';
-import { useTrainingsStore } from '../store';
+import { useAppContext } from '../service-container/ServiceContainerContext';
 
 export const TextReorder2 = () => {
-  const { id } = useParams();
-  const { textReorders } = useTrainingsStore();
+  //   const { id } = useParams();
+  //   const { textReorders } = useTrainingsStore();
 
-  const textReorder = textReorders.find((el) => el.id.toString() === id);
+  //   const textReorder = textReorders.find((el) => el.id.toString() === id);
 
-  if (!textReorder) {
-    return <Navigate to="/" />;
-  }
+  const { useCurrentTextReorder } = useAppContext();
+
+  const textReorder = useCurrentTextReorder();
+  console.info('textReorder', textReorder);
+
+  //   if (!textReorder) {
+  //     return <Navigate to="/" />;
+  //   }
 
   return (
     <Layout>
-      <p>{id}</p>
-      <div>{textReorder.title}</div>
+      <p>{textReorder?.id}</p>
+      <div>{textReorder?.title}</div>
     </Layout>
   );
 };

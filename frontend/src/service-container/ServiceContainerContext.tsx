@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { Backend } from '../domain/Backend';
+import { Backend, TextReorder } from '../domain/Backend';
 import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechSynth } from '../domain/SpeechSynth';
@@ -12,6 +12,7 @@ export type ServiceContainer = {
   pictures: Pictures;
   backend: Backend;
   useStore: UseStore;
+  useCurrentTextReorder: () => TextReorder | undefined;
 };
 
 export const AppContext = createContext<ServiceContainer>(

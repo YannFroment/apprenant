@@ -32,6 +32,7 @@ const defaultContainer: ServiceContainer = {
     },
   },
   useStore: createUseStore(),
+  useCurrentTextReorder: () => undefined,
 };
 
 const createContainer = (
