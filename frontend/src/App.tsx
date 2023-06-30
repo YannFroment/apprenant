@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useParams,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { backend } from './external-services/Backend';
 import { pexelPictures } from './external-services/Pictures';
@@ -13,7 +9,7 @@ import {
   AppContext,
   ServiceContainer,
 } from './service-container/ServiceContainerContext';
-import { createUseStore, useTrainingsStore } from './store';
+import { useTrainingsStore } from './store';
 import { TextReorder } from './text-reorder';
 import { TextReorder2 } from './text-reorder-2';
 import { WordRecognition } from './word-recognition';
@@ -47,15 +43,7 @@ const context: ServiceContainer = {
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
   backend: backend,
-  useStore: createUseStore(),
-  useCurrentTextReorder: () => {
-    const { id } = useParams();
-    const { textReorders } = useTrainingsStore();
-
-    const textReorder = textReorders.find((el) => el.id.toString() === id);
-
-    return textReorder;
-  },
+  useTrainingStore: useTrainingsStore,
 };
 
 function App() {
