@@ -1,21 +1,20 @@
 import { screen } from '@testing-library/react';
+import Router from 'react-router';
 
 import { renderWithinProviders } from '../../tests/utils';
+import { useTrainingsStore } from '../store';
 import { TextReorder2 } from '.';
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useParams: jest.fn(),
+}));
 
 describe('TextReorder', () => {
   it('should retrieve the text reorder from the store', async () => {
+    jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
     renderWithinProviders(<TextReorder2 />, {
-      useTrainingsStore: () => ({
-        useCurrentTextReorder: () => ({
-          id: 1,
-          orderedSentences: ['a', 'b'],
-          randomizedSentences: ['a', 'b'],
-          title: 'toto',
-        }),
-        textReorders: [],
-        setTextReorders: () => {},
-      }),
+      useTrainingsStore: useTrainingsStore,
     });
     expect(screen.getByText('toto')).toBeInTheDocument();
   });

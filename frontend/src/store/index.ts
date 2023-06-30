@@ -9,7 +9,14 @@ export type StoreState = {
 };
 
 const useStore = create<StoreState>((set) => ({
-  textReorders: [],
+  textReorders: [
+    {
+      id: 1,
+      orderedSentences: ['a', 'b'],
+      randomizedSentences: ['a', 'b'],
+      title: 'toto',
+    },
+  ],
   setTextReorders: (textReorders: TextReorder[]) =>
     set(() => ({ textReorders })),
 }));
@@ -26,6 +33,7 @@ export const useTrainingsStore: UseTrainingsStore = () => {
 
   const useCurrentTextReorder = () => {
     const { id } = useParams();
+    console.info('id', id);
     return textReorders.find((el) => el.id.toString() === id);
   };
 
