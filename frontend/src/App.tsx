@@ -1,14 +1,8 @@
+import { Suspense, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { backend } from './external-services/Backend';
-import { pexelPictures } from './external-services/Pictures';
-import { windowSpeechSynth } from './external-services/SpeechSynth';
-import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import { Dashboard } from './pages/Dashboard';
-import {
-  AppContext,
-  ServiceContainer,
-} from './service-container/ServiceContainerContext';
+import { useAppContext } from './service-container/ServiceContainerContext';
 import { useTrainingsStore } from './store';
 import { TextReorder } from './text-reorder';
 import { TextReorder2 } from './text-reorder-2';
@@ -38,20 +32,30 @@ const router = createBrowserRouter([
   },
 ]);
 
-const context: ServiceContainer = {
-  speechSynth: windowSpeechSynth,
-  speechRecorderFactory: windowSpeechRecorderFactory,
-  pictures: pexelPictures,
-  backend: backend,
-  useTrainingsStore,
-};
-
 function App() {
+  const { backend } = useAppContext();
+
+  const { setTextReorders } = useTrainingsStore();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await backend.getTextReorders();
+      setTextReorders(result);
+      console.log(result);
+    };
+
+    fetchData();
+  }, [backend, setTextReorders]);
+
   return (
-    <AppContext.Provider value={context}>
+    <Suspense fallback={<Loading />}>
       <RouterProvider router={router} />
-    </AppContext.Provider>
+    </Suspense>
   );
 }
 
 export default App;
+
+function Loading() {
+  return <h2>🌀 Loading...</h2>;
+}

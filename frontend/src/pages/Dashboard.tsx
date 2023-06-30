@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { useAppContext } from '../service-container/ServiceContainerContext';
 import { useTrainingsStore } from '../store';
 import { Link } from '../views/Link';
 import { Layout } from './layouts/Layout';
@@ -25,27 +23,12 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
-  const { backend } = useAppContext();
-
-  const { setTextReorders, textReorders } = useTrainingsStore();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await backend.getTextReorders();
-      setTextReorders(result);
-    };
-
-    fetchData();
-  }, [backend, setTextReorders]);
-
+  const { textReorders } = useTrainingsStore();
   return (
     <Layout>
       <DashboardContainer>
         <WelcomeText>Bonjour</WelcomeText>
         <Text>Vos entrainements :</Text>
-        <Link to="/text-reorder" relative="path">
-          Remettre le texte dans l'ordre
-        </Link>
         {textReorders.map(({ id, title }) => {
           return (
             <Link to={`/text-reorder/${id}`} relative="path" key={id}>
@@ -53,6 +36,9 @@ export const Dashboard = () => {
             </Link>
           );
         })}
+        <Link to="/text-reorder" relative="path">
+          Remettre le texte dans l'ordre
+        </Link>
         <Link to="/word-recognition" relative="path">
           Reconnaître les mots
         </Link>
