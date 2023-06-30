@@ -1,15 +1,11 @@
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { backend } from './external-services/Backend';
-import { pexelPictures } from './external-services/Pictures';
-import { windowSpeechSynth } from './external-services/SpeechSynth';
-import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import { Dashboard } from './pages/Dashboard';
-import {
-  AppContext,
-  ServiceContainer,
-} from './service-container/ServiceContainerContext';
+import { useAppContext } from './service-container/ServiceContainerContext';
+import { useTrainingsStore } from './store';
 import { TextReorder } from './text-reorder';
+import { TextReorder2 } from './text-reorder-2';
 import { WordRecognition } from './word-recognition';
 
 const router = createBrowserRouter([
@@ -27,23 +23,39 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/text-reorder/:id',
+    element: <TextReorder2 />,
+  },
+  {
     path: '/word-recognition',
     element: <WordRecognition />,
   },
 ]);
 
-const context: ServiceContainer = {
-  speechSynth: windowSpeechSynth,
-  speechRecorderFactory: windowSpeechRecorderFactory,
-  pictures: pexelPictures,
-  backend: backend,
+const useLoadDataBeforeRendering = () => {
+  const { backend } = useAppContext();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { setTextReorders } = useTrainingsStore();
+
+  useEffect(() => {
+    const loadData = async () => {
+      const result = await backend.getTextReorders();
+      setTextReorders(result);
+      setIsLoading(false);
+    };
+
+    loadData();
+  }, [backend, setTextReorders]);
+
+  return isLoading;
 };
 
 function App() {
+  const isLoading = useLoadDataBeforeRendering();
+
   return (
-    <AppContext.Provider value={context}>
-      <RouterProvider router={router} />
-    </AppContext.Provider>
+    <>{isLoading ? <div>loading</div> : <RouterProvider router={router} />}</>
   );
 }
 
