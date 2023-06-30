@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import {
@@ -61,6 +61,22 @@ export const renderWithinProviders = (
     <ThemeProvider theme={theme}>
       <TestContainer overrideServices={overrideServices}>
         <BrowserRouter>{children}</BrowserRouter>
+      </TestContainer>
+    </ThemeProvider>,
+  );
+};
+
+export const renderWithinRoutes = (
+  children: ReactNode,
+  overrideServices?: Partial<ServiceContainer>,
+  initialEntries: string[] = [],
+) => {
+  render(
+    <ThemeProvider theme={theme}>
+      <TestContainer overrideServices={overrideServices}>
+        <MemoryRouter initialEntries={initialEntries}>
+          <Routes>{children}</Routes>
+        </MemoryRouter>
       </TestContainer>
     </ThemeProvider>,
   );
