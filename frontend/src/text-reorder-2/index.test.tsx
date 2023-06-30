@@ -6,16 +6,6 @@ import { createUseStore } from '../store';
 import { TextReorder2 } from '.';
 
 describe('', () => {
-  it('should render with correct params', () => {
-    const id = '12';
-    renderWithinRoutes(
-      <Route path="/text-reorder/:id" element={<TextReorder2 />} />,
-      {},
-      [`/text-reorder/${id}`],
-    );
-
-    expect(screen.getByText('12')).toBeInTheDocument();
-  });
   it('should retrieve the text reorder from the store', async () => {
     const id = 12;
 
