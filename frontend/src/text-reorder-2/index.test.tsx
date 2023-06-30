@@ -1,5 +1,4 @@
 import { screen } from '@testing-library/react';
-import { Route } from 'react-router-dom';
 
 import { renderWithinRoutes } from '../../tests/utils';
 import { createUseStore } from '../store';
@@ -19,11 +18,12 @@ describe('TextReorder', () => {
         },
       ],
     });
-    renderWithinRoutes(
-      <Route path="/text-reorder/:id" element={<TextReorder2 />} />,
-      { useStore: customStore },
-      [`/text-reorder/${id}`],
-    );
+
+    renderWithinRoutes({
+      routes: [{ path: '/text-reorder/:id', element: <TextReorder2 /> }],
+      initialEntries: [`/text-reorder/${id}`],
+      overrideServices: { useStore: customStore },
+    });
 
     expect(screen.getByText('toto')).toBeInTheDocument();
   });
@@ -42,14 +42,14 @@ describe('TextReorder', () => {
       ],
     });
 
-    renderWithinRoutes(
-      <>
-        <Route path="/" element={<div data-testid="home" />} />
-        <Route path="/text-reorder/:id" element={<TextReorder2 />} />
-      </>,
-      { useStore: customStore },
-      [`/text-reorder/${id}`],
-    );
+    renderWithinRoutes({
+      routes: [
+        { path: '/', element: <div data-testid="home" /> },
+        { path: '/text-reorder/:id', element: <TextReorder2 /> },
+      ],
+      initialEntries: [`/text-reorder/${id}`],
+      overrideServices: { useStore: customStore },
+    });
 
     expect(screen.queryByTestId('home')).toBeInTheDocument();
   });

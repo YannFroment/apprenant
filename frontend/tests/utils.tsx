@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
-import { BrowserRouter, MemoryRouter, Routes } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import {
@@ -66,16 +66,24 @@ export const renderWithinProviders = (
   );
 };
 
-export const renderWithinRoutes = (
-  children: ReactNode,
-  overrideServices?: Partial<ServiceContainer>,
-  initialEntries: string[] = [],
-) => {
+export const renderWithinRoutes = ({
+  routes,
+  initialEntries,
+  overrideServices,
+}: {
+  routes: { path: string; element: ReactNode }[];
+  initialEntries: string[];
+  overrideServices?: Partial<ServiceContainer>;
+}) => {
   render(
     <ThemeProvider theme={theme}>
       <TestContainer overrideServices={overrideServices}>
         <MemoryRouter initialEntries={initialEntries}>
-          <Routes>{children}</Routes>
+          <Routes>
+            {routes.map(({ path, element }) => {
+              return <Route path={path} element={element} />;
+            })}
+          </Routes>
         </MemoryRouter>
       </TestContainer>
     </ThemeProvider>,
