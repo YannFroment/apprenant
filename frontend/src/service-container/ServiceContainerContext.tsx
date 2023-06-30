@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 import { Backend } from '../domain/Backend';
 import { Pictures } from '../domain/Pictures';

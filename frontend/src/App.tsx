@@ -11,6 +11,7 @@ import {
 } from './service-container/ServiceContainerContext';
 import { createUseStore } from './store';
 import { TextReorder } from './text-reorder';
+import { TextReorder2 } from './text-reorder-2';
 import { WordRecognition } from './word-recognition';
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         randomizedSentences={['Phrase 3', 'Phrase 1', 'Phrase 2']}
       />
     ),
+  },
+  {
+    path: '/text-reorder/:id',
+    element: <TextReorder2 />,
   },
   {
     path: '/word-recognition',
