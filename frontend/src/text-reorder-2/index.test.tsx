@@ -6,7 +6,7 @@ import { TextReorder2 } from '.';
 describe('TextReorder', () => {
   it('should retrieve the text reorder from the store', async () => {
     renderWithinProviders(<TextReorder2 />, {
-      useTrainingStore: () => ({
+      useTrainingsStore: () => ({
         useCurrentTextReorder: () => ({
           id: 1,
           orderedSentences: ['a', 'b'],
@@ -23,7 +23,7 @@ describe('TextReorder', () => {
 
 it('should go back to home if id is not matching a text reorder from store', async () => {
   renderWithinProviders(<TextReorder2 />, {
-    useTrainingStore: () => ({
+    useTrainingsStore: () => ({
       useCurrentTextReorder: () => undefined,
       textReorders: [],
       setTextReorders: () => {},

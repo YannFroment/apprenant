@@ -43,7 +43,7 @@ const context: ServiceContainer = {
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
   backend: backend,
-  useTrainingStore: useTrainingsStore,
+  useTrainingsStore,
 };
 
 function App() {

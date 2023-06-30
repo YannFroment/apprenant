@@ -20,13 +20,13 @@ export const createUseStore = (
 
 const useStore = createUseStore();
 
-export type UseTrainingStore = () => {
+export type UseTrainingsStore = () => {
   textReorders: TextReorder[];
   setTextReorders: (textReorders: TextReorder[]) => void;
   useCurrentTextReorder: () => TextReorder | undefined;
 };
 
-export const useTrainingsStore: UseTrainingStore = () => {
+export const useTrainingsStore: UseTrainingsStore = () => {
   const textReorders = useStore((state) => state.textReorders);
   const setTextReorders = useStore((state) => state.setTextReorders);
 

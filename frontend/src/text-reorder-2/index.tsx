@@ -4,9 +4,9 @@ import { Layout } from '../pages/layouts/Layout';
 import { useAppContext } from '../service-container/ServiceContainerContext';
 
 export const TextReorder2 = () => {
-  const { useTrainingStore } = useAppContext();
+  const { useTrainingsStore } = useAppContext();
 
-  const textReorder = useTrainingStore().useCurrentTextReorder();
+  const textReorder = useTrainingsStore().useCurrentTextReorder();
 
   if (!textReorder) {
     return <Navigate to="/" />;

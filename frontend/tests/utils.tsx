@@ -30,7 +30,7 @@ const defaultContainer: ServiceContainer = {
       return [];
     },
   },
-  useTrainingStore: () => ({
+  useTrainingsStore: () => ({
     textReorders: [],
     setTextReorders: () => {},
     useCurrentTextReorder: () => undefined,
