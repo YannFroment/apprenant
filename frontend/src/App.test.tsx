@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
 
-import { renderWithinProviders } from '../../tests/utils';
-import { Backend } from '../domain/Backend';
-import { Dashboard } from './Dashboard';
+import { renderWithinProviders } from '../tests/utils';
+import App from './App';
+import { Backend } from './domain/Backend';
 
 describe('Dashboard', () => {
   it('Should call backend', async () => {
@@ -16,7 +16,7 @@ describe('Dashboard', () => {
     };
     const backendGetSpy = jest.spyOn(backend, 'getTextReorders');
 
-    renderWithinProviders(<Dashboard />, { backend });
+    renderWithinProviders(<App />, { backend });
 
     await waitFor(() => {
       expect(backendGetSpy).toHaveBeenCalled();
