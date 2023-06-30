@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
 import { backend } from './external-services/Backend';
 import { pexelPictures } from './external-services/Pictures';
@@ -14,7 +14,7 @@ import { TextReorder } from './text-reorder';
 import { TextReorder2 } from './text-reorder-2';
 import { WordRecognition } from './word-recognition';
 
-const router = createBrowserRouter([
+export const router = createMemoryRouter([
   {
     path: '/',
     element: <Dashboard />,
