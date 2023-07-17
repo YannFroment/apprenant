@@ -1,9 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  WordRecognition,
-  WordRecognitionService,
-  WordRecognitions,
-} from './WordRecognition.service';
+import { WordRecognitionService } from './WordRecognition.service';
+import { WordRecognition } from './WordRecognition';
+import { WordRecognitions } from './WordRecognitions';
 
 class InMemoryWordRecognitions implements WordRecognitions {
   async getAll(): Promise<WordRecognition[]> {

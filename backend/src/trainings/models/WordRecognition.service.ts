@@ -1,21 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-
-export const WordRecognitions = 'WordRecognitions';
-
-type Word = {
-  word: string;
-  url: string;
-};
-
-export type WordRecognition = {
-  id: number;
-  title: string;
-  words: Word[];
-};
-
-export interface WordRecognitions {
-  getAll: () => Promise<WordRecognition[]>;
-}
+import { WordRecognition } from './WordRecognition';
+import { WordRecognitions } from './WordRecognitions';
 
 @Injectable()
 export class WordRecognitionService {
