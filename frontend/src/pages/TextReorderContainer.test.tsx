@@ -45,3 +45,20 @@ it('should go back to home if id is not matching a text reorder from store', asy
   });
   expect(screen.queryByTestId('text-reorder-training')).not.toBeInTheDocument();
 });
+
+it('should display title', async () => {
+  jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
+  renderWithinProviders(<TextReorderContainer />, {
+    useStore: createUseStore({
+      textReorders: [
+        {
+          id: 1,
+          orderedSentences: ['a', 'b'],
+          randomizedSentences: ['a', 'b'],
+          title: 'Title',
+        },
+      ],
+    }),
+  });
+  expect(screen.getByText('Title')).toBeInTheDocument();
+});
