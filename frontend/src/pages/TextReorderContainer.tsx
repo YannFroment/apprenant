@@ -4,7 +4,7 @@ import { useAppContext } from '../service-container/ServiceContainerContext';
 import { TextReorder } from '../text-reorder';
 import { Layout } from '../views/layouts/Layout';
 
-const useCurrentTextReorder = (id: string | undefined) => {
+const useTextReorderById = (id: string | undefined) => {
   const { useStore } = useAppContext();
   const { textReorders } = useStore();
 
@@ -13,7 +13,7 @@ const useCurrentTextReorder = (id: string | undefined) => {
 
 export const TextReorderContainer = () => {
   const { id } = useParams();
-  const textReorder = useCurrentTextReorder(id);
+  const textReorder = useTextReorderById(id);
 
   if (!textReorder) {
     return <Navigate to="/" />;
