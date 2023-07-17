@@ -35,4 +35,17 @@ describe('AppController (e2e)', () => {
         },
       ]);
   });
+
+  it('/word-recognition (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/word-recognition')
+      .expect(200)
+      .expect([
+        {
+          id: 1,
+          title: 'Les transports',
+          words: [{ word: 'voiture', url: 'voiture.jpg' }],
+        },
+      ]);
+  });
 });
