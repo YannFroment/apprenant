@@ -43,5 +43,5 @@ it('should go back to home if id is not matching a text reorder from store', asy
       ],
     }),
   });
-  expect(screen.queryByText('Title')).not.toBeInTheDocument();
+  expect(screen.queryByTestId('text-reorder-training')).not.toBeInTheDocument();
 });
