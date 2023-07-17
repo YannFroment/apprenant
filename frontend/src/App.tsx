@@ -5,22 +5,12 @@ import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
 import { useTrainingsStore } from './store';
-import { TextReorder } from './text-reorder';
 import { WordRecognition } from './word-recognition';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Dashboard />,
-  },
-  {
-    path: '/text-reorder',
-    element: (
-      <TextReorder
-        orderedSentences={['Phrase 1', 'Phrase 2', 'Phrase 3']}
-        randomizedSentences={['Phrase 3', 'Phrase 1', 'Phrase 2']}
-      />
-    ),
   },
   {
     path: '/text-reorder/:id',
