@@ -12,7 +12,7 @@ const useCurrentTextReorder = () => {
   return textReorders.find((el) => el.id.toString() === id);
 };
 
-export const TextReorder2 = () => {
+export const TextReorderContainer = () => {
   const textReorder = useCurrentTextReorder();
 
   if (!textReorder) {

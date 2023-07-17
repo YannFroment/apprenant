@@ -3,17 +3,17 @@ import Router from 'react-router';
 
 import { renderWithinProviders } from '../../tests/utils';
 import { createUseStore } from '../store';
-import { TextReorder2 } from '.';
+import { TextReorderContainer } from './TextReorderContainer';
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useParams: jest.fn(),
 }));
 
-describe('TextReorder', () => {
+describe('TextReorderContainer', () => {
   it('should retrieve the text reorder from the store', async () => {
     jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
-    renderWithinProviders(<TextReorder2 />, {
+    renderWithinProviders(<TextReorderContainer />, {
       useStore: createUseStore({
         textReorders: [
           {
@@ -31,7 +31,7 @@ describe('TextReorder', () => {
 
 it('should go back to home if id is not matching a text reorder from store', async () => {
   jest.spyOn(Router, 'useParams').mockReturnValue({ id: '2' });
-  renderWithinProviders(<TextReorder2 />, {
+  renderWithinProviders(<TextReorderContainer />, {
     useStore: createUseStore({
       textReorders: [
         {

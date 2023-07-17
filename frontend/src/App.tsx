@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Dashboard } from './pages/Dashboard';
+import { TextReorderContainer } from './pages/TextReorderContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
 import { useTrainingsStore } from './store';
 import { TextReorder } from './text-reorder';
-import { TextReorder2 } from './text-reorder-2';
 import { WordRecognition } from './word-recognition';
 
 const router = createBrowserRouter([
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/text-reorder/:id',
-    element: <TextReorder2 />,
+    element: <TextReorderContainer />,
   },
   {
     path: '/word-recognition',
