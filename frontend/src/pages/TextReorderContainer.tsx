@@ -4,16 +4,16 @@ import { useAppContext } from '../service-container/ServiceContainerContext';
 import { TextReorder } from '../text-reorder';
 import { Layout } from '../views/layouts/Layout';
 
-const useCurrentTextReorder = () => {
-  const { id } = useParams();
+const useCurrentTextReorder = (id: string | undefined) => {
   const { useStore } = useAppContext();
   const { textReorders } = useStore();
 
-  return textReorders.find((el) => el.id.toString() === id);
+  return textReorders.find((textReorder) => textReorder.id.toString() === id);
 };
 
 export const TextReorderContainer = () => {
-  const textReorder = useCurrentTextReorder();
+  const { id } = useParams();
+  const textReorder = useCurrentTextReorder(id);
 
   if (!textReorder) {
     return <Navigate to="/" />;
