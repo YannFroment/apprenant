@@ -25,7 +25,7 @@ describe('TextReorder', () => {
         ],
       }),
     });
-    expect(screen.getByText('Title')).toBeInTheDocument();
+    expect(screen.queryByTestId('text-reorder-training')).toBeInTheDocument();
   });
 });
 
