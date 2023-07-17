@@ -2,6 +2,7 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import { Layout } from '../pages/layouts/Layout';
 import { useAppContext } from '../service-container/ServiceContainerContext';
+import { TextReorder } from '../text-reorder';
 
 const useCurrentTextReorder = () => {
   const { id } = useParams();
@@ -20,8 +21,11 @@ export const TextReorder2 = () => {
 
   return (
     <Layout>
-      <p>{textReorder?.id}</p>
-      <div>{textReorder?.title}</div>
+      <div>{textReorder.title}</div>
+      <TextReorder
+        orderedSentences={textReorder.orderedSentences}
+        randomizedSentences={textReorder.randomizedSentences}
+      />
     </Layout>
   );
 };
