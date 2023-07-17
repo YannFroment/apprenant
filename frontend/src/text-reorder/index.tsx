@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
-import { Layout } from '../pages/layouts/Layout';
 import { ColumnElement } from './ColumnElement';
 import { Column, ColumnsData, textChecker, toColumnsData } from './ColumnsData';
 
