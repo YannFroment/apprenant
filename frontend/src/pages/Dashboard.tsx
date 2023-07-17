@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import { useTrainingsStore } from '../store';
+import { Layout } from '../views/layouts/Layout';
 import { Link } from '../views/Link';
-import { Layout } from './layouts/Layout';
 
 const DashboardContainer = styled.div`
   padding-top: 32px;

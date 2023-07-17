@@ -1,8 +1,8 @@
 import { Navigate, useParams } from 'react-router-dom';
 
-import { Layout } from '../pages/layouts/Layout';
 import { useAppContext } from '../service-container/ServiceContainerContext';
 import { TextReorder } from '../text-reorder';
+import { Layout } from '../views/layouts/Layout';
 
 const useCurrentTextReorder = () => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Link } from '../../views/Link';
+import { Link } from '../Link';
 
 const StyledHeader = styled.header`
   display: flex;
