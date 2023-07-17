@@ -1,16 +1,11 @@
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { backend } from './external-services/Backend';
-import { pexelPictures } from './external-services/Pictures';
-import { windowSpeechSynth } from './external-services/SpeechSynth';
-import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory';
 import { Dashboard } from './pages/Dashboard';
-import {
-  AppContext,
-  ServiceContainer,
-} from './service-container/ServiceContainerContext';
-import { TextReorder } from './text-reorder';
-import { WordRecognition } from './word-recognition';
+import { TextReorderContainer } from './pages/TextReorderContainer';
+import { useAppContext } from './service-container/ServiceContainerContext';
+import { useTrainingsStore } from './store';
+import { WordRecognition } from './trainings/word-recognition';
 
 const router = createBrowserRouter([
   {
@@ -18,13 +13,8 @@ const router = createBrowserRouter([
     element: <Dashboard />,
   },
   {
-    path: '/text-reorder',
-    element: (
-      <TextReorder
-        orderedSentences={['Phrase 1', 'Phrase 2', 'Phrase 3']}
-        randomizedSentences={['Phrase 3', 'Phrase 1', 'Phrase 2']}
-      />
-    ),
+    path: '/text-reorder/:id',
+    element: <TextReorderContainer />,
   },
   {
     path: '/word-recognition',
@@ -32,18 +22,30 @@ const router = createBrowserRouter([
   },
 ]);
 
-const context: ServiceContainer = {
-  speechSynth: windowSpeechSynth,
-  speechRecorderFactory: windowSpeechRecorderFactory,
-  pictures: pexelPictures,
-  backend: backend,
+const useLoadDataBeforeRendering = () => {
+  const { backend } = useAppContext();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { setTextReorders } = useTrainingsStore();
+
+  useEffect(() => {
+    const loadData = async () => {
+      const result = await backend.getTextReorders();
+      setTextReorders(result);
+      setIsLoading(false);
+    };
+
+    loadData();
+  }, [backend, setTextReorders]);
+
+  return isLoading;
 };
 
 function App() {
+  const isLoading = useLoadDataBeforeRendering();
+
   return (
-    <AppContext.Provider value={context}>
-      <RouterProvider router={router} />
-    </AppContext.Provider>
+    <>{isLoading ? <div>loading</div> : <RouterProvider router={router} />}</>
   );
 }
 

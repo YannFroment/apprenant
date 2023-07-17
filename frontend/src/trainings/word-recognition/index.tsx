@@ -1,4 +1,4 @@
-import { Layout } from '../pages/layouts/Layout';
+import { Layout } from '../../views/layouts/Layout';
 import { WordsContainer } from './WordsContainer';
 
 export const WordRecognition = () => {

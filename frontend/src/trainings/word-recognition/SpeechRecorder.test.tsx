@@ -1,8 +1,8 @@
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithinProviders } from '../../tests/utils';
-import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
+import { renderWithinProviders } from '../../../tests/utils';
+import { SpeechRecorderFactory } from '../../domain/SpeechRecorderFactory';
 import { SpeechRecorder } from './SpeechRecorder';
 
 describe('SpeechRecorder', () => {

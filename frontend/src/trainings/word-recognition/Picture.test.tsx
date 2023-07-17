@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 
-import { renderWithinProviders } from '../../tests/utils';
-import { Pictures } from '../domain/Pictures';
+import { renderWithinProviders } from '../../../tests/utils';
+import { Pictures } from '../../domain/Pictures';
 import { Picture } from './Picture';
 
 describe('Picture', () => {

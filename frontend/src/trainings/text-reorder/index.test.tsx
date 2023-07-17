@@ -1,6 +1,6 @@
 import { screen, waitFor, within } from '@testing-library/react';
 
-import { renderWithinProviders } from '../../tests/utils';
+import { renderWithinProviders } from '../../../tests/utils';
 import { TextReorder } from '.';
 import { ColumnsData } from './ColumnsData';
 

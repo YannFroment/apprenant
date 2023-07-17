@@ -4,8 +4,3 @@ export type TextReorder = {
   orderedSentences: string[];
   randomizedSentences: string[];
 };
-
-export type Backend = {
-  get: (url: string) => Promise<string>;
-  getTextReorders: () => Promise<TextReorder[]>;
-};
