@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
 
 import { useAppContext } from '../service-container/ServiceContainerContext';
-import { TextReorder } from '../text-reorder';
+import { TextReorder } from '../trainings/text-reorder';
 import { Layout } from '../views/layouts/Layout';
 
 const useTextReorderById = (id: string | undefined) => {

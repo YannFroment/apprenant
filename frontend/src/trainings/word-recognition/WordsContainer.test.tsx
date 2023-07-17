@@ -1,7 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithinProviders } from '../../tests/utils';
+import { renderWithinProviders } from '../../../tests/utils';
 import { WordsContainer } from './WordsContainer';
 
 describe('WordsContainer', () => {

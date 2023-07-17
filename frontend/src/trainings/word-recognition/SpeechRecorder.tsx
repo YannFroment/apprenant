@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useAppContext } from '../service-container/ServiceContainerContext';
+import { useAppContext } from '../../service-container/ServiceContainerContext';
 
 type SpeechRecorderProps = {
   text: string;

@@ -5,7 +5,7 @@ import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
 import { useTrainingsStore } from './store';
-import { WordRecognition } from './word-recognition';
+import { WordRecognition } from './trainings/word-recognition';
 
 const router = createBrowserRouter([
   {
