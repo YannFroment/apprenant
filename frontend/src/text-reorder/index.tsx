@@ -17,8 +17,6 @@ export const TextReorder = ({
   randomizedSentences,
   defaultColumnsData,
 }: TextReorderProps) => {
-  const { textReorders } = useTrainingsStore();
-  console.log(textReorders);
   const [columnsData, setColumnsData] = useState<ColumnsData>(
     defaultColumnsData ?? toColumnsData(randomizedSentences),
   );
