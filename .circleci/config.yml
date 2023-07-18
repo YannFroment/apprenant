@@ -6,35 +6,35 @@ jobs:
     executor:
       name: node/default
     parameters:
-      message:
+      directory:
         type: string
     steps:
       - checkout
       - node/install-packages:
-          app-dir: ~/project/<< parameters.message >>
+          app-dir: ~/project/<< parameters.directory >>
           pkg-manager: npm
       - run:
           command: npm run lint
           name: Run linter
-          working_directory: ~/project/<< parameters.message >>
+          working_directory: ~/project/<< parameters.directory >>
       - run:
           command: npm run test
           name: Run unit tests
-          working_directory: ~/project/<< parameters.message >>
+          working_directory: ~/project/<< parameters.directory >>
       - when:
           condition:
-            equal: [backend, << parameters.message >>]
+            equal: [backend, << parameters.directory >>]
           steps:
             - run:
                 command: npm run test:e2e
                 name: Run end-to-end tests
-                working_directory: ~/project/<< parameters.message >>
+                working_directory: ~/project/<< parameters.directory >>
 workflows:
   frontend:
     jobs:
       - lint-and-test:
-          message: frontend
+          directory: frontend
   backend:
     jobs:
       - lint-and-test:
-          message: backend
+          directory: backend
