@@ -5,20 +5,28 @@ jobs:
   lint-and-test:
     executor:
       name: node/default
+    parameters:
+      message:
+        type: string
     steps:
       - checkout
       - node/install-packages:
-          app-dir: ~/project/frontend
+          app-dir: ~/project/<< parameters.message >>
           pkg-manager: npm
       - run:
           command: npm run lint
           name: Run linter
-          working_directory: ~/project/frontend
+          working_directory: ~/project/<< parameters.message >>
       - run:
           command: npm run test
           name: Run unit tests
-          working_directory: ~/project/frontend
+          working_directory: ~/project/<< parameters.message >>
 workflows:
   frontend:
     jobs:
-      - lint-and-test
+      - lint-and-test:
+          message: frontend
+  backend:
+    jobs:
+      - lint-and-test:
+          message: backend
