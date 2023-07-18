@@ -3,7 +3,7 @@ import { WordRecognitionService } from './WordRecognition.service';
 import { WordRecognition } from './WordRecognition';
 import { WordRecognitions } from './WordRecognitions';
 
-class InMemoryWordRecognitions implements WordRecognitions {
+export class InMemoryWordRecognitions implements WordRecognitions {
   async getAll(): Promise<WordRecognition[]> {
     return [
       {

@@ -4,6 +4,9 @@ import { HealthCheck } from './app.service';
 import { TextReorderService } from './trainings/models/TextReorder.service';
 import { InMemoryTextReorders } from './trainings/models/TextReorder.service.spec';
 import { TextReorders } from './trainings/models/TextReorders';
+import { WordRecognitionService } from './trainings/models/WordRecognition.service';
+import { WordRecognitions } from './trainings/models/WordRecognitions';
+import { InMemoryWordRecognitions } from './trainings/models/WordRecognition.service.spec';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -17,6 +20,11 @@ describe('AppController', () => {
         {
           provide: TextReorders,
           useClass: InMemoryTextReorders,
+        },
+        WordRecognitionService,
+        {
+          provide: WordRecognitions,
+          useClass: InMemoryWordRecognitions,
         },
       ],
     }).compile();
