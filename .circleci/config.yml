@@ -21,6 +21,14 @@ jobs:
           command: npm run test
           name: Run unit tests
           working_directory: ~/project/<< parameters.message >>
+      - when:
+          condition:
+            equal: [backend, << parameters.message >>]
+          steps:
+            - run:
+                command: npm run test:e2e
+                name: Run end-to-end tests
+                working_directory: ~/project/<< parameters.message >>
 workflows:
   frontend:
     jobs:
