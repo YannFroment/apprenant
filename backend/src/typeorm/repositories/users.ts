@@ -7,9 +7,6 @@ const typeORMUsersFactory = (dataSource: DataSource): Users => {
   const baseRepository = dataSource.getRepository(UserSchema);
 
   return {
-    customFind: async () => {
-      return baseRepository.find();
-    },
     find: async () => {
       return baseRepository.find();
     },

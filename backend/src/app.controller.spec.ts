@@ -7,6 +7,8 @@ import { TextReorders } from './trainings/models/TextReorders';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { InMemoryWordRecognitions } from './trainings/models/WordRecognition.service.spec';
+import { UsersService, Users } from './user/user.service';
+import { InMemoryUsers } from './user/user.service.spec';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -26,6 +28,8 @@ describe('AppController', () => {
           provide: WordRecognitions,
           useClass: InMemoryWordRecognitions,
         },
+        UsersService,
+        { provide: Users, useClass: InMemoryUsers },
       ],
     }).compile();
 

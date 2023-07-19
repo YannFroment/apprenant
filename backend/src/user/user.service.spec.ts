@@ -9,12 +9,8 @@ const user: User = {
   isActive: true,
 };
 
-class InMemoryUsers implements Users {
+export class InMemoryUsers implements Users {
   async find(): Promise<User[]> {
-    return [user];
-  }
-
-  async customFind(): Promise<User[]> {
     return [user];
   }
 }
@@ -32,12 +28,6 @@ describe('UsersService', () => {
 
   it('should return all users', async () => {
     const users = await usersService.findAll();
-
-    expect(users).toEqual(expect.arrayContaining([user]));
-  });
-
-  it('should use custom repo method', async () => {
-    const users = await usersService.findAllWithCustomMethod();
 
     expect(users).toEqual(expect.arrayContaining([user]));
   });

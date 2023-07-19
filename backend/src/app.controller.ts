@@ -35,9 +35,4 @@ export class AppController {
   async getUsers(): Promise<User[]> {
     return this.usersService.findAll();
   }
-
-  @Get('custom-users')
-  async getCustomUsers(): Promise<User[]> {
-    return this.usersService.findAllWithCustomMethod();
-  }
 }
