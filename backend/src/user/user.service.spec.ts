@@ -13,6 +13,10 @@ export class InMemoryUsers implements Users {
   async find(): Promise<User[]> {
     return [user];
   }
+
+  async create(): Promise<User> {
+    throw Error('Not yet implemented');
+  }
 }
 
 describe('UsersService', () => {

@@ -4,3 +4,8 @@ export class User {
   lastName: string;
   isActive: boolean;
 }
+
+export type CreateUserDto = {
+  firstName: string;
+  lastName: string;
+};

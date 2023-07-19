@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from './user';
+import { CreateUserDto, User } from './user';
 
 export const Users = 'Users';
 
 export interface Users {
   find: () => Promise<User[]>;
+  create: (createUserDto: CreateUserDto) => Promise<User>;
 }
 
 @Injectable()
@@ -16,5 +17,9 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.users.find();
+  }
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    return this.users.create(createUserDto);
   }
 }

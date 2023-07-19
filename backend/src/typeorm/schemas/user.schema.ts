@@ -12,13 +12,18 @@ export const UserSchema = new EntitySchema<User>({
     },
     firstName: {
       type: String,
+      name: 'first_name',
+      nullable: false,
     },
     lastName: {
       type: String,
+      name: 'last_name',
+      nullable: false,
     },
     isActive: {
       type: Boolean,
       default: true,
+      name: 'is_active',
     },
   },
 });

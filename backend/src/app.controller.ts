@@ -1,10 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { HealthCheck } from './app.service';
 import { TextReorder } from './trainings/models/TextReorder';
 import { TextReorderService } from './trainings/models/TextReorder.service';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognition } from './trainings/models/WordRecognition';
-import { User } from './user/user';
+import { CreateUserDto, User } from './user/user';
 import { UsersService } from './user/user.service';
 
 @Controller()
@@ -34,5 +34,10 @@ export class AppController {
   @Get('users')
   async getUsers(): Promise<User[]> {
     return this.usersService.findAll();
+  }
+
+  @Post('user')
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.create(createUserDto);
   }
 }
