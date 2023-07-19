@@ -4,8 +4,8 @@ import { TextReorder } from './trainings/models/TextReorder';
 import { TextReorderService } from './trainings/models/TextReorder.service';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognition } from './trainings/models/WordRecognition';
-import { User } from './db-sandbox/user.entity';
-import { UsersService } from './db-sandbox/user.service';
+import { User } from './user/user';
+import { UsersService } from './user/user.service';
 
 @Controller()
 export class AppController {

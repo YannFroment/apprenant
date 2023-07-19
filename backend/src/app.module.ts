@@ -7,9 +7,9 @@ import { ConcreteTextReorders } from './trainings/external-sources/TextReorders'
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { ConcreteWordRecognitions } from './trainings/external-sources/WordRecognitions';
-import { UsersService } from './db-sandbox/user.service';
-import { DatabaseModule } from './db-sandbox/database.module';
-import { TypeORMUsers } from './db-sandbox/user.typeorm.repository';
+import { UsersService } from './user/user.service';
+import { TypeORMUsers } from './typeorm/repositories/user.typeorm.repository';
+import { DatabaseModule } from './typeorm/database.module';
 
 @Module({
   imports: [DatabaseModule],
