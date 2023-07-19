@@ -7,30 +7,17 @@ import { ConcreteTextReorders } from './trainings/external-sources/TextReorders'
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { ConcreteWordRecognitions } from './trainings/external-sources/WordRecognitions';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 import { UsersService } from './db-sandbox/user.service';
-import { UserSchema } from './db-sandbox/UserSchema';
+import { DatabaseModule } from './db-sandbox/database.module';
+import { TypeORMUserRepository } from './db-sandbox/user.typeorm.repository';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'database',
-      port: 3306,
-      username: 'apprenant',
-      password: 'apprenant',
-      database: 'apprenant',
-      entities: [],
-      autoLoadEntities: true,
-      synchronize: true, // TODO TO BE REMOVED FOR PRODUCTION
-    }),
-    TypeOrmModule.forFeature([UserSchema]),
-  ],
+  imports: [DatabaseModule],
   controllers: [AppController],
   providers: [
     HealthCheck,
     TextReorderService,
+    TypeORMUserRepository,
     UsersService,
     {
       provide: TextReorders,
@@ -43,6 +30,4 @@ import { UserSchema } from './db-sandbox/UserSchema';
     },
   ],
 })
-export class AppModule {
-  constructor(private dataSource: DataSource) {} // todo make it readonly?
-}
+export class AppModule {}

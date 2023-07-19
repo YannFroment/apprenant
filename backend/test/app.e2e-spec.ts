@@ -48,4 +48,13 @@ describe('AppController (e2e)', () => {
         },
       ]);
   });
+
+  it('/users (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/users')
+      .expect(200)
+      .expect([
+        { id: 1, firstName: 'Laurent', lastName: 'Verdier', isActive: true },
+      ]);
+  });
 });
