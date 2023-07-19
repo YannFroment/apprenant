@@ -1,20 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 
-export const UserRepository = 'UserRepository';
+export const Users = 'Users';
 
-export interface UserRepository {
+export interface Users {
   find: () => Promise<User[]>;
 }
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject(UserRepository)
-    private usersRepository: UserRepository,
+    @Inject(Users)
+    private users: Users,
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.users.find();
   }
 }

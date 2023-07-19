@@ -1,5 +1,5 @@
 import { User } from './user.entity';
-import { UserRepository, UsersService } from './user.service';
+import { Users, UsersService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
 const user: User = {
@@ -9,7 +9,7 @@ const user: User = {
   isActive: true,
 };
 
-class InMemoryUserRepository implements UserRepository {
+class InMemoryUsers implements Users {
   async find(): Promise<User[]> {
     return [user];
   }
@@ -20,10 +20,7 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        UsersService,
-        { provide: UserRepository, useClass: InMemoryUserRepository },
-      ],
+      providers: [UsersService, { provide: Users, useClass: InMemoryUsers }],
     }).compile();
 
     usersService = module.get<UsersService>(UsersService);

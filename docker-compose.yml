@@ -29,6 +29,9 @@ services:
       - database
     environment:
       NODE_ENV: development
+      MYSQL_DATABASE: apprenant
+      MYSQL_USER: apprenant
+      MYSQL_PASSWORD: apprenant
     ports:
       - 3000:3000
     volumes:

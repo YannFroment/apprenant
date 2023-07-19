@@ -1,5 +1,4 @@
 import { DataSource } from 'typeorm';
-import { UserSchema } from './user.schema';
 
 export const DATA_SOURCE = 'DATA_SOURCE';
 
@@ -11,10 +10,10 @@ export const databaseProviders = [
         type: 'mysql',
         host: 'database',
         port: 3306,
-        username: 'apprenant',
-        password: 'apprenant',
-        database: 'apprenant',
-        entities: [UserSchema],
+        username: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
+        entities: [__dirname + '/../**/*.schema{.ts,.js}'],
         synchronize: true,
       });
 

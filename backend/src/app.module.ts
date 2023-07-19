@@ -9,7 +9,7 @@ import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { ConcreteWordRecognitions } from './trainings/external-sources/WordRecognitions';
 import { UsersService } from './db-sandbox/user.service';
 import { DatabaseModule } from './db-sandbox/database.module';
-import { TypeORMUserRepository } from './db-sandbox/user.typeorm.repository';
+import { TypeORMUsers } from './db-sandbox/user.typeorm.repository';
 
 @Module({
   imports: [DatabaseModule],
@@ -17,7 +17,7 @@ import { TypeORMUserRepository } from './db-sandbox/user.typeorm.repository';
   providers: [
     HealthCheck,
     TextReorderService,
-    TypeORMUserRepository,
+    TypeORMUsers,
     UsersService,
     {
       provide: TextReorders,
