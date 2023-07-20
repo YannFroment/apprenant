@@ -1,7 +1,6 @@
 import { TextReorder } from '../models/TextReorder';
-import { TextReorders } from '../models/TextReorders';
 
-export class ConcreteTextReorders implements TextReorders {
+export class ConcreteTextReorders {
   async getAll(): Promise<TextReorder[]> {
     return [
       {

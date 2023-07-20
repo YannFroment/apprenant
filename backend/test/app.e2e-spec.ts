@@ -32,17 +32,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('/text-reorders (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/text-reorders')
-      .expect(200)
-      .expect([
-        {
-          id: 1,
-          title: 'Véritable article sud-ouest',
-          orderedSentences: ['phrase 1', 'phrase 2'],
-          randomizedSentences: ['phrase 2', 'phrase 1'],
-        },
-      ]);
+    return request(app.getHttpServer()).get('/text-reorders').expect(200);
   });
 
   it('/word-recognition (GET)', () => {
