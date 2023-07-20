@@ -7,6 +7,7 @@ const user: User = {
   firstName: 'John',
   lastName: 'Doe',
   isActive: true,
+  age: 42,
 };
 
 export class InMemoryUsers implements Users {
