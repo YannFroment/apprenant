@@ -19,10 +19,6 @@ import { TypeORMTextReorders } from './persistence/repositories/textReorders';
     TypeORMUsers,
     TypeORMTextReorders,
     UsersService,
-    // {
-    //   provide: TextReorders,
-    //   useClass: ConcreteTextReorders,
-    // },
     WordRecognitionService,
     {
       provide: WordRecognitions,
