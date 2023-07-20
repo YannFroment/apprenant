@@ -31,7 +31,7 @@ Application de support d'enseignement à destination d'adultes en situation d'il
 
 ### Réinitialiser la base de données
 
-Va supprimer toutes les tables, exécuter toutes les migrations et lancer le seeder
+Va supprimer toutes les tables, exécuter toutes les migrations et créer un jeu de données initial (seed de base de données)
 
 `docker-compose run --rm backend npm run purge:db`
 
