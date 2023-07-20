@@ -8,8 +8,8 @@ import { WordRecognitionService } from './trainings/models/WordRecognition.servi
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { ConcreteWordRecognitions } from './trainings/external-sources/WordRecognitions';
 import { UsersService } from './user/user.service';
-import { TypeORMUsers } from './typeorm/repositories/users';
-import { DatabaseModule } from './typeorm/database.module';
+import { TypeORMUsers } from './persistence/repositories/users';
+import { DatabaseModule } from './persistence/database.module';
 
 @Module({
   imports: [DatabaseModule],

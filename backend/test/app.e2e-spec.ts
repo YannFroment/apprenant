@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { DataSource } from 'typeorm';
-import { DATA_SOURCE } from './../src/typeorm/database.providers';
+import { DATA_SOURCE } from '../src/persistence/database.providers';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
