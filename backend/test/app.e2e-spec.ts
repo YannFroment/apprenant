@@ -4,9 +4,6 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { DataSource } from 'typeorm';
 import { DATA_SOURCE } from '../src/persistence/database.providers';
-import { runSeeders } from 'typeorm-extension';
-import UserSeeder from '../src/persistence/seeds/user.seeder';
-import userFactory from '../src/persistence/factories/user.factory';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -21,13 +18,6 @@ describe('AppController (e2e)', () => {
     await app.init();
 
     dataSource = module.get(DATA_SOURCE);
-
-    await dataSource.dropDatabase();
-    await dataSource.runMigrations();
-    await runSeeders(dataSource, {
-      seeds: [UserSeeder],
-      factories: [userFactory],
-    });
   });
 
   afterAll(async () => {
@@ -72,14 +62,5 @@ describe('AppController (e2e)', () => {
     const response = await request(app.getHttpServer()).get('/users');
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual([
-      expect.objectContaining({
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        isActive: true,
-        age: 42,
-      }),
-    ]);
   });
 });

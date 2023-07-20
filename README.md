@@ -27,15 +27,21 @@ Application de support d'enseignement à destination d'adultes en situation d'il
 - `docker-compose run --rm backend npm run test` tests unitaires
 - `docker-compose run --rm backend npm run test:e2e` tests end-to-end
 
-## Migrations :
+## Base de données :
 
-### Générer
+### Réinitialiser la base de données
+
+Va supprimer toutes les tables, exécuter toutes les migrations et lancer le seeder
+
+`docker-compose run --rm backend npm run purge:db`
+
+### Générer une migration
 
 `docker-compose run --rm backend npm run typeorm migration:generate ./src/persistence/migrations/<NomDeMigration>`
 
-### Lancer
+### Lancer les migrations
 
-`docker-compose run --rm backend npm run typeorm migration:run`
+`docker-compose run --rm backend npm run migration:run`
 
 ## Compiler
 
