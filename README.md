@@ -27,6 +27,16 @@ Application de support d'enseignement à destination d'adultes en situation d'il
 - `docker-compose run --rm backend npm run test` tests unitaires
 - `docker-compose run --rm backend npm run test:e2e` tests end-to-end
 
+## Migrations :
+
+### Générer
+
+`docker-compose run --rm backend npm run typeorm migration:generate ./src/persistence/migrations/<NomDeMigration>`
+
+### Lancer
+
+`docker-compose run --rm backend npm run typeorm migration:run`
+
 ## Compiler
 
 ### Frontend :
