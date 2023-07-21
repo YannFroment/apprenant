@@ -6,6 +6,11 @@ jobs:
     docker:
       - image: cimg/base:2023.07
       - image: cimg/mysql:8.0
+        environment:
+          - MYSQL_DATABASE: apprenant
+          - MYSQL_USER: apprenant
+          - MYSQL_PASSWORD: apprenant
+          - MYSQL_ROOT_PASSWORD: password
     steps:
       - checkout
   lint-and-test:
