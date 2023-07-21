@@ -2,6 +2,11 @@ version: '2.1'
 orbs:
   node: circleci/node@5.0.3
 jobs:
+  build:
+    docker:
+      - image: cimg/base:2023.07
+    steps:
+      - checkout
   lint-and-test:
     executor:
       name: node/default
@@ -29,5 +34,6 @@ workflows:
           directory: frontend
   backend:
     jobs:
+      - build
       - lint-and-test:
           directory: backend
