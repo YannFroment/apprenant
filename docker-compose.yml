@@ -1,19 +1,40 @@
 version: "2.0"
 
 services:
+  database:
+    image: mysql:8.0.33-oracle
+    restart: always
+    environment:
+      MYSQL_DATABASE: apprenant
+      MYSQL_USER: apprenant
+      MYSQL_PASSWORD: apprenant
+      MYSQL_ROOT_PASSWORD: password # to be extracted to docker-compose.override.yml
+    ports:
+      - 3306:3306
+    volumes:
+      - apprenant-db:/var/lib/mysql
   frontend:
     build: ./docker/node
     environment:
       NODE_ENV: development
+    depends_on:
+      - backend
     ports:
       - 5173:5173
     volumes:
       - ./frontend:/usr/src/
   backend:
     build: ./docker/node
+    depends_on:
+      - database
     environment:
       NODE_ENV: development
+      MYSQL_DATABASE: apprenant
+      MYSQL_USER: apprenant
+      MYSQL_PASSWORD: apprenant
     ports:
       - 3000:3000
     volumes:
       - ./backend:/usr/src/
+volumes:
+  apprenant-db:

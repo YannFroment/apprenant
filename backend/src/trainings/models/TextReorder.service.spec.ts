@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TextReorderService } from './TextReorder.service';
 import { TextReorders } from './TextReorders';
+import { TextReorder } from './TextReorder';
 
 export class InMemoryTextReorders implements TextReorders {
   async getAll() {
@@ -12,6 +13,9 @@ export class InMemoryTextReorders implements TextReorders {
         randomizedSentences: ['b', 'a'],
       },
     ];
+  }
+  async create(): Promise<TextReorder> {
+    throw Error('Not yet implemented');
   }
 }
 
