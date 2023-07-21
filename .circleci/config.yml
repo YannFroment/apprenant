@@ -17,6 +17,9 @@ jobs:
       - run:
           name: Start docker
           command: docker-compose up -d
+      - run:
+          name: Purge db
+          command: npm run purge:db
   lint-and-test:
     executor:
       name: node/default
