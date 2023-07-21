@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Purge db
           command: npm run purge:db
+          working_directory: ~project/backend
   lint-and-test:
     executor:
       name: node/default
