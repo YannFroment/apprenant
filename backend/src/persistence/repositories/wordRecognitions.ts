@@ -10,7 +10,7 @@ const typeORMWordRecognitionsFactory = (
 
   return {
     getAll: async () => {
-      return baseRepository.find();
+      return baseRepository.find({ relations: { words: true } });
     },
   };
 };
