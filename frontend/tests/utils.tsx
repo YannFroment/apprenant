@@ -29,6 +29,9 @@ const defaultContainer: ServiceContainer = {
     getTextReorders: async () => {
       return [];
     },
+    getWordRecognitions: async () => {
+      return [];
+    },
   },
   useStore: () => ({
     textReorders: [],
@@ -58,11 +61,12 @@ const TestContainer = ({
 export const renderWithinProviders = (
   children: ReactNode,
   overrideServices?: Partial<ServiceContainer>,
+  wrapInRouter = true,
 ) => {
   render(
     <ThemeProvider theme={theme}>
       <TestContainer overrideServices={overrideServices}>
-        <BrowserRouter>{children}</BrowserRouter>
+        {wrapInRouter ? <BrowserRouter>{children}</BrowserRouter> : children}
       </TestContainer>
     </ThemeProvider>,
   );

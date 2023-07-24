@@ -5,7 +5,7 @@ import App from './App';
 import { Backend } from './domain/Backend';
 
 describe('Dashboard', () => {
-  it('Should call backend', async () => {
+  it('should retrieve text reorders from backend', async () => {
     const backend: Backend = {
       get: async () => {
         return '';
@@ -13,13 +13,37 @@ describe('Dashboard', () => {
       getTextReorders: async () => {
         return [];
       },
+      getWordRecognitions: async () => {
+        return [];
+      },
     };
-    const backendGetSpy = jest.spyOn(backend, 'getTextReorders');
+    const getTextReordersSpy = jest.spyOn(backend, 'getTextReorders');
 
-    renderWithinProviders(<App />, { backend });
+    renderWithinProviders(<App />, { backend }, false);
 
     await waitFor(() => {
-      expect(backendGetSpy).toHaveBeenCalled();
+      expect(getTextReordersSpy).toHaveBeenCalled();
+    });
+  });
+
+  it('should retrieve word recognitions from backend', async () => {
+    const backend: Backend = {
+      get: async () => {
+        return '';
+      },
+      getTextReorders: async () => {
+        return [];
+      },
+      getWordRecognitions: async () => {
+        return [];
+      },
+    };
+    const getWordRecognitionsSpy = jest.spyOn(backend, 'getWordRecognitions');
+
+    renderWithinProviders(<App />, { backend }, false);
+
+    await waitFor(() => {
+      expect(getWordRecognitionsSpy).toHaveBeenCalled();
     });
   });
 });

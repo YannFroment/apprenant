@@ -5,7 +5,20 @@ export type TextReorder = {
   randomizedSentences: string[];
 };
 
+type Word = {
+  id: number;
+  word: string;
+  url: string;
+};
+
+export type WordRecognition = {
+  id: number;
+  title: string;
+  words: Word[];
+};
+
 export type Backend = {
   get: (url: string) => Promise<string>;
   getTextReorders: () => Promise<TextReorder[]>;
+  getWordRecognitions: () => Promise<WordRecognition[]>;
 };
