@@ -26,7 +26,7 @@ export const Dashboard = () => {
   const { textReorders } = useTrainingsStore();
   return (
     <Layout>
-      <DashboardContainer>
+      <DashboardContainer data-testid="dashboard">
         <WelcomeText>Bonjour</WelcomeText>
         <Text>Vos entrainements :</Text>
         {textReorders.map(({ id, title }) => {

@@ -1,17 +1,24 @@
-import { waitFor } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 
 import { renderWithinProviders } from '../tests/utils';
 import App from './App';
 import { Backend } from './domain/Backend';
 
 describe('Dashboard', () => {
-  it('should retrieve text reorders from backend', async () => {
+  it('should retrieve and store text reorders from backend', async () => {
     const backend: Backend = {
       get: async () => {
         return '';
       },
       getTextReorders: async () => {
-        return [];
+        return [
+          {
+            id: 1,
+            title: 'title',
+            orderedSentences: [],
+            randomizedSentences: [],
+          },
+        ];
       },
       getWordRecognitions: async () => {
         return [];
@@ -23,6 +30,10 @@ describe('Dashboard', () => {
 
     await waitFor(() => {
       expect(getTextReordersSpy).toHaveBeenCalled();
+      expect(screen.queryByTestId('dashboard')).toBeInTheDocument();
+      expect(
+        within(screen.queryByTestId('dashboard')!).queryByText('title'),
+      ).toBeInTheDocument();
     });
   });
 
