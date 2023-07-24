@@ -1,24 +1,17 @@
-import { screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import { renderWithinProviders } from '../tests/utils';
 import App from './App';
 import { Backend } from './domain/Backend';
 
 describe('Dashboard', () => {
-  it('should retrieve and store text reorders from backend', async () => {
+  it('should display loader, retrieve data from backend and display dashboard', async () => {
     const backend: Backend = {
       get: async () => {
         return '';
       },
       getTextReorders: async () => {
-        return [
-          {
-            id: 1,
-            title: 'title',
-            orderedSentences: [],
-            randomizedSentences: [],
-          },
-        ];
+        return [];
       },
       getWordRecognitions: async () => {
         return [];
@@ -27,13 +20,11 @@ describe('Dashboard', () => {
     const getTextReordersSpy = jest.spyOn(backend, 'getTextReorders');
 
     renderWithinProviders(<App />, { backend }, false);
+    expect(screen.queryByTestId('loader')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(getTextReordersSpy).toHaveBeenCalled();
       expect(screen.queryByTestId('dashboard')).toBeInTheDocument();
-      expect(
-        within(screen.queryByTestId('dashboard')!).queryByText('title'),
-      ).toBeInTheDocument();
     });
   });
 

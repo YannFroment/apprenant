@@ -12,8 +12,9 @@ export type UseStore = UseBoundStore<StoreApi<StoreState>>;
 export const createUseStore = (args: Partial<StoreState> = {}): UseStore => {
   return create<StoreState>((set) => ({
     textReorders: args.textReorders ?? [],
-    setTextReorders: (textReorders: TextReorder[]) =>
-      set(() => ({ textReorders })),
+    setTextReorders:
+      args.setTextReorders ??
+      ((textReorders: TextReorder[]) => set(() => ({ textReorders }))),
   }));
 };
 

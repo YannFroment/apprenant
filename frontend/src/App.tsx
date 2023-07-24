@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
-import { useTrainingsStore } from './store';
 import { WordRecognition } from './trainings/word-recognition';
 
 const router = createBrowserRouter([
@@ -23,10 +22,10 @@ const router = createBrowserRouter([
 ]);
 
 const useLoadDataBeforeRendering = () => {
-  const { backend } = useAppContext();
+  const { backend, useStore } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setTextReorders } = useTrainingsStore();
+  const { setTextReorders } = useStore();
 
   useEffect(() => {
     const loadData = async () => {
@@ -46,7 +45,13 @@ function App() {
   const isLoading = useLoadDataBeforeRendering();
 
   return (
-    <>{isLoading ? <div>loading</div> : <RouterProvider router={router} />}</>
+    <>
+      {isLoading ? (
+        <div data-testid="loader">loading</div>
+      ) : (
+        <RouterProvider router={router} />
+      )}
+    </>
   );
 }
 
