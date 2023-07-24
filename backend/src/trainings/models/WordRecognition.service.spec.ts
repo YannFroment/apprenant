@@ -1,20 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { WordRecognitionService } from './WordRecognition.service';
-import { WordRecognition } from './WordRecognition';
+import { Word, WordRecognition } from './WordRecognition';
 import { WordRecognitions } from './WordRecognitions';
 
 export class InMemoryWordRecognitions implements WordRecognitions {
   async getAll(): Promise<WordRecognition[]> {
-    return [
-      {
-        id: 1,
-        title: 'Les animaux',
-        words: [
-          { id: 1, word: 'chat', url: 'chat.jpg' },
-          { id: 2, word: 'chien', url: 'chien.jpg' },
-        ],
-      },
-    ];
+    const wordRecognition: WordRecognition = {
+      id: 1,
+      title: 'Les animaux',
+      words: [],
+    };
+    const chat: Word = {
+      id: 1,
+      word: 'chat',
+      url: 'chat.jpg',
+      wordRecognition,
+    };
+    const chien: Word = {
+      id: 2,
+      word: 'chien',
+      url: 'chien.jpg',
+      wordRecognition,
+    };
+
+    wordRecognition.words.push(chat, chien);
+
+    return [wordRecognition];
   }
 }
 
@@ -38,17 +49,15 @@ describe('WordRecognitionService', () => {
   });
 
   it('should return word recognitions', async () => {
-    expect(await wordRecognitionService.getAll()).toEqual(
-      expect.arrayContaining([
-        {
-          id: 1,
-          title: 'Les animaux',
-          words: [
-            { id: 1, word: 'chat', url: 'chat.jpg' },
-            { id: 2, word: 'chien', url: 'chien.jpg' },
-          ],
-        },
-      ]),
-    );
+    expect(await wordRecognitionService.getAll()).toEqual([
+      {
+        id: 1,
+        title: 'Les animaux',
+        words: [
+          expect.objectContaining({ id: 1, word: 'chat', url: 'chat.jpg' }),
+          expect.objectContaining({ id: 2, word: 'chien', url: 'chien.jpg' }),
+        ],
+      },
+    ]);
   });
 });
