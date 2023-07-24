@@ -1,10 +1,12 @@
-type Word = {
+export class Word {
+  id: number;
   word: string;
   url: string;
-};
+  wordRecognition: WordRecognition;
+}
 
-export type WordRecognition = {
+export class WordRecognition {
   id: number;
   title: string;
   words: Word[];
-};
+}

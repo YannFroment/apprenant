@@ -10,8 +10,8 @@ export class InMemoryWordRecognitions implements WordRecognitions {
         id: 1,
         title: 'Les animaux',
         words: [
-          { word: 'chat', url: 'chat.jpg' },
-          { word: 'chien', url: 'chien.jpg' },
+          { id: 1, word: 'chat', url: 'chat.jpg' },
+          { id: 2, word: 'chien', url: 'chien.jpg' },
         ],
       },
     ];
@@ -44,8 +44,8 @@ describe('WordRecognitionService', () => {
           id: 1,
           title: 'Les animaux',
           words: [
-            { word: 'chat', url: 'chat.jpg' },
-            { word: 'chien', url: 'chien.jpg' },
+            { id: 1, word: 'chat', url: 'chat.jpg' },
+            { id: 2, word: 'chien', url: 'chien.jpg' },
           ],
         },
       ]),
