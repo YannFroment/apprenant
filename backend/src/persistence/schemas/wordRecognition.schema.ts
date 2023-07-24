@@ -16,6 +16,7 @@ export const WordRecognitionSchema = new EntitySchema<WordRecognition>({
     words: {
       type: 'one-to-many',
       target: 'Word',
+      cascade: true,
     },
   },
 });
@@ -38,6 +39,7 @@ export const WordSchema = new EntitySchema<Word>({
     wordRecognition: {
       type: 'many-to-one',
       target: 'WordRecognition',
+      onDelete: 'CASCADE',
     },
   },
 });
