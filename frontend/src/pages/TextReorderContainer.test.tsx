@@ -14,7 +14,7 @@ describe('TextReorderContainer', () => {
   it('should retrieve the text reorder from the store', async () => {
     jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
     renderWithinProviders(<TextReorderContainer />, {
-      useStore: createUseStore({
+      useTrainingsStore: createUseStore({
         textReorders: [
           {
             id: 1,
@@ -32,7 +32,7 @@ describe('TextReorderContainer', () => {
 it('should go back to home if id is not matching a text reorder from store', async () => {
   jest.spyOn(Router, 'useParams').mockReturnValue({ id: '2' });
   renderWithinProviders(<TextReorderContainer />, {
-    useStore: createUseStore({
+    useTrainingsStore: createUseStore({
       textReorders: [
         {
           id: 1,
@@ -49,7 +49,7 @@ it('should go back to home if id is not matching a text reorder from store', asy
 it('should display title', async () => {
   jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
   renderWithinProviders(<TextReorderContainer />, {
-    useStore: createUseStore({
+    useTrainingsStore: createUseStore({
       textReorders: [
         {
           id: 1,

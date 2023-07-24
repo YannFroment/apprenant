@@ -22,10 +22,10 @@ const router = createBrowserRouter([
 ]);
 
 const useLoadDataBeforeRendering = () => {
-  const { backend, useStore } = useAppContext();
+  const { backend, useTrainingsStore } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setTextReorders } = useStore();
+  const { setTextReorders } = useTrainingsStore();
 
   useEffect(() => {
     const loadData = async () => {

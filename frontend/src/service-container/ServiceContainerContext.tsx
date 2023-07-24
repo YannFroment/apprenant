@@ -11,7 +11,7 @@ export type ServiceContainer = {
   speechRecorderFactory: SpeechRecorderFactory;
   pictures: Pictures;
   backend: Backend;
-  useStore: UseTrainingsStore;
+  useTrainingsStore: UseTrainingsStore;
 };
 
 export const AppContext = createContext<ServiceContainer>(

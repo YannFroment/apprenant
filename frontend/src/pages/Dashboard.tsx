@@ -23,8 +23,8 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
-  const { useStore } = useAppContext();
-  const { textReorders } = useStore();
+  const { useTrainingsStore } = useAppContext();
+  const { textReorders } = useTrainingsStore();
 
   return (
     <Layout>
