@@ -2,15 +2,17 @@ import { create, StoreApi, UseBoundStore } from 'zustand';
 
 import { TextReorder } from '../domain/Backend';
 
-type StoreState = {
+type TrainingsStoreState = {
   textReorders: TextReorder[];
   setTextReorders: (textReorders: TextReorder[]) => void;
 };
 
-type UseStore = UseBoundStore<StoreApi<StoreState>>;
+type UseStore = UseBoundStore<StoreApi<TrainingsStoreState>>;
 
-export const createUseStore = (args: Partial<StoreState> = {}): UseStore => {
-  return create<StoreState>((set) => ({
+export const createUseStore = (
+  args: Partial<TrainingsStoreState> = {},
+): UseStore => {
+  return create<TrainingsStoreState>((set) => ({
     textReorders: args.textReorders ?? [],
     setTextReorders:
       args.setTextReorders ??
