@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Word } from './Word';
+import { Word } from './Media';
 
 const Container = styled.div`
   display: flex;

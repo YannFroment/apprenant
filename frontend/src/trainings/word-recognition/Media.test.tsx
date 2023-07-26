@@ -1,9 +1,9 @@
 import { screen, waitFor, within } from '@testing-library/react';
 
 import { renderWithinProviders } from '../../../tests/utils';
-import { Word } from './Word';
+import { Word } from './Media';
 
-describe('Word', () => {
+describe('Media', () => {
   it('should display the word name', async () => {
     renderWithinProviders({ children: <Word word={'chat'} /> });
     await waitFor(() => {
