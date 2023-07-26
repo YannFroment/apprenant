@@ -5,9 +5,9 @@ export type TextReorder = {
   randomizedSentences: string[];
 };
 
-type Word = {
+export type Word = {
   id: number;
-  word: string;
+  label: string;
   url: string;
 };
 

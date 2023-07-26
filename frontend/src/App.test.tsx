@@ -28,7 +28,7 @@ describe('Dashboard', () => {
           words: [
             {
               id: 1,
-              word: 'chat',
+              label: 'chat',
               url: 'chat.jpg',
             },
           ],
