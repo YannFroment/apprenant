@@ -19,7 +19,11 @@ describe('Dashboard', () => {
     };
     const getTextReordersSpy = jest.spyOn(backend, 'getTextReorders');
 
-    renderWithinProviders(<App />, { backend }, false);
+    renderWithinProviders({
+      children: <App />,
+      overrideServices: { backend },
+      wrapInRouter: false,
+    });
     expect(screen.queryByTestId('loader')).toBeInTheDocument();
 
     await waitFor(() => {
@@ -42,7 +46,11 @@ describe('Dashboard', () => {
     };
     const getWordRecognitionsSpy = jest.spyOn(backend, 'getWordRecognitions');
 
-    renderWithinProviders(<App />, { backend }, false);
+    renderWithinProviders({
+      children: <App />,
+      overrideServices: { backend },
+      wrapInRouter: false,
+    });
 
     await waitFor(() => {
       expect(getWordRecognitionsSpy).toHaveBeenCalled();

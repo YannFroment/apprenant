@@ -13,7 +13,30 @@ jest.mock('react-router', () => ({
 describe('TextReorderContainer', () => {
   it('should retrieve the text reorder from the store', async () => {
     jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
-    renderWithinProviders(<TextReorderContainer />, {
+    renderWithinProviders({
+      children: <TextReorderContainer />,
+      overrideServices: {
+        useTrainingsStore: createUseStore({
+          textReorders: [
+            {
+              id: 1,
+              orderedSentences: ['a', 'b'],
+              randomizedSentences: ['a', 'b'],
+              title: 'Title',
+            },
+          ],
+        }),
+      },
+    });
+    expect(screen.queryByTestId('text-reorder-training')).toBeInTheDocument();
+  });
+});
+
+it('should go back to home if id is not matching a text reorder from store', async () => {
+  jest.spyOn(Router, 'useParams').mockReturnValue({ id: '2' });
+  renderWithinProviders({
+    children: <TextReorderContainer />,
+    overrideServices: {
       useTrainingsStore: createUseStore({
         textReorders: [
           {
@@ -24,41 +47,27 @@ describe('TextReorderContainer', () => {
           },
         ],
       }),
-    });
-    expect(screen.queryByTestId('text-reorder-training')).toBeInTheDocument();
-  });
-});
-
-it('should go back to home if id is not matching a text reorder from store', async () => {
-  jest.spyOn(Router, 'useParams').mockReturnValue({ id: '2' });
-  renderWithinProviders(<TextReorderContainer />, {
-    useTrainingsStore: createUseStore({
-      textReorders: [
-        {
-          id: 1,
-          orderedSentences: ['a', 'b'],
-          randomizedSentences: ['a', 'b'],
-          title: 'Title',
-        },
-      ],
-    }),
+    },
   });
   expect(screen.queryByTestId('text-reorder-training')).not.toBeInTheDocument();
 });
 
 it('should display title', async () => {
   jest.spyOn(Router, 'useParams').mockReturnValue({ id: '1' });
-  renderWithinProviders(<TextReorderContainer />, {
-    useTrainingsStore: createUseStore({
-      textReorders: [
-        {
-          id: 1,
-          orderedSentences: ['a', 'b'],
-          randomizedSentences: ['a', 'b'],
-          title: 'Title',
-        },
-      ],
-    }),
+  renderWithinProviders({
+    children: <TextReorderContainer />,
+    overrideServices: {
+      useTrainingsStore: createUseStore({
+        textReorders: [
+          {
+            id: 1,
+            orderedSentences: ['a', 'b'],
+            randomizedSentences: ['a', 'b'],
+            title: 'Title',
+          },
+        ],
+      }),
+    },
   });
   expect(screen.getByText('Title')).toBeInTheDocument();
 });

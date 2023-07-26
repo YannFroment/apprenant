@@ -12,7 +12,10 @@ describe('play audio', () => {
 
     const spyOnSpeak = jest.spyOn(speechSynth, 'speak');
 
-    renderWithinProviders(<Listen word={'chat'} />, { speechSynth });
+    renderWithinProviders({
+      children: <Listen word={'chat'} />,
+      overrideServices: { speechSynth },
+    });
 
     await userEvent.click(screen.getByText('Écouter'));
 

@@ -7,7 +7,7 @@ import { WordsContainer } from './WordsContainer';
 describe('WordsContainer', () => {
   it('should display a component for each word of the list of words', async () => {
     const words = ['chat', 'chien', 'oiseau'];
-    renderWithinProviders(<WordsContainer words={words} />);
+    renderWithinProviders({ children: <WordsContainer words={words} /> });
 
     await waitFor(() => {
       expect(screen.queryByTestId('chat')).toBeInTheDocument();
@@ -17,7 +17,9 @@ describe('WordsContainer', () => {
   });
 
   it('should not change record button text for a word when clicking record button for another word', async () => {
-    renderWithinProviders(<WordsContainer words={['chat', 'chien']} />);
+    renderWithinProviders({
+      children: <WordsContainer words={['chat', 'chien']} />,
+    });
     await userEvent.click(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
     );

@@ -56,11 +56,15 @@ const TestContainer = ({
   );
 };
 
-export const renderWithinProviders = (
-  children: ReactNode,
-  overrideServices?: Partial<ServiceContainer>,
+export const renderWithinProviders = ({
+  children,
+  overrideServices,
   wrapInRouter = true,
-) => {
+}: {
+  children: ReactNode;
+  overrideServices?: Partial<ServiceContainer>;
+  wrapInRouter?: boolean;
+}) => {
   render(
     <ThemeProvider theme={theme}>
       <TestContainer overrideServices={overrideServices}>
