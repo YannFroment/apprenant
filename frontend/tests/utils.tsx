@@ -24,9 +24,6 @@ const defaultContainer: ServiceContainer = {
     },
   },
   backend: {
-    get: async (url) => {
-      return url;
-    },
     getTextReorders: async () => {
       return [];
     },

@@ -18,7 +18,6 @@ export type WordRecognition = {
 };
 
 export type Backend = {
-  get: (url: string) => Promise<string>;
   getTextReorders: () => Promise<TextReorder[]>;
   getWordRecognitions: () => Promise<WordRecognition[]>;
 };

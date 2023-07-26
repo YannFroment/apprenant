@@ -7,9 +7,6 @@ import { Backend } from './domain/Backend';
 describe('Dashboard', () => {
   it('should display loader, retrieve data from backend and display dashboard', async () => {
     const backend: Backend = {
-      get: async () => {
-        return '';
-      },
       getTextReorders: async () => {
         return [];
       },
@@ -34,9 +31,6 @@ describe('Dashboard', () => {
 
   it('should retrieve word recognitions from backend', async () => {
     const backend: Backend = {
-      get: async () => {
-        return '';
-      },
       getTextReorders: async () => {
         return [];
       },
