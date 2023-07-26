@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Word } from './Media';
+import { Media } from './Media';
 
 const Container = styled.div`
   display: flex;
@@ -8,17 +8,15 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-type WordsContainerProps = {
+type MediasProps = {
   words?: string[];
 };
 
-export const WordsContainer = (
-  { words }: WordsContainerProps = { words: [] },
-) => {
+export const Medias = ({ words }: MediasProps = { words: [] }) => {
   return (
     <Container>
       {words?.map((word) => (
-        <Word key={word} word={word} />
+        <Media key={word} word={word} />
       ))}
     </Container>
   );

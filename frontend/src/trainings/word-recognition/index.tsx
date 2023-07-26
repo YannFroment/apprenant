@@ -1,10 +1,10 @@
 import { Layout } from '../../views/layouts/Layout';
-import { WordsContainer } from './WordsContainer';
+import { Medias } from './Medias';
 
 export const WordRecognition = () => {
   return (
     <Layout>
-      <WordsContainer words={['voiture', 'bus', 'camion']} />
+      <Medias words={['voiture', 'bus', 'camion']} />
     </Layout>
   );
 };
