@@ -27,7 +27,7 @@ export const WordSchema = new EntitySchema<Word>({
   target: Word,
   columns: {
     ...BaseColumnSchemaPart,
-    word: {
+    label: {
       type: String,
       nullable: false,
     },

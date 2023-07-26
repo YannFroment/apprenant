@@ -12,13 +12,13 @@ export class InMemoryWordRecognitions implements WordRecognitions {
     };
     const chat: Word = {
       id: 1,
-      word: 'chat',
+      label: 'chat',
       url: 'chat.jpg',
       wordRecognition,
     };
     const chien: Word = {
       id: 2,
-      word: 'chien',
+      label: 'chien',
       url: 'chien.jpg',
       wordRecognition,
     };
@@ -54,8 +54,8 @@ describe('WordRecognitionService', () => {
         id: 1,
         title: 'Les animaux',
         words: [
-          expect.objectContaining({ id: 1, word: 'chat', url: 'chat.jpg' }),
-          expect.objectContaining({ id: 2, word: 'chien', url: 'chien.jpg' }),
+          expect.objectContaining({ id: 1, label: 'chat', url: 'chat.jpg' }),
+          expect.objectContaining({ id: 2, label: 'chien', url: 'chien.jpg' }),
         ],
       },
     ]);
