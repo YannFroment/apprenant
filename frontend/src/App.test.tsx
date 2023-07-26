@@ -21,9 +21,26 @@ describe('Dashboard', () => {
   it('should retrieve data from backend and save it in the store', async () => {
     const trainings: Trainings = {
       textReorders: [],
-      wordRecognitions: [],
+      wordRecognitions: [
+        {
+          id: 1,
+          title: 'Les animaux',
+          words: [
+            {
+              id: 1,
+              word: 'chat',
+              url: 'chat.jpg',
+            },
+          ],
+        },
+      ],
     };
-    const getTrainingsSpy = jest.spyOn(inMemoryBackend, 'getTrainings');
+    const backend = {
+      ...inMemoryBackend,
+      getTrainings: async () => trainings,
+    };
+
+    const getTrainingsSpy = jest.spyOn(backend, 'getTrainings');
     const trainingsStore = {
       textReorders: [],
       setTrainings: () => {},
@@ -36,7 +53,7 @@ describe('Dashboard', () => {
 
     renderWithinProviders({
       children: <App />,
-      overrideServices: { backend: inMemoryBackend, useTrainingsStore },
+      overrideServices: { backend, useTrainingsStore },
       wrapInRouter: false,
     });
 
