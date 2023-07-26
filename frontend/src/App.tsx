@@ -25,17 +25,18 @@ const useLoadDataBeforeRendering = () => {
   const { backend, useTrainingsStore } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setTextReorders } = useTrainingsStore();
+  const { setTextReorders, setTrainings } = useTrainingsStore();
 
   useEffect(() => {
     const loadData = async () => {
-      const { textReorders } = await backend.getTrainings();
-      setTextReorders(textReorders);
+      const trainings = await backend.getTrainings();
+      setTextReorders(trainings.textReorders);
+      setTrainings(trainings);
       setIsLoading(false);
     };
 
     loadData();
-  }, [backend, setTextReorders]);
+  }, [backend, setTextReorders, setTrainings]);
 
   return isLoading;
 };
