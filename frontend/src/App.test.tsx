@@ -26,7 +26,6 @@ describe('Dashboard', () => {
     const getTrainingsSpy = jest.spyOn(inMemoryBackend, 'getTrainings');
     const trainingsStore = {
       textReorders: [],
-      setTextReorders: () => {},
       setTrainings: () => {},
     };
     const setTrainingsSpy = jest.spyOn(trainingsStore, 'setTrainings');
