@@ -3,6 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { inMemoryBackend, renderWithinProviders } from '../tests/utils';
 import App from './App';
 import { Trainings } from './domain/Backend';
+import { UseTrainingsStore } from './store';
 
 describe('Dashboard', () => {
   it('should display loader first, and display dashboard after data fetching', async () => {
@@ -30,7 +31,7 @@ describe('Dashboard', () => {
     };
     const setTrainingsSpy = jest.spyOn(trainingsStore, 'setTrainings');
 
-    const useTrainingsStore = () => {
+    const useTrainingsStore: UseTrainingsStore = () => {
       return trainingsStore;
     };
 

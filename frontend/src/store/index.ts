@@ -32,9 +32,7 @@ const useStore = createUseStore();
 export const useTrainingsStore: UseTrainingsStore = () => {
   const textReorders = useStore((state) => state.textReorders);
   const setTextReorders = useStore((state) => state.setTextReorders);
-  const setTrainings = () => {
-    //
-  };
+  const setTrainings = useStore((state) => state.setTrainings);
 
   return {
     textReorders,
