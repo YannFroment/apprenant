@@ -4,7 +4,19 @@ import { inMemoryBackend, renderWithinProviders } from '../tests/utils';
 import App from './App';
 
 describe('Dashboard', () => {
-  it('should display loader, retrieve data from backend and display dashboard', async () => {
+  it('should display loader first, and display dashboard after data fetching', async () => {
+    renderWithinProviders({
+      children: <App />,
+      wrapInRouter: false,
+    });
+    expect(screen.queryByTestId('loader')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByTestId('dashboard')).toBeInTheDocument();
+    });
+  });
+
+  it('should retrieve data from backend and save it in the store', async () => {
     const getTrainingsSpy = jest.spyOn(inMemoryBackend, 'getTrainings');
 
     renderWithinProviders({
@@ -12,11 +24,9 @@ describe('Dashboard', () => {
       overrideServices: { backend: inMemoryBackend },
       wrapInRouter: false,
     });
-    expect(screen.queryByTestId('loader')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(getTrainingsSpy).toHaveBeenCalled();
-      expect(screen.queryByTestId('dashboard')).toBeInTheDocument();
     });
   });
 });
