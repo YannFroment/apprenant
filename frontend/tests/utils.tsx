@@ -34,7 +34,7 @@ const defaultContainer: ServiceContainer = {
       return [];
     },
   },
-  useTrainingsStore: useTrainingsStore,
+  useTrainingsStore,
 };
 
 const createContainer = (

@@ -21,7 +21,7 @@ const context: ServiceContainer = {
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
   backend: backend,
-  useTrainingsStore: useTrainingsStore,
+  useTrainingsStore,
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
