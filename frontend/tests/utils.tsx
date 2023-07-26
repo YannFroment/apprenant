@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { Backend } from '../src/domain/Backend';
+import { Backend, Trainings } from '../src/domain/Backend';
 import {
   AppContext,
   ServiceContainer,
@@ -17,6 +17,9 @@ export const inMemoryBackend: Backend = {
   },
   getWordRecognitions: async () => {
     return [];
+  },
+  getTrainings: async () => {
+    return {} as Trainings;
   },
 };
 

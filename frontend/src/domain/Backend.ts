@@ -17,7 +17,13 @@ export type WordRecognition = {
   words: Word[];
 };
 
+export type Trainings = {
+  textReorders: TextReorder[];
+  wordRecognitions: WordRecognition[];
+};
+
 export type Backend = {
   getTextReorders: () => Promise<TextReorder[]>;
   getWordRecognitions: () => Promise<WordRecognition[]>;
+  getTrainings: () => Promise<Trainings>;
 };
