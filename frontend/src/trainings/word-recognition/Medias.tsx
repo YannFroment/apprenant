@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { Word } from '../../domain/Backend';
 import { useAppContext } from '../../service-container/ServiceContainerContext';
 import { Media } from './Media';
 
