@@ -23,7 +23,5 @@ export type Trainings = {
 };
 
 export type Backend = {
-  getTextReorders: () => Promise<TextReorder[]>;
-  getWordRecognitions: () => Promise<WordRecognition[]>;
   getTrainings: () => Promise<Trainings>;
 };

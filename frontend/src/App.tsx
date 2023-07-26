@@ -29,10 +29,7 @@ const useLoadDataBeforeRendering = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const textReorders = await backend.getTextReorders();
-      const trainings = await backend.getTrainings();
-      console.info('trainings', trainings);
-      await backend.getWordRecognitions();
+      const { textReorders } = await backend.getTrainings();
       setTextReorders(textReorders);
       setIsLoading(false);
     };

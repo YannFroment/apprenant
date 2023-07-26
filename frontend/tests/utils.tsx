@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { Backend, Trainings } from '../src/domain/Backend';
+import { Backend } from '../src/domain/Backend';
 import {
   AppContext,
   ServiceContainer,
@@ -12,14 +12,8 @@ import { useTrainingsStore } from '../src/store';
 import { theme } from '../src/theme';
 
 export const inMemoryBackend: Backend = {
-  getTextReorders: async () => {
-    return [];
-  },
-  getWordRecognitions: async () => {
-    return [];
-  },
   getTrainings: async () => {
-    return {} as Trainings;
+    return { textReorders: [], wordRecognitions: [] };
   },
 };
 
