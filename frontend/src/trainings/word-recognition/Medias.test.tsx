@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { renderWithinProviders } from '../../../tests/utils';
 import { Word } from '../../domain/Backend';
+import { createUseStore } from '../../store';
 import { Medias } from './Medias';
 
 const createWords = (labels: string[]) =>
@@ -13,7 +14,14 @@ const createWords = (labels: string[]) =>
 describe('Medias', () => {
   it('should display a component for each word of the list of words', async () => {
     const words: Word[] = createWords(['chat', 'chien', 'oiseau']);
-    renderWithinProviders({ children: <Medias words={words} /> });
+    renderWithinProviders({
+      children: <Medias />,
+      overrideServices: {
+        useTrainingsStore: createUseStore({
+          wordRecognitions: [{ id: 1, title: 'les animaux', words }],
+        }),
+      },
+    });
 
     await waitFor(() => {
       expect(screen.queryByTestId('chat')).toBeInTheDocument();
@@ -23,8 +31,15 @@ describe('Medias', () => {
   });
 
   it('should not change record button text for a word when clicking record button for another word', async () => {
+    const words: Word[] = createWords(['chat', 'chien']);
+
     renderWithinProviders({
-      children: <Medias words={createWords(['chat', 'chien'])} />,
+      children: <Medias />,
+      overrideServices: {
+        useTrainingsStore: createUseStore({
+          wordRecognitions: [{ id: 1, title: 'les animaux', words }],
+        }),
+      },
     });
     await userEvent.click(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),

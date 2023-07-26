@@ -43,6 +43,7 @@ describe('Dashboard', () => {
     const getTrainingsSpy = jest.spyOn(backend, 'getTrainings');
     const trainingsStore = {
       textReorders: [],
+      wordRecognitions: [],
       setTrainings: () => {},
     };
     const setTrainingsSpy = jest.spyOn(trainingsStore, 'setTrainings');

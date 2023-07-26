@@ -4,7 +4,7 @@ import { Medias } from './Medias';
 export const WordRecognition = () => {
   return (
     <Layout>
-      <Medias words={['voiture', 'bus', 'camion']} />
+      <Medias />
     </Layout>
   );
 };

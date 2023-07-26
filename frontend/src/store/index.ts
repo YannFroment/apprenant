@@ -1,9 +1,10 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
 
-import { TextReorder, Trainings } from '../domain/Backend';
+import { TextReorder, Trainings, WordRecognition } from '../domain/Backend';
 
 type TrainingsStoreState = {
   textReorders: TextReorder[];
+  wordRecognitions: WordRecognition[];
   setTrainings: (trainings: Trainings) => void;
 };
 
@@ -14,23 +15,30 @@ export const createUseStore = (
 ): UseStore => {
   return create<TrainingsStoreState>((set) => ({
     textReorders: args.textReorders ?? [],
+    wordRecognitions: args.wordRecognitions ?? [],
     setTrainings: (trainings: Trainings) =>
-      set(() => ({ textReorders: trainings.textReorders })),
+      set(() => ({
+        textReorders: trainings.textReorders,
+        wordRecognitions: trainings.wordRecognitions,
+      })),
   }));
 };
 
 export type UseTrainingsStore = () => {
   textReorders: TextReorder[];
+  wordRecognitions: WordRecognition[];
   setTrainings: (trainings: Trainings) => void;
 };
 
 const useStore = createUseStore();
 export const useTrainingsStore: UseTrainingsStore = () => {
   const textReorders = useStore((state) => state.textReorders);
+  const wordRecognitions = useStore((state) => state.wordRecognitions);
   const setTrainings = useStore((state) => state.setTrainings);
 
   return {
     textReorders,
+    wordRecognitions,
     setTrainings,
   };
 };

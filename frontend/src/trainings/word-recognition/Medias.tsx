@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Word } from '../../domain/Backend';
+import { useAppContext } from '../../service-container/ServiceContainerContext';
 import { Media } from './Media';
 
 const Container = styled.div`
@@ -9,11 +10,13 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-type MediasProps = {
-  words?: Word[];
-};
+export const Medias = () => {
+  const { useTrainingsStore } = useAppContext();
 
-export const Medias = ({ words }: MediasProps = { words: [] }) => {
+  const { wordRecognitions } = useTrainingsStore();
+
+  const { words } = wordRecognitions[0];
+
   return (
     <Container>
       {words?.map((word) => (
