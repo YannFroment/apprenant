@@ -32,6 +32,7 @@ services:
       MYSQL_DATABASE: apprenant
       MYSQL_USER: apprenant
       MYSQL_PASSWORD: apprenant
+      DATABASE_HOST: database
     ports:
       - 3000:3000
     volumes:

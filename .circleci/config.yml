@@ -2,32 +2,75 @@ version: '2.1'
 orbs:
   node: circleci/node@5.0.3
 jobs:
-  lint-and-test:
+  lint-and-test-backend:
+    docker:
+      - image: cimg/node:18.17.0
+        environment:
+          - NODE_ENV: development
+          - MYSQL_DATABASE: apprenant
+          - MYSQL_USER: apprenant
+          - MYSQL_PASSWORD: apprenant
+          - DATABASE_HOST: 127.0.0.1
+      - image: cimg/mysql:8.0
+        environment:
+          - MYSQL_DATABASE: apprenant
+          - MYSQL_USER: apprenant
+          - MYSQL_PASSWORD: apprenant
+          - MYSQL_ROOT_PASSWORD: password
+    steps:
+      - checkout
+      - run:
+          name: Install packages
+          command: npm install
+          working_directory: ~/project/backend
+      - run:
+          name: Waiting for MySQL to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z 127.0.0.1 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
+      - run:
+          command: npm run lint
+          name: Run linter
+          working_directory: ~/project/backend
+      - run:
+          command: npm run test
+          name: Run unit tests
+          working_directory: ~/project/backend
+      - run:
+          command: npm run migration:run
+          name: Run the database migrations
+          working_directory: ~/project/backend
+      - run:
+          name: Run tests e2e
+          command: npm run test:e2e
+          working_directory: ~/project/backend
+  lint-and-test-frontend:
     executor:
       name: node/default
-    parameters:
-      directory:
-        type: string
     steps:
       - checkout
       - node/install-packages:
-          app-dir: ~/project/<< parameters.directory >>
+          app-dir: ~/project/frontend
           pkg-manager: npm
       - run:
           command: npm run lint
           name: Run linter
-          working_directory: ~/project/<< parameters.directory >>
+          working_directory: ~/project/frontend
       - run:
           command: npm run test
           name: Run unit tests
-          working_directory: ~/project/<< parameters.directory >>
+          working_directory: ~/project/frontend
 
 workflows:
   frontend:
     jobs:
-      - lint-and-test:
-          directory: frontend
+      - lint-and-test-frontend
   backend:
     jobs:
-      - lint-and-test:
-          directory: backend
+      - lint-and-test-backend
+
