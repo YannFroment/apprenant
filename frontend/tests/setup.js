@@ -6,7 +6,6 @@ import { afterEach, expect } from 'vitest';
 expect.extend(matchers);
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
-// test
 afterEach(() => {
   cleanup();
 });
