@@ -3,7 +3,6 @@ orbs:
   node: circleci/node@5.0.3
 jobs:
   lint-and-test-backend:
-    working_directory: ~project/backend
     docker:
       - image: cimg/node:18.17.0
         environment:
@@ -22,7 +21,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - backend-{{ checksum "package-lock.json" }}
+            - backend-{{ checksum "./backend/package-lock.json" }}
       - run:
           name: Install packages
           command: npm install
