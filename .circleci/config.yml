@@ -21,11 +21,16 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - backend-{{ checksum "./backend/package-lock.json" }}
+            - backend-npm-packages-{{ checksum "./backend/package-lock.json" }}
       - run:
           name: Install packages
           command: npm install
           working_directory: ~/project/backend
+      - save_cache:
+          name: Save npm packages cache
+          key: backend-npm-packages-{{ checksum "./backend/package-lock.json" }}
+          paths:
+            - ~/project/backend/node_modules
       - run:
           name: Waiting for MySQL to be ready
           command: |
