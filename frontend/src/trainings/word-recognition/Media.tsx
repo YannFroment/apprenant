@@ -1,4 +1,4 @@
-import { Word } from '../../domain/Backend';
+import { Word } from '../../domain/Trainings';
 import { Listen } from './Listen';
 import { Picture } from './Picture';
 import { SpeechRecorder } from './SpeechRecorder';

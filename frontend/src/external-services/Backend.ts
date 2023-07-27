@@ -1,11 +1,7 @@
 import axios from 'axios';
 
-import {
-  Backend,
-  TextReorder,
-  Trainings,
-  WordRecognition,
-} from '../domain/Backend';
+import { Backend } from '../domain/Backend';
+import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
 export const backend: Backend = {
   getTrainings: async (): Promise<Trainings> => {

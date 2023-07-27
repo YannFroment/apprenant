@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import { Trainings } from '../domain/Backend';
+import { Trainings } from '../domain/Trainings';
 import { useTrainingsStore } from '.';
 
 describe('useTrainingsStore', () => {

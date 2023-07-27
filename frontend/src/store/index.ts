@@ -1,6 +1,6 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
 
-import { TextReorder, Trainings, WordRecognition } from '../domain/Backend';
+import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
 type TrainingsStoreState = {
   textReorders: TextReorder[];

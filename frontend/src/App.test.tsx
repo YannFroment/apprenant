@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 
 import { inMemoryBackend, renderWithinProviders } from '../tests/utils';
 import App from './App';
-import { Trainings } from './domain/Backend';
+import { Trainings } from './domain/Trainings';
 import { UseTrainingsStore } from './store';
 
 describe('Dashboard', () => {

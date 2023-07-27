@@ -2,7 +2,7 @@ import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithinProviders } from '../../../tests/utils';
-import { Word } from '../../domain/Backend';
+import { Word } from '../../domain/Trainings';
 import { createUseStore } from '../../store';
 import { Medias } from './Medias';
 
