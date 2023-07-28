@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { useAppContext } from '../../service-container/ServiceContainerContext';
 import { Media } from './Media';
 
 const Container = styled.div`
@@ -13,16 +12,13 @@ type Word = {
   id: number;
   label: string;
   url: string;
-}
+};
 
 export type WordRecognitionProps = {
-  id: number;
-  title: string;
   words: Word[];
-}
+};
 
-export const WordRecognition = ({id, title, words}: WordRecognitionProps) => {
-
+export const WordRecognition = ({ words }: WordRecognitionProps) => {
   return (
     <Container>
       {words?.map((word) => (

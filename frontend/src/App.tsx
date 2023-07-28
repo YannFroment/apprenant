@@ -3,8 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
-import { useAppContext } from './service-container/ServiceContainerContext';
 import { WordRecognitionContainer } from './pages/WordRecognitionContainer';
+import { useAppContext } from './service-container/ServiceContainerContext';
 
 const router = createBrowserRouter([
   {

@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { renderWithinProviders } from '../../../tests/utils';
 import { Word } from '../../domain/Trainings';
-import { createUseStore } from '../../store';
-import { WordRecognitionContainer } from '../../pages/WordRecognitionContainer';
+import { WordRecognition } from '.';
 
 const createWords = (labels: string[]) =>
   labels.map(
@@ -12,15 +11,10 @@ const createWords = (labels: string[]) =>
   );
 
 describe('Medias', () => {
-  it.only('should display a component for each word of the list of words', async () => {
+  it('should display a component for each word of the list of words', async () => {
     const words: Word[] = createWords(['chat', 'chien', 'oiseau']);
     renderWithinProviders({
-      children: <WordRecognitionContainer />,
-      overrideServices: {
-        useTrainingsStore: createUseStore({
-          wordRecognitions: [{ id: 1, title: 'les animaux', words }],
-        }),
-      },
+      children: <WordRecognition words={words} />,
     });
 
     await waitFor(() => {
@@ -34,12 +28,7 @@ describe('Medias', () => {
     const words: Word[] = createWords(['chat', 'chien']);
 
     renderWithinProviders({
-      children: <WordRecognitionContainer />,
-      overrideServices: {
-        useTrainingsStore: createUseStore({
-          wordRecognitions: [{ id: 1, title: 'les animaux', words }],
-        }),
-      },
+      children: <WordRecognition words={words} />,
     });
     await userEvent.click(
       within(screen.queryByTestId('chat')!).getByText('Enregistrer'),
