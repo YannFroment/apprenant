@@ -2,6 +2,17 @@
 
 Application de support d'enseignement à destination d'adultes en situation d'illettrisme.
 
+## Installer Make sur son OS préféré
+
+```bash
+# linux
+sudo apt-get install build-essential
+
+# mac
+brew install make
+
+```
+
 ## Installer les dépendances
 
 ### Frontend :
@@ -12,18 +23,6 @@ Application de support d'enseignement à destination d'adultes en situation d'il
 
 `docker-compose run --rm backend npm install`
 
-### Installer Make sur son OS préféré
-
-```bash
-# linux
-sudo apt-get install build-essential
-
-# mac
-brew install make
-
-# windows
-choco install make
-```
 
 ## Lancer l'application en local
 
