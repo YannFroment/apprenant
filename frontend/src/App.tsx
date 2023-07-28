@@ -3,9 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
+import { WordRecognitionContainer } from './pages/WordRecognitionContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
-import { useTrainingsStore } from './store';
-import { WordRecognition } from './trainings/word-recognition';
 
 const router = createBrowserRouter([
   {
@@ -17,26 +16,26 @@ const router = createBrowserRouter([
     element: <TextReorderContainer />,
   },
   {
-    path: '/word-recognition',
-    element: <WordRecognition />,
+    path: '/word-recognition/:id',
+    element: <WordRecognitionContainer />,
   },
 ]);
 
 const useLoadDataBeforeRendering = () => {
-  const { backend } = useAppContext();
+  const { backend, useTrainingsStore } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setTextReorders } = useTrainingsStore();
+  const { setTrainings } = useTrainingsStore();
 
   useEffect(() => {
     const loadData = async () => {
-      const result = await backend.getTextReorders();
-      setTextReorders(result);
+      const trainings = await backend.getTrainings();
+      setTrainings(trainings);
       setIsLoading(false);
     };
 
     loadData();
-  }, [backend, setTextReorders]);
+  }, [backend, setTrainings]);
 
   return isLoading;
 };
@@ -45,7 +44,13 @@ function App() {
   const isLoading = useLoadDataBeforeRendering();
 
   return (
-    <>{isLoading ? <div>loading</div> : <RouterProvider router={router} />}</>
+    <>
+      {isLoading ? (
+        <div data-testid="loader">loading</div>
+      ) : (
+        <RouterProvider router={router} />
+      )}
+    </>
   );
 }
 

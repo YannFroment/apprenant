@@ -1,6 +1,6 @@
 export class Word {
   id: number;
-  word: string;
+  label: string;
   url: string;
   wordRecognition: WordRecognition;
 }

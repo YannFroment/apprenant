@@ -12,7 +12,10 @@ describe('Picture', () => {
       },
     };
 
-    renderWithinProviders(<Picture word={'chat'} />, { pictures });
+    renderWithinProviders({
+      children: <Picture word={'chat'} />,
+      overrideServices: { pictures },
+    });
 
     await waitFor(() => {
       expect(screen.queryByTestId('img-chat')!.getAttribute('src')).toBe(

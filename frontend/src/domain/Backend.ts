@@ -1,11 +1,5 @@
-export type TextReorder = {
-  id: number;
-  title: string;
-  orderedSentences: string[];
-  randomizedSentences: string[];
-};
+import { Trainings } from './Trainings';
 
 export type Backend = {
-  get: (url: string) => Promise<string>;
-  getTextReorders: () => Promise<TextReorder[]>;
+  getTrainings: () => Promise<Trainings>;
 };

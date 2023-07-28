@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useTrainingsStore } from '../store';
+import { useAppContext } from '../service-container/ServiceContainerContext';
 import { Layout } from '../views/layouts/Layout';
 import { Link } from '../views/Link';
 
@@ -23,10 +23,12 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
-  const { textReorders } = useTrainingsStore();
+  const { useTrainingsStore } = useAppContext();
+  const { textReorders, wordRecognitions } = useTrainingsStore();
+
   return (
     <Layout>
-      <DashboardContainer>
+      <DashboardContainer data-testid="dashboard">
         <WelcomeText>Bonjour</WelcomeText>
         <Text>Vos entrainements :</Text>
         {textReorders.map(({ id, title }) => {
@@ -36,10 +38,13 @@ export const Dashboard = () => {
             </Link>
           );
         })}
-
-        <Link to="/word-recognition" relative="path">
-          Reconnaître les mots
-        </Link>
+        {wordRecognitions.map(({ id, title }) => {
+          return (
+            <Link to={`/word-recognition/${id}`} relative="path" key={id}>
+              {title}
+            </Link>
+          );
+        })}
       </DashboardContainer>
     </Layout>
   );

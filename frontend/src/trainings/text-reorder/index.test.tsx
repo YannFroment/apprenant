@@ -10,12 +10,14 @@ describe('TextReorder', () => {
     const sentenceB = 'B';
     const sentenceAId = 'sentence-1';
     const sentenceBId = 'sentence-2';
-    renderWithinProviders(
-      <TextReorder
-        orderedSentences={[sentenceA, sentenceB]}
-        randomizedSentences={[sentenceA, sentenceB]}
-      />,
-    );
+    renderWithinProviders({
+      children: (
+        <TextReorder
+          orderedSentences={[sentenceA, sentenceB]}
+          randomizedSentences={[sentenceA, sentenceB]}
+        />
+      ),
+    });
 
     await waitFor(() => {
       const workZone = screen.queryByTestId('column-work-zone');
@@ -67,13 +69,15 @@ describe('text ordered', () => {
       },
       columnOrder: ['work-zone', 'picking-zone'],
     };
-    renderWithinProviders(
-      <TextReorder
-        orderedSentences={[sentenceA, sentenceB]}
-        randomizedSentences={[sentenceA, sentenceB]}
-        defaultColumnsData={columnsData}
-      />,
-    );
+    renderWithinProviders({
+      children: (
+        <TextReorder
+          orderedSentences={[sentenceA, sentenceB]}
+          randomizedSentences={[sentenceA, sentenceB]}
+          defaultColumnsData={columnsData}
+        />
+      ),
+    });
 
     expect(screen.queryByTestId('text-success')).toBeInTheDocument();
   });
@@ -100,13 +104,15 @@ describe('text ordered', () => {
       },
       columnOrder: ['work-zone', 'picking-zone'],
     };
-    renderWithinProviders(
-      <TextReorder
-        orderedSentences={[sentenceA, sentenceB]}
-        randomizedSentences={[sentenceB, sentenceA]}
-        defaultColumnsData={columnsData}
-      />,
-    );
+    renderWithinProviders({
+      children: (
+        <TextReorder
+          orderedSentences={[sentenceA, sentenceB]}
+          randomizedSentences={[sentenceB, sentenceA]}
+          defaultColumnsData={columnsData}
+        />
+      ),
+    });
 
     expect(screen.queryByTestId('text-success')).not.toBeInTheDocument();
   });

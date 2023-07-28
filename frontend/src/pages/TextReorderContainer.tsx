@@ -5,8 +5,8 @@ import { TextReorder } from '../trainings/text-reorder';
 import { Layout } from '../views/layouts/Layout';
 
 const useTextReorderById = (id: string | undefined) => {
-  const { useStore } = useAppContext();
-  const { textReorders } = useStore();
+  const { useTrainingsStore } = useAppContext();
+  const { textReorders } = useTrainingsStore();
 
   return textReorders.find((textReorder) => textReorder.id.toString() === id);
 };

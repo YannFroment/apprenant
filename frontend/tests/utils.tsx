@@ -1,13 +1,21 @@
 import { render } from '@testing-library/react';
 import { ReactNode } from 'react';
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { Backend } from '../src/domain/Backend';
 import {
   AppContext,
   ServiceContainer,
 } from '../src/service-container/ServiceContainerContext';
+import { useTrainingsStore } from '../src/store';
 import { theme } from '../src/theme';
+
+export const inMemoryBackend: Backend = {
+  getTrainings: async () => {
+    return { textReorders: [], wordRecognitions: [] };
+  },
+};
 
 const defaultContainer: ServiceContainer = {
   speechSynth: { speak: () => {} },
@@ -22,18 +30,8 @@ const defaultContainer: ServiceContainer = {
       return searchKey;
     },
   },
-  backend: {
-    get: async (url) => {
-      return url;
-    },
-    getTextReorders: async () => {
-      return [];
-    },
-  },
-  useStore: () => ({
-    textReorders: [],
-    setTextReorders: () => {},
-  }),
+  backend: inMemoryBackend,
+  useTrainingsStore,
 };
 
 const createContainer = (
@@ -55,38 +53,19 @@ const TestContainer = ({
   );
 };
 
-export const renderWithinProviders = (
-  children: ReactNode,
-  overrideServices?: Partial<ServiceContainer>,
-) => {
-  render(
-    <ThemeProvider theme={theme}>
-      <TestContainer overrideServices={overrideServices}>
-        <BrowserRouter>{children}</BrowserRouter>
-      </TestContainer>
-    </ThemeProvider>,
-  );
-};
-
-export const renderWithinRoutes = ({
-  routes,
-  initialEntries,
+export const renderWithinProviders = ({
+  children,
   overrideServices,
+  wrapInRouter = true,
 }: {
-  routes: { path: string; element: ReactNode }[];
-  initialEntries: string[];
+  children: ReactNode;
   overrideServices?: Partial<ServiceContainer>;
+  wrapInRouter?: boolean;
 }) => {
   render(
     <ThemeProvider theme={theme}>
       <TestContainer overrideServices={overrideServices}>
-        <MemoryRouter initialEntries={initialEntries}>
-          <Routes>
-            {routes.map(({ path, element }) => {
-              return <Route path={path} element={element} />;
-            })}
-          </Routes>
-        </MemoryRouter>
+        {wrapInRouter ? <BrowserRouter>{children}</BrowserRouter> : children}
       </TestContainer>
     </ThemeProvider>,
   );

@@ -1,11 +1,18 @@
 import { screen, waitFor, within } from '@testing-library/react';
 
 import { renderWithinProviders } from '../../../tests/utils';
-import { Word } from './Word';
+import { Word } from '../../domain/Trainings';
+import { Media } from './Media';
 
-describe('Word', () => {
+const word: Word = {
+  id: 1,
+  label: 'chat',
+  url: 'chat.jpg',
+};
+
+describe('Media', () => {
   it('should display the word name', async () => {
-    renderWithinProviders(<Word word={'chat'} />);
+    renderWithinProviders({ children: <Media word={word} /> });
     await waitFor(() => {
       expect(
         within(screen.queryByTestId('chat')!).getByText('chat'),
@@ -14,7 +21,7 @@ describe('Word', () => {
   });
 
   it('should display a button to hear', async () => {
-    renderWithinProviders(<Word word={'chat'} />);
+    renderWithinProviders({ children: <Media word={word} /> });
 
     await waitFor(() => {
       expect(
@@ -24,7 +31,7 @@ describe('Word', () => {
   });
 
   it('should display a Picture component', async () => {
-    renderWithinProviders(<Word word={'chat'} />);
+    renderWithinProviders({ children: <Media word={word} /> });
 
     await waitFor(() => {
       expect(
@@ -34,7 +41,7 @@ describe('Word', () => {
   });
 
   it('should display WordRecognition component', async () => {
-    renderWithinProviders(<Word word={'chat'} />);
+    renderWithinProviders({ children: <Media word={word} /> });
 
     await waitFor(() => {
       expect(screen.queryByTestId('chat-speech-recorder')).toBeInTheDocument();

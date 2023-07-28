@@ -2,30 +2,39 @@
 
 Application de support d'enseignement à destination d'adultes en situation d'illettrisme.
 
-## Installer les dépendances
+## Installer Make sur son OS préféré
 
-### Frontend :
+```bash
+# linux
+sudo apt-get install build-essential
 
-`docker-compose run --rm frontend npm install`
+# mac
+brew install make
 
-### Backend :
+```
 
-`docker-compose run --rm backend npm install`
+La commande `make help` permet de lister les commandes existantes.
+
+## Préparer le projet
+
+Installe les packages et joue les migrations de base de données
+
+`make setup`
 
 ## Lancer l'application en local
 
-`docker-compose up`
+`make up`
 
 ## Lancer les tests
 
 ### Frontend :
 
-`docker-compose run --rm frontend npm run test`
+`make frontend-test`
 
 ### Backend :
 
-- `docker-compose run --rm backend npm run test` tests unitaires
-- `docker-compose run --rm backend npm run test:e2e` tests end-to-end
+- `make backend-test` tests unitaires
+- `make backend-test-e2e` tests end-to-end
 
 ## Base de données :
 
@@ -33,22 +42,22 @@ Application de support d'enseignement à destination d'adultes en situation d'il
 
 Va supprimer toutes les tables, exécuter toutes les migrations et créer un jeu de données initial (seed de base de données)
 
-`docker-compose run --rm backend npm run purge:db`
+`make purge:db`
 
 ### Générer une migration
 
-`docker-compose run --rm backend npm run typeorm migration:generate ./src/persistence/migrations/<NomDeMigration>`
+`make migration-generate name=<FileName>`
 
 ### Lancer les migrations
 
-`docker-compose run --rm backend npm run migration:run`
+`make migration-run`
 
 ## Compiler
 
 ### Frontend :
 
-`docker-compose run --rm frontend npm run build`
+`make frontend-build`
 
 ### Backend :
 
-`docker-compose run --rm backend npm run build`
+`make backend-build`

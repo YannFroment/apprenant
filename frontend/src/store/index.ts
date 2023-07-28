@@ -1,35 +1,44 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
 
-import { TextReorder } from '../domain/Backend';
+import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
-export type StoreState = {
+type TrainingsStoreState = {
   textReorders: TextReorder[];
-  setTextReorders: (textReorders: TextReorder[]) => void;
+  wordRecognitions: WordRecognition[];
+  setTrainings: (trainings: Trainings) => void;
 };
 
-export type UseStore = UseBoundStore<StoreApi<StoreState>>;
+type UseStore = UseBoundStore<StoreApi<TrainingsStoreState>>;
 
-export const createUseStore = (args: Partial<StoreState> = {}): UseStore => {
-  return create<StoreState>((set) => ({
+export const createUseStore = (
+  args: Partial<TrainingsStoreState> = {},
+): UseStore => {
+  return create<TrainingsStoreState>((set) => ({
     textReorders: args.textReorders ?? [],
-    setTextReorders: (textReorders: TextReorder[]) =>
-      set(() => ({ textReorders })),
+    wordRecognitions: args.wordRecognitions ?? [],
+    setTrainings: (trainings: Trainings) =>
+      set(() => ({
+        textReorders: trainings.textReorders,
+        wordRecognitions: trainings.wordRecognitions,
+      })),
   }));
 };
 
-const useStore = createUseStore();
-
 export type UseTrainingsStore = () => {
   textReorders: TextReorder[];
-  setTextReorders: (textReorders: TextReorder[]) => void;
+  wordRecognitions: WordRecognition[];
+  setTrainings: (trainings: Trainings) => void;
 };
 
+const useStore = createUseStore();
 export const useTrainingsStore: UseTrainingsStore = () => {
   const textReorders = useStore((state) => state.textReorders);
-  const setTextReorders = useStore((state) => state.setTextReorders);
+  const wordRecognitions = useStore((state) => state.wordRecognitions);
+  const setTrainings = useStore((state) => state.setTrainings);
 
   return {
     textReorders,
-    setTextReorders,
+    wordRecognitions,
+    setTrainings,
   };
 };

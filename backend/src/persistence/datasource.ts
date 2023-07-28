@@ -3,7 +3,7 @@ import { SeederOptions } from 'typeorm-extension';
 
 const options: DataSourceOptions & SeederOptions = {
   type: 'mysql',
-  host: 'database',
+  host: process.env.DATABASE_HOST,
   port: 3306,
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
