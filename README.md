@@ -13,16 +13,13 @@ brew install make
 
 ```
 
-## Installer les dépendances
+La commande `make help` permet de lister les commandes existantes.
 
-### Frontend :
+## Préparer le projet
 
-`docker-compose run --rm frontend npm install`
+Installe les packages et joue les migrations de base de données
 
-### Backend :
-
-`docker-compose run --rm backend npm install`
-
+`make setup`
 
 ## Lancer l'application en local
 
@@ -32,12 +29,12 @@ brew install make
 
 ### Frontend :
 
-`docker-compose run --rm frontend npm run test`
+`make frontend-test`
 
 ### Backend :
 
-- `docker-compose run --rm backend npm run test` tests unitaires
-- `docker-compose run --rm backend npm run test:e2e` tests end-to-end
+- `make backend-test` tests unitaires
+- `make backend-test-e2e` tests end-to-end
 
 ## Base de données :
 
@@ -45,22 +42,22 @@ brew install make
 
 Va supprimer toutes les tables, exécuter toutes les migrations et créer un jeu de données initial (seed de base de données)
 
-`docker-compose run --rm backend npm run purge:db`
+`make purge:db`
 
 ### Générer une migration
 
-`docker-compose run --rm backend npm run typeorm migration:generate ./src/persistence/migrations/<NomDeMigration>`
+`make migration-generate name=<FileName>`
 
 ### Lancer les migrations
 
-`docker-compose run --rm backend npm run migration:run`
+`make migration-run`
 
 ## Compiler
 
 ### Frontend :
 
-`docker-compose run --rm frontend npm run build`
+`make frontend-build`
 
 ### Backend :
 
-`docker-compose run --rm backend npm run build`
+`make backend-build`
