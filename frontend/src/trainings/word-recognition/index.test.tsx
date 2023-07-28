@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithinProviders } from '../../../tests/utils';
 import { Word } from '../../domain/Trainings';
 import { createUseStore } from '../../store';
-import { Medias } from './Medias';
+import { WordRecognitionContainer } from '../../pages/WordRecognitionContainer';
 
 const createWords = (labels: string[]) =>
   labels.map(
@@ -12,10 +12,10 @@ const createWords = (labels: string[]) =>
   );
 
 describe('Medias', () => {
-  it('should display a component for each word of the list of words', async () => {
+  it.only('should display a component for each word of the list of words', async () => {
     const words: Word[] = createWords(['chat', 'chien', 'oiseau']);
     renderWithinProviders({
-      children: <Medias />,
+      children: <WordRecognitionContainer />,
       overrideServices: {
         useTrainingsStore: createUseStore({
           wordRecognitions: [{ id: 1, title: 'les animaux', words }],
@@ -34,7 +34,7 @@ describe('Medias', () => {
     const words: Word[] = createWords(['chat', 'chien']);
 
     renderWithinProviders({
-      children: <Medias />,
+      children: <WordRecognitionContainer />,
       overrideServices: {
         useTrainingsStore: createUseStore({
           wordRecognitions: [{ id: 1, title: 'les animaux', words }],

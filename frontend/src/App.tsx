@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
-import { WordRecognition } from './trainings/word-recognition';
+import { WordRecognitionContainer } from './pages/WordRecognitionContainer';
 
 const router = createBrowserRouter([
   {
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
     element: <TextReorderContainer />,
   },
   {
-    path: '/word-recognition',
-    element: <WordRecognition />,
+    path: '/word-recognition/:id',
+    element: <WordRecognitionContainer />,
   },
 ]);
 

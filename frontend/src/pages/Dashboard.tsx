@@ -24,7 +24,7 @@ const Text = styled.p`
 
 export const Dashboard = () => {
   const { useTrainingsStore } = useAppContext();
-  const { textReorders } = useTrainingsStore();
+  const { textReorders, wordRecognitions } = useTrainingsStore();
 
   return (
     <Layout>
@@ -38,10 +38,13 @@ export const Dashboard = () => {
             </Link>
           );
         })}
-
-        <Link to="/word-recognition" relative="path">
-          Reconnaître les mots
-        </Link>
+        {wordRecognitions.map(({ id, title }) => {
+          return (
+            <Link to={`/word-recognition/${id}`} relative="path" key={id}>
+              {title}
+            </Link>
+          );
+        })}
       </DashboardContainer>
     </Layout>
   );
