@@ -20,7 +20,7 @@ export type WordRecognitionProps = {
 
 export const WordRecognition = ({ words }: WordRecognitionProps) => {
   return (
-    <Container>
+    <Container data-testid="word-recognition-training">
       {words?.map((word) => (
         <Media key={word.id} word={word} />
       ))}
