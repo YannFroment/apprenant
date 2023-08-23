@@ -8,10 +8,8 @@ import { WordRecognitionService } from './trainings/models/WordRecognition.servi
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { InMemoryWordRecognitions } from './trainings/models/WordRecognition.service.spec';
 import { UsersService, Users, EncryptionProvider } from './user/user.service';
-import {
-  InMemoryUsers,
-  MockEncryptionProvider,
-} from './user/user.service.spec';
+import { InMemoryUsers } from '../test/mocks/users';
+import { MockEncryptionProvider } from '../test/mocks/encryptionProvider';
 
 describe('AppController', () => {
   let appController: AppController;

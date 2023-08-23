@@ -1,40 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
-import { CreateUserDto, User } from '../user/user';
 import { EncryptionProvider, Users } from '../user/user.service';
-
-// TODO remove duplication of user, inmemoryusers and mockencryptionprovider
-const user: User = {
-  id: 1,
-  firstName: 'John',
-  lastName: 'Doe',
-  isActive: true,
-  age: 42,
-  email: 'email@email.com',
-  password: 'hashed_password',
-};
-
-export class InMemoryUsers implements Users {
-  data: User[] = [user];
-
-  async find(): Promise<User[]> {
-    return this.data;
-  }
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    return createUserDto as User;
-  }
-
-  async findByEmail(email: string): Promise<User | null> {
-    return this.data.find((user) => user.email === email) ?? null;
-  }
-}
-
-export class MockEncryptionProvider implements EncryptionProvider {
-  async hash(password: string): Promise<string> {
-    return `hashed_${password}`;
-  }
-}
+import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
+import { InMemoryUsers, testUser } from '../../test/mocks/users';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -53,9 +21,9 @@ describe('AuthService', () => {
 
   it.each([
     {
-      email: user.email,
+      email: testUser.email,
       plainPassword: 'password',
-      expected: user,
+      expected: testUser,
     },
     {
       email: 'wrong@email.com',
@@ -63,7 +31,7 @@ describe('AuthService', () => {
       expected: null,
     },
     {
-      email: user.email,
+      email: testUser.email,
       plainPassword: 'wrong_password',
       expected: null,
     },

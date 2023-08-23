@@ -1,41 +1,8 @@
-import { CreateUserDto, User } from './user';
 import { EmailAlreadyInUseError } from './user.errors';
 import { EncryptionProvider, Users, UsersService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
-
-const user: User = {
-  id: 1,
-  firstName: 'John',
-  lastName: 'Doe',
-  isActive: true,
-  age: 42,
-  email: 'email@email.com',
-  password: 'password',
-};
-
-export class InMemoryUsers implements Users {
-  data: User[] = [user];
-
-  async find(): Promise<User[]> {
-    return this.data;
-  }
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    return createUserDto as User;
-  }
-
-  async findByEmail(email: string): Promise<User | null> {
-    return this.data.find((user) => user.email === email) ?? null;
-  }
-}
-
-export class MockEncryptionProvider implements EncryptionProvider {
-  static HASHED_PASSWORD = 'hashed_password';
-
-  async hash(): Promise<string> {
-    return MockEncryptionProvider.HASHED_PASSWORD;
-  }
-}
+import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
+import { InMemoryUsers, testUser } from '../../test/mocks/users';
 
 describe('UsersService', () => {
   let usersService: UsersService;
@@ -57,7 +24,7 @@ describe('UsersService', () => {
   it('should return all users', async () => {
     const users = await usersService.findAll();
 
-    expect(users).toEqual(expect.arrayContaining([user]));
+    expect(users).toEqual(expect.arrayContaining([testUser]));
   });
 
   it('should create a user', async () => {
@@ -87,7 +54,7 @@ describe('UsersService', () => {
 
     expect(spyOnCreate).toHaveBeenCalledWith({
       ...newUser,
-      password: MockEncryptionProvider.HASHED_PASSWORD,
+      password: 'hashed_plain_password',
     });
   });
 
@@ -96,9 +63,9 @@ describe('UsersService', () => {
       await usersService.create({
         firstName: 'Jane',
         lastName: 'Doe',
-        email: user.email,
+        email: testUser.email,
         password: 'plain_password',
       });
-    }).rejects.toThrow(new EmailAlreadyInUseError(user.email));
+    }).rejects.toThrow(new EmailAlreadyInUseError(testUser.email));
   });
 });
