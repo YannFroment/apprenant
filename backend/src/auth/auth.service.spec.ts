@@ -4,12 +4,20 @@ import { EncryptionProvider, Users } from '../user/user.service';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
 
 describe('AuthService', () => {
   let authService: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        JwtModule.register({
+          secret: jwtConstants.secret,
+          signOptions: { expiresIn: '60s' },
+        }),
+      ],
       providers: [
         AuthService,
         { provide: Users, useClass: InMemoryUsers },

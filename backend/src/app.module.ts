@@ -11,9 +11,17 @@ import { TypeORMWordRecognitions } from './providers/persistence/repositories/wo
 import { BcryptEncryptionProvider } from './providers/encryption/BcryptEncriptionProvider';
 import { AuthService } from './auth/auth.service';
 import { LocalStrategy } from './auth/local.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constants';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }),
+  ],
   controllers: [AppController],
   providers: [
     BcryptEncryptionProvider,

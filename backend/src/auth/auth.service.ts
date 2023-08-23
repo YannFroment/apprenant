@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EncryptionProvider, Users } from '../user/user.service';
 import { UserWithoutPassword, userMapper } from '../app.controller';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -10,6 +10,7 @@ export class AuthService {
     private users: Users,
     @Inject(EncryptionProvider)
     private encryptionProvider: EncryptionProvider,
+    private jwtService: JwtService,
   ) {}
 
   async validateUser(
@@ -27,7 +28,12 @@ export class AuthService {
 
     return null;
   }
-}
 
-@Injectable()
-export class LocalAuthGuard extends AuthGuard('local') {}
+  async login(user: UserWithoutPassword) {
+    const payload = { email: user.email, sub: user.id };
+
+    return {
+      acces_token: this.jwtService.sign(payload),
+    };
+  }
+}

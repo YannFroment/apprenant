@@ -14,7 +14,7 @@ import { WordRecognition } from './trainings/models/WordRecognition';
 import { CreateUserDto, User } from './user/user';
 import { UsersService } from './user/user.service';
 import { Request } from 'express';
-import { LocalAuthGuard } from './auth/auth.service';
+import { LocalAuthGuard } from './auth/local.guard';
 
 export type UserWithoutPassword = Omit<User, 'password'>;
 export const userMapper = (user: User): UserWithoutPassword => {
