@@ -8,6 +8,7 @@ const user: User = {
   lastName: 'Doe',
   isActive: true,
   age: 42,
+  email: 'email@email.com',
 };
 
 export class InMemoryUsers implements Users {
@@ -43,14 +44,23 @@ describe('UsersService', () => {
 
   it('should create a user', async () => {
     const spyOnCreate = jest.spyOn(inMemoryUsers, 'create');
-    await usersService.create({
+    const newUser = {
       firstName: 'Jane',
       lastName: 'Doe',
-    });
+      email: 'jane@doe.com',
+    };
+    await usersService.create(newUser);
 
-    expect(spyOnCreate).toHaveBeenCalledWith({
-      firstName: 'Jane',
-      lastName: 'Doe',
-    });
+    expect(spyOnCreate).toHaveBeenCalledWith(newUser);
+  });
+
+  it('should not create a user if a user already exists with the same email', async () => {
+    expect(async () => {
+      await usersService.create({
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: user.email,
+      });
+    }).rejects.toThrow('User with given email already exists');
   });
 });
