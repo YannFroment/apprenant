@@ -15,6 +15,7 @@ import { CreateUserDto, User } from './user/user';
 import { UsersService } from './user/user.service';
 import { Request } from 'express';
 import { LocalAuthGuard } from './auth/local.guard';
+import { AuthService } from './auth/auth.service';
 
 export type UserWithoutPassword = Omit<User, 'password'>;
 export const userMapper = (user: User): UserWithoutPassword => {
@@ -31,6 +32,7 @@ export class AppController {
     private readonly textReorderService: TextReorderService,
     private readonly wordRecognitionService: WordRecognitionService,
     private readonly usersService: UsersService,
+    private readonly authService: AuthService,
   ) {}
 
   @Get('healthcheck')
@@ -65,6 +67,6 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Req() req: Request) {
-    return req.user;
+    return this.authService.login(req.user as UserWithoutPassword);
   }
 }

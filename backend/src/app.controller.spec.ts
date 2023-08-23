@@ -10,6 +10,9 @@ import { InMemoryWordRecognitions } from './trainings/models/WordRecognition.ser
 import { UsersService, Users, EncryptionProvider } from './user/user.service';
 import { InMemoryUsers } from '../test/mocks/users';
 import { MockEncryptionProvider } from '../test/mocks/encryptionProvider';
+import { AuthService } from './auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constants';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -17,6 +20,12 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
+      imports: [
+        JwtModule.register({
+          secret: jwtConstants.secret,
+          signOptions: { expiresIn: '60s' },
+        }),
+      ],
       providers: [
         HealthCheck,
         TextReorderService,
@@ -32,6 +41,7 @@ describe('AppController', () => {
         UsersService,
         { provide: Users, useClass: InMemoryUsers },
         { provide: EncryptionProvider, useClass: MockEncryptionProvider },
+        AuthService,
       ],
     }).compile();
 
