@@ -10,11 +10,19 @@ export interface Users {
   create: (createUserDto: CreateUserDto) => Promise<User>;
 }
 
+export const EncryptionProvider = 'EncryptionProvider';
+
+export interface EncryptionProvider {
+  hash: (textToHash: string) => Promise<string>;
+}
+
 @Injectable()
 export class UsersService {
   constructor(
     @Inject(Users)
     private users: Users,
+    @Inject(EncryptionProvider)
+    private encryptionProvider: EncryptionProvider,
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -23,6 +31,9 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     await this.checkEmailUnicityOrFail(createUserDto.email);
+    createUserDto.password = await this.encryptionProvider.hash(
+      createUserDto.password,
+    );
 
     return this.users.create(createUserDto);
   }

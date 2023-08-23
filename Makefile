@@ -47,7 +47,7 @@ migration-run: ## Run the database migrations
 	@$(BACKEND_RUN) npm run migration:run
 
 migration-generate: ## Generate a migration file based on the schemas changes. Example: make migration-generate name=<MigrationName>
-	@$(BACKEND_RUN) npm run typeorm migration:generate ./src/persistence/migrations/$(name)
+	@$(BACKEND_RUN) npm run typeorm migration:generate ./src/providers/persistence/migrations/$(name)
 
 purge-db: ## Drop the database, run the migrations and run the seeders
 	@$(BACKEND_RUN) npm run purge:db

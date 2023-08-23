@@ -5,10 +5,12 @@ export class User {
   isActive: boolean;
   age: number;
   email: string;
+  password: string;
 }
 
 export type CreateUserDto = {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
 };

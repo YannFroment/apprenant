@@ -8,11 +8,13 @@ import { TypeORMUsers } from './providers/persistence/repositories/users';
 import { DatabaseModule } from './providers/persistence/database.module';
 import { TypeORMTextReorders } from './providers/persistence/repositories/textReorders';
 import { TypeORMWordRecognitions } from './providers/persistence/repositories/wordRecognitions';
+import { BcryptEncryptionProvider } from './providers/encryption/BcryptEncriptionProvider';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [AppController],
   providers: [
+    BcryptEncryptionProvider,
     HealthCheck,
     TextReorderService,
     TypeORMUsers,

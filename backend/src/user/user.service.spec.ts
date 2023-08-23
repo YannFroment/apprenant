@@ -1,6 +1,6 @@
 import { CreateUserDto, User } from './user';
 import { EmailAlreadyInUseError } from './user.errors';
-import { Users, UsersService } from './user.service';
+import { EncryptionProvider, Users, UsersService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
 const user: User = {
@@ -10,6 +10,7 @@ const user: User = {
   isActive: true,
   age: 42,
   email: 'email@email.com',
+  password: 'password',
 };
 
 export class InMemoryUsers implements Users {
@@ -28,13 +29,25 @@ export class InMemoryUsers implements Users {
   }
 }
 
+export class MockEncryptionProvider implements EncryptionProvider {
+  static HASHED_PASSWORD = 'hashed_password';
+
+  async hash(): Promise<string> {
+    return MockEncryptionProvider.HASHED_PASSWORD;
+  }
+}
+
 describe('UsersService', () => {
   let usersService: UsersService;
   let inMemoryUsers: Users;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, { provide: Users, useClass: InMemoryUsers }],
+      providers: [
+        UsersService,
+        { provide: Users, useClass: InMemoryUsers },
+        { provide: EncryptionProvider, useClass: MockEncryptionProvider },
+      ],
     }).compile();
 
     usersService = module.get<UsersService>(UsersService);
@@ -53,10 +66,29 @@ describe('UsersService', () => {
       firstName: 'Jane',
       lastName: 'Doe',
       email: 'jane@doe.com',
+      password: 'password',
     };
     await usersService.create(newUser);
 
-    expect(spyOnCreate).toHaveBeenCalledWith(newUser);
+    expect(spyOnCreate).toHaveBeenCalledWith(
+      expect.objectContaining({ email: newUser.email }),
+    );
+  });
+
+  it('should hash the user password', async () => {
+    const spyOnCreate = jest.spyOn(inMemoryUsers, 'create');
+    const newUser = {
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane@doe.com',
+      password: 'plain_password',
+    };
+    await usersService.create(newUser);
+
+    expect(spyOnCreate).toHaveBeenCalledWith({
+      ...newUser,
+      password: MockEncryptionProvider.HASHED_PASSWORD,
+    });
   });
 
   it('should not create a user if a user already exists with the same email', async () => {
@@ -65,6 +97,7 @@ describe('UsersService', () => {
         firstName: 'Jane',
         lastName: 'Doe',
         email: user.email,
+        password: 'plain_password',
       });
     }).rejects.toThrow(new EmailAlreadyInUseError(user.email));
   });
