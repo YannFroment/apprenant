@@ -20,14 +20,17 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    await this.checkEmailUnicityOrFail(createUserDto.email);
+
+    return this.users.create(createUserDto);
+  }
+
+  private async checkEmailUnicityOrFail(email: string): Promise<void> {
     const existingUsers = await this.users.find();
-    const userWithEmail = existingUsers.find(
-      (user) => user.email === createUserDto.email,
-    );
+    const userWithEmail = existingUsers.find((user) => user.email === email);
 
     if (userWithEmail) {
       throw Error('User with given email already exists');
     }
-    return this.users.create(createUserDto);
   }
 }
