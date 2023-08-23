@@ -9,6 +9,8 @@ import { DatabaseModule } from './providers/persistence/database.module';
 import { TypeORMTextReorders } from './providers/persistence/repositories/textReorders';
 import { TypeORMWordRecognitions } from './providers/persistence/repositories/wordRecognitions';
 import { BcryptEncryptionProvider } from './providers/encryption/BcryptEncriptionProvider';
+import { AuthService } from './auth/auth.service';
+import { LocalStrategy } from './auth/local.strategy';
 
 @Module({
   imports: [DatabaseModule],
@@ -22,6 +24,8 @@ import { BcryptEncryptionProvider } from './providers/encryption/BcryptEncriptio
     TypeORMWordRecognitions,
     UsersService,
     WordRecognitionService,
+    AuthService,
+    LocalStrategy,
   ],
 })
 export class AppModule {}
