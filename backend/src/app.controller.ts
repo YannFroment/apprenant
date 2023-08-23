@@ -7,6 +7,14 @@ import { WordRecognition } from './trainings/models/WordRecognition';
 import { CreateUserDto, User } from './user/user';
 import { UsersService } from './user/user.service';
 
+type UserWithoutPassword = Omit<User, 'password'>;
+const userMapper = (user: User): UserWithoutPassword => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password, ...rest } = user;
+
+  return rest;
+};
+
 @Controller()
 export class AppController {
   constructor(
@@ -32,12 +40,16 @@ export class AppController {
   }
 
   @Get('users')
-  async getUsers(): Promise<User[]> {
-    return this.usersService.findAll();
+  async getUsers(): Promise<UserWithoutPassword[]> {
+    return (await this.usersService.findAll()).map(userMapper);
   }
 
   @Post('user')
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+  async createUser(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<UserWithoutPassword> {
+    const user = await this.usersService.create(createUserDto);
+
+    return userMapper(user);
   }
 }
