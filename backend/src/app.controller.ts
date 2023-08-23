@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request as Req,
+  UseGuards,
+} from '@nestjs/common';
 import { HealthCheck } from './app.service';
 import { TextReorder } from './trainings/models/TextReorder';
 import { TextReorderService } from './trainings/models/TextReorder.service';
@@ -6,9 +13,11 @@ import { WordRecognitionService } from './trainings/models/WordRecognition.servi
 import { WordRecognition } from './trainings/models/WordRecognition';
 import { CreateUserDto, User } from './user/user';
 import { UsersService } from './user/user.service';
+import { Request } from 'express';
+import { LocalAuthGuard } from './auth/auth.service';
 
-type UserWithoutPassword = Omit<User, 'password'>;
-const userMapper = (user: User): UserWithoutPassword => {
+export type UserWithoutPassword = Omit<User, 'password'>;
+export const userMapper = (user: User): UserWithoutPassword => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { password, ...rest } = user;
 
@@ -51,5 +60,11 @@ export class AppController {
     const user = await this.usersService.create(createUserDto);
 
     return userMapper(user);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('auth/login')
+  async login(@Req() req: Request) {
+    return req.user;
   }
 }

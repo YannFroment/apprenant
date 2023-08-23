@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { EncryptionProvider, Users } from '../user/user.service';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
+import { userMapper } from '../app.controller';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -23,7 +24,7 @@ describe('AuthService', () => {
     {
       email: testUser.email,
       plainPassword: 'password',
-      expected: testUser,
+      expected: userMapper(testUser),
     },
     {
       email: 'wrong@email.com',

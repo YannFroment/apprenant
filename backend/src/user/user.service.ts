@@ -14,6 +14,7 @@ export const EncryptionProvider = 'EncryptionProvider';
 
 export interface EncryptionProvider {
   hash: (textToHash: string) => Promise<string>;
+  compare: (plainPassword: string, hashedPassword: string) => Promise<boolean>;
 }
 
 @Injectable()

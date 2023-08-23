@@ -7,6 +7,13 @@ export class Bcrypt implements EncryptionProvider {
   async hash(textToHash: string): Promise<string> {
     return bcrypt.hash(textToHash, Bcrypt.saltOrRounds);
   }
+
+  async compare(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return bcrypt.compare(plainPassword, hashedPassword);
+  }
 }
 
 export const BcryptEncryptionProvider = {
