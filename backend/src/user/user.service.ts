@@ -5,6 +5,7 @@ export const Users = 'Users';
 
 export interface Users {
   find: () => Promise<User[]>;
+  findByEmail: (email: string) => Promise<User | null>;
   create: (createUserDto: CreateUserDto) => Promise<User>;
 }
 
@@ -26,10 +27,9 @@ export class UsersService {
   }
 
   private async checkEmailUnicityOrFail(email: string): Promise<void> {
-    const existingUsers = await this.users.find();
-    const userWithEmail = existingUsers.find((user) => user.email === email);
+    const user = await this.users.findByEmail(email);
 
-    if (userWithEmail) {
+    if (user) {
       throw Error('User with given email already exists');
     }
   }

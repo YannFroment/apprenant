@@ -6,6 +6,7 @@ export default setSeederFactory(User, () => {
   user.firstName = 'John';
   user.lastName = 'Doe';
   user.age = 42;
+  user.email = 'john@doe.com';
 
   return user;
 });

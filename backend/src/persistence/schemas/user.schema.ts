@@ -26,5 +26,10 @@ export const UserSchema = new EntitySchema<User>({
       type: Number,
       default: 42,
     },
+    email: {
+      type: String,
+      nullable: false,
+      unique: true,
+    },
   },
 });

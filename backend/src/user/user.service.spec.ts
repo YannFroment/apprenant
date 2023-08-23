@@ -21,6 +21,10 @@ export class InMemoryUsers implements Users {
   async create(createUserDto: CreateUserDto): Promise<User> {
     return createUserDto as User;
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.data.find((user) => user.email === email) ?? null;
+  }
 }
 
 describe('UsersService', () => {

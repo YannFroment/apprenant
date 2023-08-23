@@ -14,6 +14,13 @@ const typeORMUsersFactory = (dataSource: DataSource): Users => {
     create: async (createUserDto: CreateUserDto): Promise<User> => {
       return baseRepository.save(createUserDto);
     },
+    findByEmail: async (email: string): Promise<User | null> => {
+      return baseRepository.findOne({
+        where: {
+          email,
+        },
+      });
+    },
   };
 };
 
