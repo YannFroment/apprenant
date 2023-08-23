@@ -1,13 +1,13 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { TextReorder } from '../../trainings/models/TextReorder';
+import { WordRecognition } from '../../../trainings/models/WordRecognition';
 
-export default class TextReorderSeeder implements Seeder {
+export default class WordRecognitionSeeder implements Seeder {
   public async run(
     _: DataSource,
     factoryManager: SeederFactoryManager,
   ): Promise<any> {
-    const factory = factoryManager.get(TextReorder);
+    const factory = factoryManager.get(WordRecognition);
     await factory.save();
   }
 }

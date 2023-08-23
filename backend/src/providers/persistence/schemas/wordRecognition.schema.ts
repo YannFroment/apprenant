@@ -1,6 +1,9 @@
 import { EntitySchema } from 'typeorm';
 import { BaseColumnSchemaPart } from './base.schema';
-import { WordRecognition, Word } from '../../trainings/models/WordRecognition';
+import {
+  WordRecognition,
+  Word,
+} from '../../../trainings/models/WordRecognition';
 
 export const WordRecognitionSchema = new EntitySchema<WordRecognition>({
   name: 'WordRecognition',

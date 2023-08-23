@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Users } from '../../user/user.service';
+import { Users } from '../../../user/user.service';
 import { UserSchema } from '../schemas/user.schema';
 import { DATA_SOURCE } from '../database.providers';
 import { CreateUserDto, User } from 'src/user/user';

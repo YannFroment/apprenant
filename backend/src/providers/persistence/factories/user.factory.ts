@@ -1,4 +1,4 @@
-import { User } from '../../user/user';
+import { User } from '../../../user/user';
 import { setSeederFactory } from 'typeorm-extension';
 
 export default setSeederFactory(User, () => {

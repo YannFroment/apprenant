@@ -1,5 +1,5 @@
 import { EntitySchema } from 'typeorm';
-import { User } from '../../user/user';
+import { User } from '../../../user/user';
 import { BaseColumnSchemaPart } from './base.schema';
 
 export const UserSchema = new EntitySchema<User>({

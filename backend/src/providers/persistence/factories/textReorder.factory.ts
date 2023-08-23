@@ -1,4 +1,4 @@
-import { TextReorder } from '../../trainings/models/TextReorder';
+import { TextReorder } from '../../../trainings/models/TextReorder';
 import { setSeederFactory } from 'typeorm-extension';
 
 export default setSeederFactory(TextReorder, () => {

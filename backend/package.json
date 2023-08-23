@@ -13,7 +13,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "migration:run": "npm run typeorm migration:run",
     "purge:db": "npm run database:drop && npm run migration:run && npm run seed:run",
-    "seed:run": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/persistence/datasource.ts",
+    "seed:run": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/providers/persistence/datasource.ts",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -22,7 +22,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --runInBand --config ./test/jest-e2e.json",
     "test:watch": "jest --watch",
-    "typeorm": "typeorm-ts-node-esm -d ./src/persistence/datasource.ts"
+    "typeorm": "typeorm-ts-node-esm -d ./src/providers/persistence/datasource.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

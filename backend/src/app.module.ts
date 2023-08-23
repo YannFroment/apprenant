@@ -4,10 +4,10 @@ import { HealthCheck } from './app.service';
 import { TextReorderService } from './trainings/models/TextReorder.service';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { UsersService } from './user/user.service';
-import { TypeORMUsers } from './persistence/repositories/users';
-import { DatabaseModule } from './persistence/database.module';
-import { TypeORMTextReorders } from './persistence/repositories/textReorders';
-import { TypeORMWordRecognitions } from './persistence/repositories/wordRecognitions';
+import { TypeORMUsers } from './providers/persistence/repositories/users';
+import { DatabaseModule } from './providers/persistence/database.module';
+import { TypeORMTextReorders } from './providers/persistence/repositories/textReorders';
+import { TypeORMWordRecognitions } from './providers/persistence/repositories/wordRecognitions';
 
 @Module({
   imports: [DatabaseModule],

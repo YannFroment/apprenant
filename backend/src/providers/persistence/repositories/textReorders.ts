@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
 import { DATA_SOURCE } from '../database.providers';
-import { TextReorders } from '../../trainings/models/TextReorders';
+import { TextReorders } from '../../../trainings/models/TextReorders';
 import { TextReorderSchema } from '../schemas/textReorder.schema';
 import {
   CreateTextReorderDTO,
   TextReorder,
-} from '../../trainings/models/TextReorder';
+} from '../../../trainings/models/TextReorder';
 
 const typeORMTextReordersFactory = (dataSource: DataSource): TextReorders => {
   const baseRepository = dataSource.getRepository(TextReorderSchema);
