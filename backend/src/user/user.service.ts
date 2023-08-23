@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto, User } from './user';
+import { EmailAlreadyInUseError } from './user.errors';
 
 export const Users = 'Users';
 
@@ -30,7 +31,7 @@ export class UsersService {
     const user = await this.users.findByEmail(email);
 
     if (user) {
-      throw Error('User with given email already exists');
+      throw new EmailAlreadyInUseError(email);
     }
   }
 }

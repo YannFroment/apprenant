@@ -1,4 +1,5 @@
 import { CreateUserDto, User } from './user';
+import { EmailAlreadyInUseError } from './user.errors';
 import { Users, UsersService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
@@ -65,6 +66,6 @@ describe('UsersService', () => {
         lastName: 'Doe',
         email: user.email,
       });
-    }).rejects.toThrow('User with given email already exists');
+    }).rejects.toThrow(new EmailAlreadyInUseError(user.email));
   });
 });
