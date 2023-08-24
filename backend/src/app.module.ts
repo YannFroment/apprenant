@@ -13,6 +13,7 @@ import { AuthService } from './auth/auth.service';
 import { LocalStrategy } from './auth/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
+import { JwtStrategy } from './auth/jwt.strategy';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { jwtConstants } from './auth/constants';
     WordRecognitionService,
     AuthService,
     LocalStrategy,
+    JwtStrategy,
   ],
 })
 export class AppModule {}

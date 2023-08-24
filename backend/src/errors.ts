@@ -1,4 +1,9 @@
-import { Catch, ExceptionFilter, ArgumentsHost } from '@nestjs/common';
+import {
+  Catch,
+  ExceptionFilter,
+  ArgumentsHost,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 import { EmailAlreadyInUseError } from './user/user.errors';
 
@@ -8,11 +13,18 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    let status = 500;
+    let status;
 
     switch (exception.constructor) {
       case EmailAlreadyInUseError:
         status = 409;
+        break;
+      case UnauthorizedException:
+        status = 401;
+        break;
+      default:
+        status = 500;
+        break;
     }
 
     response.status(status).json({

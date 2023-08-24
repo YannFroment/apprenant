@@ -3,8 +3,6 @@ import { EncryptionProvider, Users } from '../user/user.service';
 import { UserWithoutPassword, userMapper } from '../app.controller';
 import { JwtService } from '@nestjs/jwt';
 
-// TODO go ahead from there https://docs.nestjs.com/recipes/passport#implementing-passport-jwt
-
 @Injectable()
 export class AuthService {
   constructor(

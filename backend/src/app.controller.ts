@@ -16,6 +16,7 @@ import { UsersService } from './user/user.service';
 import { Request } from 'express';
 import { LocalAuthGuard } from './auth/local.guard';
 import { AuthService } from './auth/auth.service';
+import { JwtAuthGuard } from './auth/jwt.guard';
 
 export type UserWithoutPassword = Omit<User, 'password'>;
 export const userMapper = (user: User): UserWithoutPassword => {
@@ -68,5 +69,11 @@ export class AppController {
   @Post('auth/login')
   async login(@Req() req: Request) {
     return this.authService.login(req.user as UserWithoutPassword);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Req() req: Request) {
+    return req.user;
   }
 }
