@@ -37,22 +37,28 @@ export class AuthService {
   }
 
   async login({ id, email }: UserWithoutPassword): Promise<AuthTokens> {
-    const payload = { email, sub: id };
-
     const user = (await this.users.findById(id)) as User; // TODO remove type casting
     // TODO should hash refresh token?
-    const accessToken = this.jwtService.sign(payload, {
-      secret: jwtConstants.accessSecret,
-    });
-    const refreshToken = this.jwtService.sign(payload, {
-      secret: jwtConstants.refreshSecret,
-    });
-    user.refreshToken = refreshToken;
+    const { access_token, refresh_token } = this.generateAuthTokens(id, email);
+    user.refreshToken = refresh_token;
     await this.users.save(user);
 
     return {
-      access_token: accessToken,
-      refresh_token: refreshToken,
+      access_token,
+      refresh_token,
+    };
+  }
+
+  private generateAuthTokens(userId: number, email: string): AuthTokens {
+    const payload = { email, sub: userId };
+
+    return {
+      access_token: this.jwtService.sign(payload, {
+        secret: jwtConstants.accessSecret,
+      }),
+      refresh_token: this.jwtService.sign(payload, {
+        secret: jwtConstants.refreshSecret,
+      }),
     };
   }
 }
