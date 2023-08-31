@@ -6,11 +6,13 @@ import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { User } from '../user/user';
 
 describe('AuthService', () => {
   let authService: AuthService;
   let spyOnJwtSign: jest.SpyInstance;
   let spyOnUsersSave: jest.SpyInstance;
+  let users: Users;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,7 +29,7 @@ describe('AuthService', () => {
     }).compile();
 
     authService = module.get<AuthService>(AuthService);
-    const users = module.get<Users>(Users);
+    users = module.get<Users>(Users);
     spyOnUsersSave = jest.spyOn(users, 'save');
     const jwtService = module.get<JwtService>(JwtService);
     spyOnJwtSign = jest.spyOn(jwtService, 'sign');
@@ -84,6 +86,29 @@ describe('AuthService', () => {
       expect(spyOnUsersSave).toHaveBeenCalledWith(
         expect.objectContaining({ refreshToken: `hashed_${refresh_token}` }),
       );
+    });
+  });
+
+  describe.skip('refreshAuthTokens', () => {
+    it('should generate new auth tokens', async () => {
+      const newUser = new User();
+      newUser.id = 2;
+      newUser.age = 20;
+      newUser.email = 'jane@doe.com';
+      newUser.firstName = 'Jane';
+      newUser.lastName = 'Doe';
+      newUser.isActive = true;
+      newUser.password = '';
+      newUser.refreshToken = 'hashed_refresh_token';
+
+      await users.create(newUser);
+
+      const updatedNewUser = await authService.refreshAuthTokens(
+        newUser.id,
+        newUser.refreshToken,
+      );
+
+      expect(updatedNewUser.refresh_token).not.toBe('hashed_refresh_token');
     });
   });
 });
