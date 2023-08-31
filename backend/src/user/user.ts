@@ -6,6 +6,7 @@ export class User {
   age: number;
   email: string;
   password: string;
+  refreshToken?: string;
 }
 
 export type CreateUserDto = {

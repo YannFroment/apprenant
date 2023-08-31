@@ -35,5 +35,10 @@ export const UserSchema = new EntitySchema<User>({
       type: String,
       nullable: false,
     },
+    refreshToken: {
+      type: String,
+      nullable: true,
+      name: 'refresh_token',
+    },
   },
 });
