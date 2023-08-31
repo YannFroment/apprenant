@@ -13,14 +13,14 @@ export const testUser: User = {
 };
 
 export class InMemoryUsers implements Users {
-  data: User[] = [testUser];
+  data: User[] = [{ ...testUser }];
 
   async find(): Promise<User[]> {
     return this.data;
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    return createUserDto as User;
+    return { ...createUserDto } as User;
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -34,6 +34,6 @@ export class InMemoryUsers implements Users {
   async save(user: User): Promise<User> {
     this.data.filter((existingUser) => existingUser.id !== user.id).push(user);
 
-    return user;
+    return { ...user };
   }
 }

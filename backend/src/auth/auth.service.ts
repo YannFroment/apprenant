@@ -1,4 +1,4 @@
-import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { EncryptionProvider, Users } from '../user/user.service';
 import { UserWithoutPassword, userMapper } from '../app.controller';
 import { JwtService } from '@nestjs/jwt';
@@ -49,20 +49,18 @@ export class AuthService {
 
   async refreshAuthTokens(userId: number, refreshToken: string) {
     const user = await this.users.findById(userId);
-    console.info('user', user);
+
     if (!user || !user.refreshToken) {
-      throw new ForbiddenException('Access Denied');
+      throw new UnauthorizedException();
     }
-    console.info('refreshToken', refreshToken);
-    console.info('user.refreshToken', user.refreshToken);
+
     const refreshTokenMatches = await this.encryptionProvider.compare(
       refreshToken,
       user.refreshToken,
     );
-    // const refreshTokenMatches = refreshToken === user.refreshToken;
-    console.info('refreshTokenMatches', refreshTokenMatches);
+
     if (!refreshTokenMatches) {
-      throw new ForbiddenException('Access Denied');
+      throw new UnauthorizedException();
     }
 
     const tokens = this.generateAuthTokens(user.id, user.email);

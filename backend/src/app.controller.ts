@@ -69,7 +69,6 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Req() req: Request) {
-    console.info('in login endpoint');
     return this.authService.login(req.user as UserWithoutPassword);
   }
 
@@ -82,8 +81,6 @@ export class AppController {
   @UseGuards(RefreshTokenGuard)
   @Get('auth/refresh')
   async refreshAuthTokens(@Req() req: any) {
-    console.info('in refresh endpoint');
-    console.info('req.user', req.user);
     return this.authService.refreshAuthTokens(
       req.user.id,
       req.user.refreshToken,

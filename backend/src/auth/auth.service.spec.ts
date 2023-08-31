@@ -6,6 +6,7 @@ import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { UnauthorizedException } from '@nestjs/common';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -96,6 +97,18 @@ describe('AuthService', () => {
       );
 
       expect(updatedNewUser.refresh_token).not.toBe('hashed_refresh_token');
+    });
+
+    it('should fail if no user was found', async () => {
+      expect(async () => {
+        await authService.refreshAuthTokens(2, 'refresh_token');
+      }).rejects.toThrow(UnauthorizedException);
+    });
+
+    it('should fail if the refresh token does not match', async () => {
+      expect(async () => {
+        await authService.refreshAuthTokens(testUser.id, 'wrong_refresh_token');
+      }).rejects.toThrow(UnauthorizedException);
     });
   });
 });
