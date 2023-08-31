@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { EncryptionProvider, Users } from '../user/user.service';
 import { UserWithoutPassword, userMapper } from '../app.controller';
 import { JwtService } from '@nestjs/jwt';
@@ -38,15 +38,38 @@ export class AuthService {
 
   async login({ id, email }: UserWithoutPassword): Promise<AuthTokens> {
     const user = (await this.users.findById(id)) as User; // TODO remove type casting
-    // TODO should hash refresh token?
     const { access_token, refresh_token } = this.generateAuthTokens(id, email);
-    user.refreshToken = refresh_token;
-    await this.users.save(user);
+    await this.updateRefreshToken(user, refresh_token);
 
     return {
       access_token,
       refresh_token,
     };
+  }
+
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.users.findById(userId);
+    if (!user || !user.refreshToken) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const refreshTokenMatches = await this.encryptionProvider.compare(
+      user.refreshToken,
+      refreshToken,
+    );
+    if (!refreshTokenMatches) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const tokens = this.generateAuthTokens(user.id, user.email);
+    await this.updateRefreshToken(user, refreshToken);
+
+    return tokens;
+  }
+
+  private async updateRefreshToken(user: User, refreshToken: string) {
+    const hashedRefreshToken = await this.encryptionProvider.hash(refreshToken);
+    user.refreshToken = hashedRefreshToken;
+
+    await this.users.save(user);
   }
 
   private generateAuthTokens(userId: number, email: string): AuthTokens {

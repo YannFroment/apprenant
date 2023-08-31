@@ -79,10 +79,10 @@ describe('AuthService', () => {
       expect(refresh_token).toBeTruthy();
     });
 
-    it('should persist refresh token', async () => {
+    it('should persist hashed refresh token', async () => {
       const { refresh_token } = await authService.login(testUser);
       expect(spyOnUsersSave).toHaveBeenCalledWith(
-        expect.objectContaining({ refreshToken: refresh_token }),
+        expect.objectContaining({ refreshToken: `hashed_${refresh_token}` }),
       );
     });
   });
