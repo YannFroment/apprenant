@@ -21,6 +21,16 @@ const typeORMUsersFactory = (dataSource: DataSource): Users => {
         },
       });
     },
+    findById: async (id: number): Promise<User | null> => {
+      return baseRepository.findOne({
+        where: {
+          id,
+        },
+      });
+    },
+    save: async (user: User): Promise<User> => {
+      return baseRepository.save(user);
+    },
   };
 };
 

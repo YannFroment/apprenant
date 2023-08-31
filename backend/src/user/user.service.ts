@@ -7,7 +7,9 @@ export const Users = 'Users';
 export interface Users {
   find: () => Promise<User[]>;
   findByEmail: (email: string) => Promise<User | null>;
+  findById: (id: number) => Promise<User | null>;
   create: (createUserDto: CreateUserDto) => Promise<User>;
+  save: (user: User) => Promise<User>;
 }
 
 export const EncryptionProvider = 'EncryptionProvider';

@@ -9,8 +9,8 @@ import { jwtConstants } from './constants';
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let jwtService: JwtService;
   let spyOnJwtSign: jest.SpyInstance;
+  let spyOnUsersSave: jest.SpyInstance;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,7 +27,9 @@ describe('AuthService', () => {
     }).compile();
 
     authService = module.get<AuthService>(AuthService);
-    jwtService = module.get(JwtService);
+    const users = module.get<Users>(Users);
+    spyOnUsersSave = jest.spyOn(users, 'save');
+    const jwtService = module.get<JwtService>(JwtService);
     spyOnJwtSign = jest.spyOn(jwtService, 'sign');
   });
   describe('validateUser', () => {
@@ -60,6 +62,7 @@ describe('AuthService', () => {
   describe('login', () => {
     it('should return auth tokens', async () => {
       const { access_token, refresh_token } = await authService.login(testUser);
+
       expect(spyOnJwtSign).toHaveBeenNthCalledWith(
         1,
         { email: testUser.email, sub: testUser.id },
@@ -70,11 +73,17 @@ describe('AuthService', () => {
         { email: testUser.email, sub: testUser.id },
         expect.objectContaining({ secret: jwtConstants.refreshSecret }),
       );
-
       expect(access_token).toBeDefined();
       expect(access_token).toBeTruthy();
       expect(refresh_token).toBeDefined();
       expect(refresh_token).toBeTruthy();
+    });
+
+    it('should persist refresh token', async () => {
+      const { refresh_token } = await authService.login(testUser);
+      expect(spyOnUsersSave).toHaveBeenCalledWith(
+        expect.objectContaining({ refreshToken: refresh_token }),
+      );
     });
   });
 });

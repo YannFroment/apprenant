@@ -3,6 +3,7 @@ import { EncryptionProvider, Users } from '../user/user.service';
 import { UserWithoutPassword, userMapper } from '../app.controller';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { User } from '../user/user';
 
 type AuthTokens = {
   access_token: string;
@@ -35,16 +36,23 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserWithoutPassword): Promise<AuthTokens> {
-    const payload = { email: user.email, sub: user.id };
+  async login({ id, email }: UserWithoutPassword): Promise<AuthTokens> {
+    const payload = { email, sub: id };
+
+    const user = (await this.users.findById(id)) as User; // TODO remove type casting
+    // TODO should hash refresh token?
+    const accessToken = this.jwtService.sign(payload, {
+      secret: jwtConstants.accessSecret,
+    });
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: jwtConstants.refreshSecret,
+    });
+    user.refreshToken = refreshToken;
+    await this.users.save(user);
 
     return {
-      access_token: this.jwtService.sign(payload, {
-        secret: jwtConstants.accessSecret,
-      }),
-      refresh_token: this.jwtService.sign(payload, {
-        secret: jwtConstants.refreshSecret,
-      }),
+      access_token: accessToken,
+      refresh_token: refreshToken,
     };
   }
 }
