@@ -27,45 +27,47 @@ describe('UsersService', () => {
     expect(users).toEqual(expect.arrayContaining([testUser]));
   });
 
-  it('should create a user', async () => {
-    const spyOnCreate = jest.spyOn(inMemoryUsers, 'create');
-    const newUser = {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      email: 'jane@doe.com',
-      password: 'password',
-    };
-    await usersService.create(newUser);
-
-    expect(spyOnCreate).toHaveBeenCalledWith(
-      expect.objectContaining({ email: newUser.email }),
-    );
-  });
-
-  it('should hash the user password', async () => {
-    const spyOnCreate = jest.spyOn(inMemoryUsers, 'create');
-    const newUser = {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      email: 'jane@doe.com',
-      password: 'plain_password',
-    };
-    await usersService.create(newUser);
-
-    expect(spyOnCreate).toHaveBeenCalledWith({
-      ...newUser,
-      password: 'hashed_plain_password',
-    });
-  });
-
-  it('should not create a user if a user already exists with the same email', async () => {
-    expect(async () => {
-      await usersService.create({
+  describe('create', () => {
+    it('should create a user', async () => {
+      const spyOnCreate = jest.spyOn(inMemoryUsers, 'create');
+      const newUser = {
         firstName: 'Jane',
         lastName: 'Doe',
-        email: testUser.email,
+        email: 'jane@doe.com',
+        password: 'password',
+      };
+      await usersService.create(newUser);
+
+      expect(spyOnCreate).toHaveBeenCalledWith(
+        expect.objectContaining({ email: newUser.email }),
+      );
+    });
+
+    it('should hash the user password', async () => {
+      const spyOnCreate = jest.spyOn(inMemoryUsers, 'create');
+      const newUser = {
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane@doe.com',
         password: 'plain_password',
+      };
+      await usersService.create(newUser);
+
+      expect(spyOnCreate).toHaveBeenCalledWith({
+        ...newUser,
+        password: 'hashed_plain_password',
       });
-    }).rejects.toThrow(new EmailAlreadyInUseError(testUser.email));
+    });
+
+    it('should not create a user if a user already exists with the same email', async () => {
+      expect(async () => {
+        await usersService.create({
+          firstName: 'Jane',
+          lastName: 'Doe',
+          email: testUser.email,
+          password: 'plain_password',
+        });
+      }).rejects.toThrow(new EmailAlreadyInUseError(testUser.email));
+    });
   });
 });
