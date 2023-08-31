@@ -13,12 +13,13 @@ import { AuthService } from './auth/auth.service';
 import { LocalStrategy } from './auth/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
+import { RefreshTokenStrategy } from './auth/jwtRefresh.strategy';
 
 @Module({
   imports: [
     DatabaseModule,
     JwtModule.register({
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '15m' },
     }),
   ],
   controllers: [AppController],
@@ -34,6 +35,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
     AuthService,
     LocalStrategy,
     JwtStrategy,
+    RefreshTokenStrategy,
   ],
 })
 export class AppModule {}

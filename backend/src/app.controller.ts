@@ -17,6 +17,7 @@ import { Request } from 'express';
 import { LocalAuthGuard } from './auth/local.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt.guard';
+import { RefreshTokenGuard } from './auth/jwtRefresh.guard';
 
 export type UserWithoutPassword = Omit<User, 'password'>;
 export const userMapper = (user: User): UserWithoutPassword => {
@@ -68,12 +69,24 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Req() req: Request) {
+    console.info('in login endpoint');
     return this.authService.login(req.user as UserWithoutPassword);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Req() req: Request) {
+  async getProfile(@Req() req: Request) {
     return req.user;
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('auth/refresh')
+  async refreshAuthTokens(@Req() req: any) {
+    console.info('in refresh endpoint');
+    console.info('req.user', req.user);
+    return this.authService.refreshAuthTokens(
+      req.user.id,
+      req.user.refreshToken,
+    );
   }
 }

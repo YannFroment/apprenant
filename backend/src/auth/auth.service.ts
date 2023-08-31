@@ -49,14 +49,18 @@ export class AuthService {
 
   async refreshAuthTokens(userId: number, refreshToken: string) {
     const user = await this.users.findById(userId);
+    console.info('user', user);
     if (!user || !user.refreshToken) {
       throw new ForbiddenException('Access Denied');
     }
-
+    console.info('refreshToken', refreshToken);
+    console.info('user.refreshToken', user.refreshToken);
     const refreshTokenMatches = await this.encryptionProvider.compare(
       refreshToken,
       user.refreshToken,
     );
+    // const refreshTokenMatches = refreshToken === user.refreshToken;
+    console.info('refreshTokenMatches', refreshTokenMatches);
     if (!refreshTokenMatches) {
       throw new ForbiddenException('Access Denied');
     }
