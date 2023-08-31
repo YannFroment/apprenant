@@ -6,7 +6,6 @@ import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { User } from '../user/user';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -89,23 +88,11 @@ describe('AuthService', () => {
     });
   });
 
-  describe.skip('refreshAuthTokens', () => {
+  describe('refreshAuthTokens', () => {
     it('should generate new auth tokens', async () => {
-      const newUser = new User();
-      newUser.id = 2;
-      newUser.age = 20;
-      newUser.email = 'jane@doe.com';
-      newUser.firstName = 'Jane';
-      newUser.lastName = 'Doe';
-      newUser.isActive = true;
-      newUser.password = '';
-      newUser.refreshToken = 'hashed_refresh_token';
-
-      await users.create(newUser);
-
       const updatedNewUser = await authService.refreshAuthTokens(
-        newUser.id,
-        newUser.refreshToken,
+        testUser.id,
+        'refresh_token',
       );
 
       expect(updatedNewUser.refresh_token).not.toBe('hashed_refresh_token');

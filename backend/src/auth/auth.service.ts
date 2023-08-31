@@ -52,13 +52,15 @@ export class AuthService {
     if (!user || !user.refreshToken) {
       throw new ForbiddenException('Access Denied');
     }
+
     const refreshTokenMatches = await this.encryptionProvider.compare(
-      user.refreshToken,
       refreshToken,
+      user.refreshToken,
     );
     if (!refreshTokenMatches) {
       throw new ForbiddenException('Access Denied');
     }
+
     const tokens = this.generateAuthTokens(user.id, user.email);
     await this.updateRefreshToken(user, refreshToken);
 
