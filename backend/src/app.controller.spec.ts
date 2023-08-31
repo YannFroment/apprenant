@@ -12,7 +12,6 @@ import { InMemoryUsers } from '../test/mocks/users';
 import { MockEncryptionProvider } from '../test/mocks/encryptionProvider';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -22,7 +21,6 @@ describe('AppController', () => {
       controllers: [AppController],
       imports: [
         JwtModule.register({
-          secret: jwtConstants.secret,
           signOptions: { expiresIn: '60s' },
         }),
       ],

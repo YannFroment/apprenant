@@ -12,14 +12,12 @@ import { BcryptEncryptionProvider } from './providers/encryption/BcryptEncriptio
 import { AuthService } from './auth/auth.service';
 import { LocalStrategy } from './auth/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
 import { JwtStrategy } from './auth/jwt.strategy';
 
 @Module({
   imports: [
     DatabaseModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
       signOptions: { expiresIn: '60s' },
     }),
   ],

@@ -5,7 +5,6 @@ import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -14,7 +13,6 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         JwtModule.register({
-          secret: jwtConstants.secret,
           signOptions: { expiresIn: '60s' },
         }),
       ],
@@ -27,29 +25,41 @@ describe('AuthService', () => {
 
     authService = module.get<AuthService>(AuthService);
   });
+  describe('validateUser', () => {
+    it.each([
+      {
+        email: testUser.email,
+        plainPassword: 'password',
+        expected: userMapper(testUser),
+      },
+      {
+        email: 'wrong@email.com',
+        plainPassword: 'password',
+        expected: null,
+      },
+      {
+        email: testUser.email,
+        plainPassword: 'wrong_password',
+        expected: null,
+      },
+    ])(
+      'should validate the user against email and password',
+      async ({ email, plainPassword, expected }) => {
+        const foundUser = await authService.validateUser(email, plainPassword);
 
-  it.each([
-    {
-      email: testUser.email,
-      plainPassword: 'password',
-      expected: userMapper(testUser),
-    },
-    {
-      email: 'wrong@email.com',
-      plainPassword: 'password',
-      expected: null,
-    },
-    {
-      email: testUser.email,
-      plainPassword: 'wrong_password',
-      expected: null,
-    },
-  ])(
-    'should validate the user against email and password',
-    async ({ email, plainPassword, expected }) => {
-      const foundUser = await authService.validateUser(email, plainPassword);
+        expect(foundUser).toEqual(expected);
+      },
+    );
+  });
 
-      expect(foundUser).toEqual(expected);
-    },
-  );
+  describe('login', () => {
+    it('should return auth tokens', async () => {
+      const { access_token, refresh_token } = await authService.login(testUser);
+
+      expect(access_token).toBeDefined();
+      expect(access_token).toBeTruthy();
+      expect(refresh_token).toBeDefined();
+      expect(refresh_token).toBeTruthy();
+    });
+  });
 });

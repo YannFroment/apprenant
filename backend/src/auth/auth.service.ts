@@ -2,6 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { EncryptionProvider, Users } from '../user/user.service';
 import { UserWithoutPassword, userMapper } from '../app.controller';
 import { JwtService } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
+
+type AuthTokens = {
+  access_token: string;
+  refresh_token: string;
+};
 
 @Injectable()
 export class AuthService {
@@ -29,11 +35,16 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserWithoutPassword) {
+  async login(user: UserWithoutPassword): Promise<AuthTokens> {
     const payload = { email: user.email, sub: user.id };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: jwtConstants.accessSecret,
+      }),
+      refresh_token: this.jwtService.sign(payload, {
+        secret: jwtConstants.refreshSecret,
+      }),
     };
   }
 }
