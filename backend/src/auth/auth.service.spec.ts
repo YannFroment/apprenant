@@ -4,10 +4,13 @@ import { EncryptionProvider, Users } from '../user/user.service';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
 
 describe('AuthService', () => {
   let authService: AuthService;
+  let jwtService: JwtService;
+  let spyOnJwtSign: jest.SpyInstance;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -24,6 +27,8 @@ describe('AuthService', () => {
     }).compile();
 
     authService = module.get<AuthService>(AuthService);
+    jwtService = module.get(JwtService);
+    spyOnJwtSign = jest.spyOn(jwtService, 'sign');
   });
   describe('validateUser', () => {
     it.each([
@@ -55,6 +60,16 @@ describe('AuthService', () => {
   describe('login', () => {
     it('should return auth tokens', async () => {
       const { access_token, refresh_token } = await authService.login(testUser);
+      expect(spyOnJwtSign).toHaveBeenNthCalledWith(
+        1,
+        { email: testUser.email, sub: testUser.id },
+        expect.objectContaining({ secret: jwtConstants.accessSecret }),
+      );
+      expect(spyOnJwtSign).toHaveBeenNthCalledWith(
+        2,
+        { email: testUser.email, sub: testUser.id },
+        expect.objectContaining({ secret: jwtConstants.refreshSecret }),
+      );
 
       expect(access_token).toBeDefined();
       expect(access_token).toBeTruthy();
