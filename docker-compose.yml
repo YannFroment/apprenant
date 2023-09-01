@@ -33,6 +33,8 @@ services:
       MYSQL_USER: apprenant
       MYSQL_PASSWORD: apprenant
       DATABASE_HOST: database
+      JWT_ACCESS_SECRET: SJNFS1;:;EHFS1461_Ç'('"12')
+      JWT_REFRESH_SECRET: _'ÇÀJADK46SFSGDRE=)À"45:!:;""
     ports:
       - 3000:3000
     volumes:
