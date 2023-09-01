@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
+import { Login } from '../../auth/Login';
 import { Link } from '../Link';
 
 const StyledHeader = styled.header`
   display: flex;
+  justify-content: space-between;
   height: 80px;
   padding: ${({ theme }) => theme.spacing.small};
   font-size: ${({ theme }) => theme.font.size.medium};
@@ -46,6 +48,7 @@ export const Header = () => {
         <HeaderLogo />
         <HomeLink />
       </Nav>
+      <Login />
     </StyledHeader>
   );
 };
