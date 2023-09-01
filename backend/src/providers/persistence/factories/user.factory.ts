@@ -1,4 +1,4 @@
-import { Bcrypt } from '../../../providers/encryption/BcryptEncriptionProvider';
+import { Bcrypt } from '../../encryption/encryption.module';
 import { User } from '../../../user/user';
 import { setSeederFactory } from 'typeorm-extension';
 

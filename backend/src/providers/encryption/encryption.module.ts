@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { EncryptionProvider } from '../../user/user.service';
+import { Global, Module } from '@nestjs/common';
 
 export class Bcrypt implements EncryptionProvider {
   private static saltOrRounds = 10;
@@ -16,7 +17,13 @@ export class Bcrypt implements EncryptionProvider {
   }
 }
 
-export const BcryptEncryptionProvider = {
+const BcryptEncryptionProvider = {
   provide: EncryptionProvider,
   useClass: Bcrypt,
 };
+@Global()
+@Module({
+  providers: [BcryptEncryptionProvider],
+  exports: [BcryptEncryptionProvider],
+})
+export class EncryptionModule {}

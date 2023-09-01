@@ -8,9 +8,10 @@ import { TypeORMTextReorders } from './providers/persistence/repositories/textRe
 import { TypeORMWordRecognitions } from './providers/persistence/repositories/wordRecognitions';
 import { UsersModule } from './user/users.module';
 import { AuthModule } from './auth/auth.module';
+import { EncryptionModule } from './providers/encryption/encryption.module';
 
 @Module({
-  imports: [DatabaseModule, UsersModule, AuthModule],
+  imports: [DatabaseModule, UsersModule, AuthModule, EncryptionModule],
   controllers: [AppController],
   providers: [
     HealthCheck,
