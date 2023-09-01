@@ -1,11 +1,9 @@
-import { Controller, Get, Request as Req, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { HealthCheck } from './app.service';
 import { TextReorder } from './trainings/models/TextReorder';
 import { TextReorderService } from './trainings/models/TextReorder.service';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognition } from './trainings/models/WordRecognition';
-import { JwtAuthGuard } from './auth/jwt.guard';
-import { JwtUser } from './auth/jwt.strategy';
 
 @Controller()
 export class AppController {
@@ -28,11 +26,5 @@ export class AppController {
   @Get('word-recognition')
   async getWordRecognition(): Promise<WordRecognition[]> {
     return this.wordRecognitionService.getAll();
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  async getProfile(@Req() req: { user: JwtUser }) {
-    return req.user;
   }
 }
