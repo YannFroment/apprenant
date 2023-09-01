@@ -7,6 +7,8 @@ jobs:
       - image: cimg/node:18.17.0
         environment:
           - NODE_ENV: development
+          - JWT_ACCESS_SECRET: SJNFS1;:;EHFS1461_Ç'('"12')
+          - JWT_REFRESH_SECRET: _'ÇÀJADK46SFSGDRE=)À"45:!:;""
           - MYSQL_DATABASE: apprenant
           - MYSQL_USER: apprenant
           - MYSQL_PASSWORD: apprenant
