@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { useAuth } from '../src/auth/useAuth';
+import { createUseAuth } from '../src/auth/useAuth';
 import { Backend } from '../src/domain/Backend';
 import {
   AppContext,
@@ -33,7 +33,7 @@ const defaultContainer: ServiceContainer = {
   },
   backend: inMemoryBackend,
   useTrainingsStore,
-  useAuth,
+  useAuth: createUseAuth(),
 };
 
 const createContainer = (

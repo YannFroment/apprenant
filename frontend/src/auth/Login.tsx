@@ -7,9 +7,16 @@ const LoginContainer = styled.div``;
 export const Login = () => {
   const { useAuth } = useAppContext();
   const { accessToken } = useAuth();
+
+  const isLoggedIn = accessToken !== null;
+
   return (
     <LoginContainer>
-      <div>{accessToken}</div>
+      {isLoggedIn ? (
+        <div data-testid="log-out">Se déconnecter</div>
+      ) : (
+        <div data-testid="sign-in">Se connecter</div>
+      )}
     </LoginContainer>
   );
 };
