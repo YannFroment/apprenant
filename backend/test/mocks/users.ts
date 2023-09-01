@@ -9,7 +9,7 @@ export const testUser: User = {
   age: 42,
   email: 'email@email.com',
   password: 'hashed_password',
-  refreshToken: 'hashed_refresh_token',
+  refreshToken: 'refresh_token',
 };
 
 export class InMemoryUsers implements Users {

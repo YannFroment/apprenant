@@ -54,10 +54,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const refreshTokenMatches = await this.encryptionProvider.compare(
-      refreshToken,
-      user.refreshToken,
-    );
+    const refreshTokenMatches = refreshToken === user.refreshToken;
 
     if (!refreshTokenMatches) {
       throw new UnauthorizedException();
@@ -70,8 +67,7 @@ export class AuthService {
   }
 
   private async updateRefreshToken(user: User, refreshToken: string) {
-    const hashedRefreshToken = await this.encryptionProvider.hash(refreshToken);
-    user.refreshToken = hashedRefreshToken;
+    user.refreshToken = refreshToken;
 
     await this.users.save(user);
   }

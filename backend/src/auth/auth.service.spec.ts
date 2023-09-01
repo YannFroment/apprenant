@@ -81,10 +81,10 @@ describe('AuthService', () => {
       expect(refresh_token).toBeTruthy();
     });
 
-    it('should persist hashed refresh token', async () => {
+    it('should persist refresh token', async () => {
       const { refresh_token } = await authService.login(testUser);
       expect(spyOnUsersSave).toHaveBeenCalledWith(
-        expect.objectContaining({ refreshToken: `hashed_${refresh_token}` }),
+        expect.objectContaining({ refreshToken: refresh_token }),
       );
     });
   });
@@ -96,12 +96,17 @@ describe('AuthService', () => {
         'refresh_token',
       );
 
-      expect(updatedNewUser.refresh_token).not.toBe('hashed_refresh_token');
+      expect(updatedNewUser.refresh_token).not.toBe('refresh_token');
     });
 
     it('should fail if no user was found', async () => {
+      const NON_EXISTING_USER_ID = 2;
+
       expect(async () => {
-        await authService.refreshAuthTokens(2, 'refresh_token');
+        await authService.refreshAuthTokens(
+          NON_EXISTING_USER_ID,
+          'refresh_token',
+        );
       }).rejects.toThrow(UnauthorizedException);
     });
 
