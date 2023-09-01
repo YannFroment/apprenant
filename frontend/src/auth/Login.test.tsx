@@ -29,3 +29,15 @@ describe('Login', () => {
     });
   });
 });
+
+describe('Signin', () => {
+  it('', () => {
+    // TODO
+  });
+});
+
+describe('LogOut', () => {
+  it('', () => {
+    // TODO
+  });
+});
