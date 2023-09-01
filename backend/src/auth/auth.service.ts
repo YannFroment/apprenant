@@ -70,6 +70,18 @@ export class AuthService {
     return tokens;
   }
 
+  async logout(userId: number): Promise<void> {
+    const user = await this.users.findById(userId);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    user.refreshToken = null;
+
+    this.users.save(user);
+  }
+
   private async updateRefreshToken(user: User, refreshToken: string) {
     user.refreshToken = refreshToken;
 

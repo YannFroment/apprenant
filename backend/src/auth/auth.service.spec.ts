@@ -136,4 +136,14 @@ describe('AuthService', () => {
       }).rejects.toThrow(UnauthorizedException);
     });
   });
+  describe('logout', () => {
+    it('should delete the refresh token', async () => {
+      await authService.logout(testUser.id);
+
+      expect(spyOnUsersSave).toHaveBeenCalledWith({
+        ...testUser,
+        refreshToken: null,
+      });
+    });
+  });
 });
