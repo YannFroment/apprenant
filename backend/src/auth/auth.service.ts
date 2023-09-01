@@ -37,7 +37,11 @@ export class AuthService {
   }
 
   async login({ id, email }: UserWithoutPassword): Promise<AuthTokens> {
-    const user = (await this.users.findById(id)) as User; // TODO remove type casting
+    const user = await this.users.findById(id);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
     const { access_token, refresh_token } = this.generateAuthTokens(id, email);
     await this.updateRefreshToken(user, refresh_token);
 

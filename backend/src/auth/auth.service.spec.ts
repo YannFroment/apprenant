@@ -87,6 +87,17 @@ describe('AuthService', () => {
         expect.objectContaining({ refreshToken: refresh_token }),
       );
     });
+
+    it('should fail if no user was found', async () => {
+      const NON_EXISTING_USER_ID = 2;
+
+      expect(async () => {
+        await authService.login({
+          ...testUser,
+          id: NON_EXISTING_USER_ID,
+        });
+      }).rejects.toThrow(UnauthorizedException);
+    });
   });
 
   describe('refreshAuthTokens', () => {
