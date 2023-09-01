@@ -6,21 +6,11 @@ import { WordRecognitionService } from './trainings/models/WordRecognition.servi
 import { DatabaseModule } from './providers/persistence/database.module';
 import { TypeORMTextReorders } from './providers/persistence/repositories/textReorders';
 import { TypeORMWordRecognitions } from './providers/persistence/repositories/wordRecognitions';
-import { AuthService } from './auth/auth.service';
-import { LocalStrategy } from './auth/local.strategy';
-import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './auth/jwt.strategy';
-import { RefreshTokenStrategy } from './auth/jwtRefresh.strategy';
 import { UsersModule } from './user/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    JwtModule.register({
-      signOptions: { expiresIn: '15m' },
-    }),
-    UsersModule,
-  ],
+  imports: [DatabaseModule, UsersModule, AuthModule],
   controllers: [AppController],
   providers: [
     HealthCheck,
@@ -28,10 +18,6 @@ import { UsersModule } from './user/users.module';
     TypeORMTextReorders,
     TypeORMWordRecognitions,
     WordRecognitionService,
-    AuthService,
-    LocalStrategy,
-    JwtStrategy,
-    RefreshTokenStrategy,
   ],
 })
 export class AppModule {}
