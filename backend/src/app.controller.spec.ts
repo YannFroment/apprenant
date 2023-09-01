@@ -7,7 +7,7 @@ import { TextReorders } from './trainings/models/TextReorders';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { InMemoryWordRecognitions } from './trainings/models/WordRecognition.service.spec';
-import { UsersService, Users } from './user/user.service';
+import { UserService, Users } from './user/user.service';
 import { InMemoryUsers } from '../test/mocks/users';
 import { MockEncryptionProvider } from '../test/mocks/encryptionProvider';
 import { AuthService } from './auth/auth.service';
@@ -37,7 +37,7 @@ describe('AppController', () => {
           provide: WordRecognitions,
           useClass: InMemoryWordRecognitions,
         },
-        UsersService,
+        UserService,
         { provide: Users, useClass: InMemoryUsers },
         { provide: EncryptionProvider, useClass: MockEncryptionProvider },
         AuthService,

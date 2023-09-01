@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeORMUsers } from '../providers/persistence/repositories/users';
-import { UsersService } from './user.service';
+import { UserService } from './user.service';
 
 @Module({
-  providers: [TypeORMUsers, UsersService],
-  exports: [TypeORMUsers, UsersService],
+  providers: [TypeORMUsers, UserService],
+  exports: [TypeORMUsers, UserService],
 })
 export class UsersModule {}

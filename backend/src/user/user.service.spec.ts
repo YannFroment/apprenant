@@ -1,24 +1,24 @@
 import { EmailAlreadyInUseError } from './user.errors';
-import { Users, UsersService } from './user.service';
+import { Users, UserService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { EncryptionProvider } from '../providers/encryption/encryption.module';
 
 describe('UsersService', () => {
-  let usersService: UsersService;
+  let usersService: UserService;
   let inMemoryUsers: Users;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UsersService,
+        UserService,
         { provide: Users, useClass: InMemoryUsers },
         { provide: EncryptionProvider, useClass: MockEncryptionProvider },
       ],
     }).compile();
 
-    usersService = module.get<UsersService>(UsersService);
+    usersService = module.get<UserService>(UserService);
     inMemoryUsers = module.get<Users>(Users);
   });
 

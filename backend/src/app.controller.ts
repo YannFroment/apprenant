@@ -12,7 +12,7 @@ import { TextReorderService } from './trainings/models/TextReorder.service';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognition } from './trainings/models/WordRecognition';
 import { CreateUserDto, User } from './user/user';
-import { UsersService } from './user/user.service';
+import { UserService } from './user/user.service';
 import { Request } from 'express';
 import { LocalAuthGuard } from './auth/local.guard';
 import { AuthService } from './auth/auth.service';
@@ -35,7 +35,7 @@ export class AppController {
     private readonly healthCheck: HealthCheck,
     private readonly textReorderService: TextReorderService,
     private readonly wordRecognitionService: WordRecognitionService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
     private readonly authService: AuthService,
   ) {}
 

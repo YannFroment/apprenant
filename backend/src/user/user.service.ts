@@ -14,7 +14,7 @@ export interface Users {
 }
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @Inject(Users)
     private users: Users,
