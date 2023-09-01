@@ -4,6 +4,22 @@ import { useAppContext } from '../service-container/ServiceContainerContext';
 
 const LoginContainer = styled.div``;
 
+export const SignIn = () => {
+  return (
+    <button type="button" data-testid="sign-in">
+      Se connecter
+    </button>
+  );
+};
+
+export const LogOut = () => {
+  return (
+    <button type="button" data-testid="log-out">
+      Se déconnecter
+    </button>
+  );
+};
+
 export const Login = () => {
   const { useAuth } = useAppContext();
   const { accessToken } = useAuth();
@@ -11,12 +27,6 @@ export const Login = () => {
   const isLoggedIn = accessToken !== null;
 
   return (
-    <LoginContainer>
-      {isLoggedIn ? (
-        <div data-testid="log-out">Se déconnecter</div>
-      ) : (
-        <div data-testid="sign-in">Se connecter</div>
-      )}
-    </LoginContainer>
+    <LoginContainer>{isLoggedIn ? <LogOut /> : <SignIn />}</LoginContainer>
   );
 };

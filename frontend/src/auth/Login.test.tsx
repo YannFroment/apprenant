@@ -16,6 +16,7 @@ describe('Login', () => {
       expect(screen.queryByTestId('log-out')).not.toBeInTheDocument();
     });
   });
+
   it('should not invite to sign in when signed in', async () => {
     renderWithinProviders({
       children: <Login />,

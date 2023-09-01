@@ -5,8 +5,8 @@ export type UseAuth = () => {
   setAccessToken: (token: string | null) => void;
 };
 
-export const createUseAuth: (defaultAccessToken?: string | null) => UseAuth =
-  (defaultAccessToken = null): UseAuth =>
+export const createUseAuth =
+  (defaultAccessToken: string | null = null): UseAuth =>
   () => {
     const [accessToken, setAccessToken] = useState<string | null>(
       defaultAccessToken,
