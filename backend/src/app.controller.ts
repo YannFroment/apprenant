@@ -18,6 +18,8 @@ import { LocalAuthGuard } from './auth/local.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt.guard';
 import { RefreshTokenGuard } from './auth/jwtRefresh.guard';
+import { JwtUser } from './auth/jwt.strategy';
+import { RefreshTokenUser } from './auth/jwtRefresh.strategy';
 
 export type UserWithoutPassword = Omit<User, 'password'>;
 export const userMapper = (user: User): UserWithoutPassword => {
@@ -74,16 +76,21 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getProfile(@Req() req: Request) {
+  async getProfile(@Req() req: { user: JwtUser }) {
     return req.user;
   }
 
   @UseGuards(RefreshTokenGuard)
   @Get('auth/refresh')
-  async refreshAuthTokens(@Req() req: any) {
+  async refreshAuthTokens(@Req() req: { user: RefreshTokenUser }) {
     return this.authService.refreshAuthTokens(
-      req.user.id,
+      req.user.userId,
       req.user.refreshToken,
     );
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('auth/logout')
+  async logout(@Req() req: { user: JwtUser }) {
+    return this.authService.logout(req.user.userId);
   }
 }
