@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
-import { EncryptionProvider, Users } from '../user/user.service';
+import { Users } from '../user/user.service';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
 import { userMapper } from '../app.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { UnauthorizedException } from '@nestjs/common';
+import { EncryptionProvider } from '../providers/encryption/encryption.module';
 
 describe('AuthService', () => {
   let authService: AuthService;

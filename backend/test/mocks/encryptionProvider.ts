@@ -1,4 +1,4 @@
-import { EncryptionProvider } from '../../src/user/user.service';
+import { EncryptionProvider } from '../../src/providers/encryption/encryption.module';
 
 export class MockEncryptionProvider implements EncryptionProvider {
   async hash(password: string): Promise<string> {

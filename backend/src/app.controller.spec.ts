@@ -7,11 +7,12 @@ import { TextReorders } from './trainings/models/TextReorders';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognitions } from './trainings/models/WordRecognitions';
 import { InMemoryWordRecognitions } from './trainings/models/WordRecognition.service.spec';
-import { UsersService, Users, EncryptionProvider } from './user/user.service';
+import { UsersService, Users } from './user/user.service';
 import { InMemoryUsers } from '../test/mocks/users';
 import { MockEncryptionProvider } from '../test/mocks/encryptionProvider';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { EncryptionProvider } from './providers/encryption/encryption.module';
 
 describe('AppController', () => {
   let appController: AppController;

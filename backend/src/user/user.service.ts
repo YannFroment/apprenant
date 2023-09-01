@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto, User } from './user';
 import { EmailAlreadyInUseError } from './user.errors';
+import { EncryptionProvider } from '../providers/encryption/encryption.module';
 
 export const Users = 'Users';
 
@@ -10,13 +11,6 @@ export interface Users {
   findById: (id: number) => Promise<User | null>;
   create: (createUserDto: CreateUserDto) => Promise<User>;
   save: (user: User) => Promise<User>;
-}
-
-export const EncryptionProvider = 'EncryptionProvider';
-
-export interface EncryptionProvider {
-  hash: (textToHash: string) => Promise<string>;
-  compare: (plainPassword: string, hashedPassword: string) => Promise<boolean>;
 }
 
 @Injectable()

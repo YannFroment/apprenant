@@ -1,8 +1,9 @@
 import { EmailAlreadyInUseError } from './user.errors';
-import { EncryptionProvider, Users, UsersService } from './user.service';
+import { Users, UsersService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
+import { EncryptionProvider } from '../providers/encryption/encryption.module';
 
 describe('UsersService', () => {
   let usersService: UsersService;

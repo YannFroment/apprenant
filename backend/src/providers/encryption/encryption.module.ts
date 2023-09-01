@@ -1,6 +1,12 @@
 import * as bcrypt from 'bcrypt';
-import { EncryptionProvider } from '../../user/user.service';
 import { Global, Module } from '@nestjs/common';
+
+export const EncryptionProvider = 'EncryptionProvider';
+
+export interface EncryptionProvider {
+  hash: (textToHash: string) => Promise<string>;
+  compare: (plainPassword: string, hashedPassword: string) => Promise<boolean>;
+}
 
 export class Bcrypt implements EncryptionProvider {
   private static saltOrRounds = 10;
