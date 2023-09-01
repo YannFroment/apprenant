@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { DATA_SOURCE } from '../database.providers';
-import { WordRecognitions } from '../../trainings/models/WordRecognitions';
+import { WordRecognitions } from '../../../trainings/models/WordRecognitions';
 import { WordRecognitionSchema } from '../schemas/wordRecognition.schema';
 
 const typeORMWordRecognitionsFactory = (

@@ -1,4 +1,7 @@
-import { Word, WordRecognition } from '../../trainings/models/WordRecognition';
+import {
+  Word,
+  WordRecognition,
+} from '../../../trainings/models/WordRecognition';
 import { setSeederFactory } from 'typeorm-extension';
 
 export default setSeederFactory(WordRecognition, () => {

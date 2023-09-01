@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
 import { BaseColumnSchemaPart } from './base.schema';
-import { TextReorder } from '../../trainings/models/TextReorder';
+import { TextReorder } from '../../../trainings/models/TextReorder';
 
 export const TextReorderSchema = new EntitySchema<TextReorder>({
   name: 'TextReorder',

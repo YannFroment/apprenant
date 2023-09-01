@@ -1,5 +1,5 @@
 import { EntitySchema } from 'typeorm';
-import { User } from '../../user/user';
+import { User } from '../../../user/user';
 import { BaseColumnSchemaPart } from './base.schema';
 
 export const UserSchema = new EntitySchema<User>({
@@ -25,6 +25,20 @@ export const UserSchema = new EntitySchema<User>({
     age: {
       type: Number,
       default: 42,
+    },
+    email: {
+      type: String,
+      nullable: false,
+      unique: true,
+    },
+    password: {
+      type: String,
+      nullable: false,
+    },
+    refreshToken: {
+      type: String,
+      nullable: true,
+      name: 'refresh_token',
     },
   },
 });
