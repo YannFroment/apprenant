@@ -91,12 +91,21 @@ describe('AuthService', () => {
 
   describe('refreshAuthTokens', () => {
     it('should generate new auth tokens', async () => {
-      const updatedNewUser = await authService.refreshAuthTokens(
+      const authTokens = await authService.refreshAuthTokens(
         testUser.id,
         'refresh_token',
       );
 
-      expect(updatedNewUser.refresh_token).not.toBe('refresh_token');
+      expect(authTokens.access_token).toBeTruthy();
+      expect(authTokens.refresh_token).not.toBe('refresh_token');
+    });
+
+    it('should persist the new auth token', async () => {
+      await authService.refreshAuthTokens(testUser.id, 'refresh_token');
+
+      expect(spyOnUsersSave).not.toHaveBeenCalledWith(
+        expect.objectContaining({ refreshToken: 'refresh_token' }),
+      );
     });
 
     it('should fail if no user was found', async () => {
