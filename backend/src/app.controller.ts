@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Post,
@@ -11,8 +10,6 @@ import { TextReorder } from './trainings/models/TextReorder';
 import { TextReorderService } from './trainings/models/TextReorder.service';
 import { WordRecognitionService } from './trainings/models/WordRecognition.service';
 import { WordRecognition } from './trainings/models/WordRecognition';
-import { CreateUserDto, User } from './user/user';
-import { UserService } from './user/user.service';
 import { Request } from 'express';
 import { LocalAuthGuard } from './auth/local.guard';
 import { AuthService } from './auth/auth.service';
@@ -20,14 +17,7 @@ import { JwtAuthGuard } from './auth/jwt.guard';
 import { RefreshTokenGuard } from './auth/jwtRefresh.guard';
 import { JwtUser } from './auth/jwt.strategy';
 import { RefreshTokenUser } from './auth/jwtRefresh.strategy';
-
-export type UserWithoutPassword = Omit<User, 'password'>;
-export const userMapper = (user: User): UserWithoutPassword => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { password, ...rest } = user;
-
-  return rest;
-};
+import { UserWithoutPassword } from './user/user.controller';
 
 @Controller()
 export class AppController {
@@ -35,7 +25,6 @@ export class AppController {
     private readonly healthCheck: HealthCheck,
     private readonly textReorderService: TextReorderService,
     private readonly wordRecognitionService: WordRecognitionService,
-    private readonly usersService: UserService,
     private readonly authService: AuthService,
   ) {}
 
@@ -52,20 +41,6 @@ export class AppController {
   @Get('word-recognition')
   async getWordRecognition(): Promise<WordRecognition[]> {
     return this.wordRecognitionService.getAll();
-  }
-
-  @Get('users')
-  async getUsers(): Promise<UserWithoutPassword[]> {
-    return (await this.usersService.findAll()).map(userMapper);
-  }
-
-  @Post('user')
-  async createUser(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<UserWithoutPassword> {
-    const user = await this.usersService.create(createUserDto);
-
-    return userMapper(user);
   }
 
   @UseGuards(LocalAuthGuard)

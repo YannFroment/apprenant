@@ -1,10 +1,10 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Users } from '../user/user.service';
-import { UserWithoutPassword, userMapper } from '../app.controller';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { User } from '../user/user';
 import { EncryptionProvider } from '../providers/encryption/encryption.module';
+import { UserWithoutPassword, userMapper } from '../user/user.controller';
 
 type AuthTokens = {
   access_token: string;

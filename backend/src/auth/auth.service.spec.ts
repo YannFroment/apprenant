@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { Users } from '../user/user.service';
 import { MockEncryptionProvider } from '../../test/mocks/encryptionProvider';
 import { InMemoryUsers, testUser } from '../../test/mocks/users';
-import { userMapper } from '../app.controller';
+import { userMapper } from '../user/user.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { UnauthorizedException } from '@nestjs/common';
