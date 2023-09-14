@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 
 import App from './App.tsx';
-import { createUseAuth } from './auth/useAuth.tsx';
+import { createUseAuth } from './auth/useAuth.ts';
 import { backend } from './external-services/Backend.ts';
 import { pexelPictures } from './external-services/Pictures.ts';
 import { windowSpeechSynth } from './external-services/SpeechSynth.ts';

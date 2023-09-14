@@ -30,8 +30,8 @@ describe('Login', () => {
   });
 });
 
-describe('Signin', () => {
-  it('', () => {
+describe('useSignIn', () => {
+  it('should call the auth endpoint on button click', () => {
     // TODO
     /**
      * form with email and password
