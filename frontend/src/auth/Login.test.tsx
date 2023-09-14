@@ -17,7 +17,7 @@ describe('Login', () => {
     });
   });
 
-  it('should not invite to sign in when signed in', async () => {
+  it('should invite to log out when signed in', async () => {
     renderWithinProviders({
       children: <Login />,
       overrideServices: { useAuth: createUseAuth('access_token') },
@@ -33,11 +33,22 @@ describe('Login', () => {
 describe('Signin', () => {
   it('', () => {
     // TODO
+    /**
+     * form with email and password
+     * api call when hit
+     * save access_token
+     * persist refresh_token
+     */
   });
 });
 
 describe('LogOut', () => {
   it('', () => {
     // TODO
+    /**
+     * simple button
+     * set accessToken to undefined
+     * erase refresh_token
+     */
   });
 });

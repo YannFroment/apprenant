@@ -64,3 +64,5 @@ describe('Dashboard', () => {
     });
   });
 });
+
+// TODO try to login with refresh_token on app load
