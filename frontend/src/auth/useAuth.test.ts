@@ -27,15 +27,10 @@ describe('useAuth', () => {
 
   describe('signIn', () => {
     it('should call auth endpoint with email and password', async () => {
-      const signIn = async () => ({
-        access_token: 'access_token',
-        refresh_token: 'refresh_token',
-      });
-      const backend: Backend = { ...inMemoryBackend, signIn };
-      const spyOnSignIn = jest.spyOn(backend, 'signIn');
+      const spyOnSignIn = jest.spyOn(inMemoryBackend, 'signIn');
 
       const { result } = renderHook(useAuth, {
-        wrapper: createWrapper({ backend }),
+        wrapper: createWrapper({ backend: inMemoryBackend }),
       });
 
       await act(() =>
@@ -53,8 +48,8 @@ describe('useAuth', () => {
 
     it('should save the access token', async () => {
       const signIn = async () => ({
-        access_token: 'received_access_token',
-        refresh_token: 'received_refresh_token',
+        access_token: 'access_token',
+        refresh_token: '',
       });
 
       const backend: Backend = { ...inMemoryBackend, signIn };
@@ -69,12 +64,11 @@ describe('useAuth', () => {
         }),
       );
 
-      expect(result.current.accessToken).toBe('received_access_token');
+      expect(result.current.accessToken).toBe('access_token');
     });
 
     // TODO
     /**
-     * save access_token -> should be done within useAuth hook
      * persist refresh_token -> should be done within useAuth hook
      */
   });

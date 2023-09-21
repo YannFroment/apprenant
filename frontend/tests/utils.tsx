@@ -16,8 +16,8 @@ export const inMemoryBackend: Backend = {
     return { textReorders: [], wordRecognitions: [] };
   },
   signIn: async () => ({
-    access_token: 'access_token',
-    refresh_token: 'refresh_token',
+    access_token: '',
+    refresh_token: '',
   }),
 };
 
