@@ -5,7 +5,9 @@ export type Credentials = {
   password: string;
 };
 
+export type Tokens = { access_token: string; refresh_token: string };
+
 export type Backend = {
   getTrainings: () => Promise<Trainings>;
-  signIn: (credentials: Credentials) => Promise<void>;
+  signIn: (credentials: Credentials) => Promise<Tokens>;
 };

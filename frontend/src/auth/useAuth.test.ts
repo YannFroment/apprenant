@@ -27,7 +27,10 @@ describe('useAuth', () => {
 
   describe('signIn', () => {
     it('should call auth endpoint with email and password', async () => {
-      const signIn = async () => {};
+      const signIn = async () => ({
+        access_token: 'access_token',
+        refresh_token: 'refresh_token',
+      });
       const backend: Backend = { ...inMemoryBackend, signIn };
       const spyOnSignIn = jest.spyOn(backend, 'signIn');
 

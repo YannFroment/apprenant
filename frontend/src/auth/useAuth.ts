@@ -14,7 +14,10 @@ export const useAuth: UseAuth = (defaultAccessToken: string | null = null) => {
     defaultAccessToken,
   );
   const { backend } = useAppContext();
-  const { signIn } = backend;
+  const signIn = async (credentials: Credentials) => {
+    const tokens = await backend.signIn(credentials);
+    console.info('tokens', tokens);
+  };
   const isLoggedIn = accessToken !== null;
 
   return { isLoggedIn, setAccessToken, signIn };

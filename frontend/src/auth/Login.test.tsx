@@ -30,7 +30,10 @@ describe('Login', () => {
 
 describe('SignIn', () => {
   it('should call the auth endpoint on button click', async () => {
-    const signIn = async () => {};
+    const signIn = async () => ({
+      access_token: 'access_token',
+      refresh_token: 'refresh_token',
+    });
     const backend = { ...inMemoryBackend, signIn };
     const spyOnSignIn = jest.spyOn(backend, 'signIn');
 

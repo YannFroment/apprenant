@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-import { Backend } from '../domain/Backend';
+import { Backend, Credentials, Tokens } from '../domain/Backend';
 import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
 export const backend: Backend = {
@@ -16,7 +16,13 @@ export const backend: Backend = {
       wordRecognitions,
     };
   },
-  signIn: async () => {
-    throw new Error('not yet implemented');
+  signIn: async (credentials: Credentials): Promise<Tokens> => {
+    const { data: tokens } = await axios.post<
+      Tokens,
+      AxiosResponse<Tokens>,
+      Credentials
+    >('http://localhost:3000/auth/login', credentials);
+
+    return tokens;
   },
 };
