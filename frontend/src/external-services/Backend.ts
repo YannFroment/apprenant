@@ -16,4 +16,7 @@ export const backend: Backend = {
       wordRecognitions,
     };
   },
+  signIn: async () => {
+    throw new Error('not yet implemented');
+  },
 };

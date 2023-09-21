@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -16,6 +16,7 @@ export const inMemoryBackend: Backend = {
   getTrainings: async () => {
     return { textReorders: [], wordRecognitions: [] };
   },
+  signIn: async () => {},
 };
 
 const defaultContainer: ServiceContainer = {
@@ -71,4 +72,16 @@ export const renderWithinProviders = ({
       </TestContainer>
     </ThemeProvider>,
   );
+};
+
+export const createWrapper = (
+  overrideServices: Partial<ServiceContainer> = {},
+) => {
+  return function Wrapper({ children }: { children: ReactElement }) {
+    return (
+      <TestContainer overrideServices={overrideServices}>
+        {children}
+      </TestContainer>
+    );
+  };
 };
