@@ -2,11 +2,11 @@ import { act, renderHook } from '@testing-library/react';
 
 import { createWrapper, inMemoryBackend } from '../../tests/utils';
 import { Backend } from '../domain/Backend';
-import { createUseAuth } from './useAuth';
+import { useAuth } from './useAuth';
 
 describe('useAuth', () => {
   it('should set accessToken', () => {
-    const { result } = renderHook(createUseAuth(), {
+    const { result } = renderHook(useAuth, {
       wrapper: createWrapper(),
     });
 
@@ -21,7 +21,7 @@ describe('useAuth', () => {
       const backend: Backend = { ...inMemoryBackend, signIn };
       const spyOnSignIn = jest.spyOn(backend, 'signIn');
 
-      const { result } = renderHook(createUseAuth(), {
+      const { result } = renderHook(useAuth, {
         wrapper: createWrapper({ backend }),
       });
 

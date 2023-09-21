@@ -2,13 +2,11 @@ import { screen, waitFor } from '@testing-library/react';
 
 import { renderWithinProviders } from '../../tests/utils';
 import { Login } from './Login';
-import { createUseAuth } from './useAuth';
 
 describe('Login', () => {
   it('should invite to sign in when not signed in', async () => {
     renderWithinProviders({
-      children: <Login />,
-      overrideServices: { useAuth: createUseAuth(null) },
+      children: <Login defaultAccessToken={undefined} />,
     });
 
     await waitFor(() => {
@@ -19,8 +17,7 @@ describe('Login', () => {
 
   it('should invite to log out when signed in', async () => {
     renderWithinProviders({
-      children: <Login />,
-      overrideServices: { useAuth: createUseAuth('access_token') },
+      children: <Login defaultAccessToken={'token'} />,
     });
 
     await waitFor(() => {

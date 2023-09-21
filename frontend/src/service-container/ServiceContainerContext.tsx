@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react';
 
-import { UseAuth } from '../auth/useAuth';
 import { Backend } from '../domain/Backend';
 import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
@@ -13,7 +12,6 @@ export type ServiceContainer = {
   pictures: Pictures;
   backend: Backend;
   useTrainingsStore: UseTrainingsStore;
-  useAuth: UseAuth;
 };
 
 export const AppContext = createContext<ServiceContainer>(

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useAppContext } from '../service-container/ServiceContainerContext';
+import { useAuth } from './useAuth';
 
 const LoginContainer = styled.div``;
 
@@ -20,9 +20,12 @@ export const LogOut = () => {
   );
 };
 
-export const Login = () => {
-  const { useAuth } = useAppContext();
-  const { accessToken } = useAuth();
+type LoginProps = {
+  defaultAccessToken?: string;
+};
+
+export const Login = ({ defaultAccessToken }: LoginProps) => {
+  const { accessToken } = useAuth(defaultAccessToken);
 
   const isLoggedIn = accessToken !== null;
 

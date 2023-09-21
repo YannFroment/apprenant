@@ -9,14 +9,12 @@ export type UseAuth = () => {
   signIn: (credentials: Credentials) => Promise<void>;
 };
 
-export const createUseAuth =
-  (defaultAccessToken: string | null = null): UseAuth =>
-  () => {
-    const [accessToken, setAccessToken] = useState<string | null>(
-      defaultAccessToken,
-    );
-    const { backend } = useAppContext();
-    const { signIn } = backend;
+export const useAuth = (defaultAccessToken: string | null = null) => {
+  const [accessToken, setAccessToken] = useState<string | null>(
+    defaultAccessToken,
+  );
+  const { backend } = useAppContext();
+  const { signIn } = backend;
 
-    return { accessToken, setAccessToken, signIn };
-  };
+  return { accessToken, setAccessToken, signIn };
+};
