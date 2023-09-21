@@ -5,14 +5,24 @@ import { Backend } from '../domain/Backend';
 import { useAuth } from './useAuth';
 
 describe('useAuth', () => {
-  it('should set accessToken', () => {
-    const { result } = renderHook(useAuth, {
-      wrapper: createWrapper(),
+  describe('isLoggedIn', () => {
+    it('should not be logged in by default', () => {
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper(),
+      });
+
+      expect(result.current.isLoggedIn).toBe(false);
     });
 
-    act(() => result.current.setAccessToken('token'));
+    it('should be logged in when access token is set', () => {
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper(),
+      });
 
-    expect(result.current.accessToken).toBe('token');
+      act(() => result.current.setAccessToken('token'));
+
+      expect(result.current.isLoggedIn).toBe(true);
+    });
   });
 
   describe('signIn', () => {

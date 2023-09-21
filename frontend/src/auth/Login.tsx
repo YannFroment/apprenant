@@ -25,9 +25,7 @@ type LoginProps = {
 };
 
 export const Login = ({ defaultAccessToken }: LoginProps) => {
-  const { accessToken } = useAuth(defaultAccessToken);
-
-  const isLoggedIn = accessToken !== null;
+  const { isLoggedIn } = useAuth(defaultAccessToken);
 
   return (
     <LoginContainer>{isLoggedIn ? <LogOut /> : <SignIn />}</LoginContainer>
