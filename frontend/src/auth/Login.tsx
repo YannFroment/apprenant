@@ -1,14 +1,34 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { useAuth } from './useAuth';
 
 const LoginContainer = styled.div``;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input``;
+
 export const SignIn = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   return (
-    <button type="button" data-testid="sign-in">
-      Se connecter
-    </button>
+    <Form data-testid="sign-in">
+      <Input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <Input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="button">Se connecter</button>
+    </Form>
   );
 };
 

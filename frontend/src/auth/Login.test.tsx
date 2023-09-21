@@ -33,8 +33,8 @@ describe('SignIn', () => {
     /**
      * form with email and password
      * api call when hit
-     * save access_token
-     * persist refresh_token
+     * save access_token -> should be done within useAuth hook
+     * persist refresh_token -> should be done within useAuth hook
      */
   });
 });
@@ -44,8 +44,7 @@ describe('LogOut', () => {
     // TODO
     /**
      * simple button
-     * set accessToken to undefined
-     * erase refresh_token
+     * call logout method of useAuth
      */
   });
 });
