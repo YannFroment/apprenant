@@ -8,6 +8,7 @@ import {
   AppContext,
   ServiceContainer,
 } from '../src/service-container/ServiceContainerContext';
+import { useAuthStore } from '../src/store/useAuthStore';
 import { useTrainingsStore } from '../src/store/useTrainingsStore';
 import { theme } from '../src/theme';
 
@@ -36,6 +37,7 @@ const defaultContainer: ServiceContainer = {
   },
   backend: inMemoryBackend,
   useTrainingsStore,
+  useAuthStore,
 };
 
 const createContainer = (
