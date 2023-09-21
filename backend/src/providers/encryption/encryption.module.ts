@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import { Global, Module } from '@nestjs/common';
 
 export const EncryptionProvider = 'EncryptionProvider';
@@ -12,14 +12,14 @@ export class Bcrypt implements EncryptionProvider {
   private static saltOrRounds = 10;
 
   async hash(textToHash: string): Promise<string> {
-    return bcrypt.hash(textToHash, Bcrypt.saltOrRounds);
+    return bcryptjs.hash(textToHash, Bcrypt.saltOrRounds);
   }
 
   async compare(
     plainPassword: string,
     hashedPassword: string,
   ): Promise<boolean> {
-    return bcrypt.compare(plainPassword, hashedPassword);
+    return bcryptjs.compare(plainPassword, hashedPassword);
   }
 }
 
