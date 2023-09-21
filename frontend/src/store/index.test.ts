@@ -44,4 +44,22 @@ describe('useTrainingsStore', () => {
       expect(result.current.wordRecognitions).toEqual(wordRecognitions);
     });
   });
+
+  describe('getTextReorderById', () => {
+    it('should return the text reorder training matching a given id', () => {
+      const textReorder = {
+        id: 1,
+        title: 'title',
+        orderedSentences: ['a', 'b'],
+        randomizedSentences: ['b', 'a'],
+      };
+      const { result } = renderHook(useTrainingsStore, {
+        initialProps: {
+          textReorders: [textReorder],
+        },
+      });
+
+      expect(result.current.getTextReorderById(1)).toEqual(textReorder);
+    });
+  });
 });

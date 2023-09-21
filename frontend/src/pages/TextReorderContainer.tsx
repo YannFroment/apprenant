@@ -10,9 +10,11 @@ const useTextReorderById = (id: string | undefined) => {
   return textReorders.find((textReorder) => textReorder.id.toString() === id);
 };
 
-export const TextReorderContainer = () => {
+export const TextReorderContainer = (initialStoreValue?) => {
   const { id } = useParams();
-  const textReorder = useTextReorderById(id);
+  //   const textReorder = useTextReorderById(id);
+  const { getTextReorderById } = useTrainingsStore(initialStoreValue);
+  const textReorder = getTextReorderById(id);
 
   if (!textReorder) {
     return <Navigate to="/" />;
