@@ -42,7 +42,7 @@ Installe les packages et joue les migrations de base de données
 
 Va supprimer toutes les tables, exécuter toutes les migrations et créer un jeu de données initial (seed de base de données)
 
-`make purge:db`
+`make purge-db`
 
 ### Générer une migration
 
