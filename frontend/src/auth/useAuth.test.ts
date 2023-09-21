@@ -51,6 +51,27 @@ describe('useAuth', () => {
       });
     });
 
+    it('should save the access token', async () => {
+      const signIn = async () => ({
+        access_token: 'received_access_token',
+        refresh_token: 'received_refresh_token',
+      });
+
+      const backend: Backend = { ...inMemoryBackend, signIn };
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper({ backend }),
+      });
+
+      await act(() =>
+        result.current.signIn({
+          email: 'email@email.com',
+          password: 'password',
+        }),
+      );
+
+      expect(result.current.accessToken).toBe('received_access_token');
+    });
+
     // TODO
     /**
      * save access_token -> should be done within useAuth hook

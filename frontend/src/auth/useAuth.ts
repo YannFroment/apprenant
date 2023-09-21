@@ -4,6 +4,7 @@ import { Credentials } from '../domain/Backend';
 import { useAppContext } from '../service-container/ServiceContainerContext';
 
 export type UseAuth = (defaultAccessToken?: string | null) => {
+  accessToken: string | null;
   isLoggedIn: boolean;
   setAccessToken: (token: string | null) => void;
   signIn: (credentials: Credentials) => Promise<void>;
@@ -15,10 +16,11 @@ export const useAuth: UseAuth = (defaultAccessToken: string | null = null) => {
   );
   const { backend } = useAppContext();
   const signIn = async (credentials: Credentials) => {
-    const tokens = await backend.signIn(credentials);
-    console.info('tokens', tokens);
+    const { access_token } = await backend.signIn(credentials);
+    setAccessToken(access_token);
   };
+
   const isLoggedIn = accessToken !== null;
 
-  return { isLoggedIn, setAccessToken, signIn };
+  return { accessToken, isLoggedIn, setAccessToken, signIn };
 };
