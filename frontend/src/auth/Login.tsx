@@ -24,8 +24,7 @@ export const SignIn = ({
   const [email, setEmail] = useState<string>(defaultEmail);
   const [password, setPassword] = useState<string>(defaultPassword);
 
-  const { signIn, accessToken } = useAuth();
-  console.info('accessToken in SignIn componen', accessToken);
+  const { signIn } = useAuth();
   return (
     <Form data-testid="sign-in">
       <Input
@@ -57,40 +56,10 @@ export const LogOut = () => {
   );
 };
 
-type LoginProps = {
-  defaultAccessToken?: string;
-};
-
-export const Login = ({ defaultAccessToken }: LoginProps) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const { accessToken, signIn } = useAuth(defaultAccessToken);
+export const Login = () => {
+  const { isLoggedIn } = useAuth();
 
   return (
-    <LoginContainer>
-      {accessToken ? (
-        <LogOut />
-      ) : (
-        <Form data-testid="sign-in">
-          <Input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            data-testid="signin"
-            type="button"
-            onClick={() => signIn({ email, password })}
-          >
-            Se connecter
-          </button>
-        </Form>
-      )}
-    </LoginContainer>
+    <LoginContainer>{isLoggedIn ? <LogOut /> : <SignIn />}</LoginContainer>
   );
 };

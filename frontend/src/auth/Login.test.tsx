@@ -2,12 +2,13 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { inMemoryBackend, renderWithinProviders } from '../../tests/utils';
+import { createUseAuthStore } from '../store/useAuthStore';
 import { Login, SignIn } from './Login';
 
 describe('Login', () => {
   it('should invite to sign in when not signed in', async () => {
     renderWithinProviders({
-      children: <Login defaultAccessToken={undefined} />,
+      children: <Login />,
     });
 
     await waitFor(() => {
@@ -18,7 +19,10 @@ describe('Login', () => {
 
   it('should invite to log out when signed in', async () => {
     renderWithinProviders({
-      children: <Login defaultAccessToken={'token'} />,
+      children: <Login />,
+      overrideServices: {
+        useAuthStore: createUseAuthStore({ accessToken: 'token' }),
+      },
     });
 
     await waitFor(() => {

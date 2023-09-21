@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Credentials } from '../domain/Backend';
 import { useAppContext } from '../service-container/ServiceContainerContext';
 
@@ -10,11 +8,9 @@ export type UseAuth = (defaultAccessToken?: string | null) => {
   signIn: (credentials: Credentials) => Promise<void>;
 };
 
-export const useAuth: UseAuth = (defaultAccessToken: string | null = null) => {
-  const [accessToken, setAccessToken] = useState<string | null>(
-    defaultAccessToken,
-  );
-  const { backend } = useAppContext();
+export const useAuth: UseAuth = () => {
+  const { backend, useAuthStore } = useAppContext();
+  const { accessToken, setAccessToken } = useAuthStore();
   const signIn = async (credentials: Credentials) => {
     const { access_token } = await backend.signIn(credentials);
     setAccessToken(access_token);

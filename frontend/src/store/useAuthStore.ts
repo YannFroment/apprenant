@@ -2,7 +2,7 @@ import { create, StoreApi, UseBoundStore } from 'zustand';
 
 type AuthStoreState = {
   accessToken: string | null;
-  setAccessToken: (token: string) => void;
+  setAccessToken: (token: string | null) => void;
 };
 
 type UseStore = UseBoundStore<StoreApi<AuthStoreState>>;
