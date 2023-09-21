@@ -50,11 +50,6 @@ describe('SignIn', () => {
       email: 'my@email.com',
       password: 'pass',
     });
-    // TODO
-    /**
-     * save access_token -> should be done within useAuth hook
-     * persist refresh_token -> should be done within useAuth hook
-     */
   });
 });
 

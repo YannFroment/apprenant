@@ -50,5 +50,19 @@ describe('useAuth', () => {
         password: 'password',
       });
     });
+
+    // TODO
+    /**
+     * save access_token -> should be done within useAuth hook
+     * persist refresh_token -> should be done within useAuth hook
+     */
   });
+
+  // TODO
+  /**
+   * create logOut method
+   * should call backend logout method
+   * should erase access token and refresh token
+   *
+   */
 });
