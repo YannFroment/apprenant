@@ -15,6 +15,8 @@ const Input = styled.input``;
 export const SignIn = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const { signIn } = useAuth();
   return (
     <Form data-testid="sign-in">
       <Input
@@ -27,7 +29,13 @@ export const SignIn = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="button">Se connecter</button>
+      <button
+        data-testid="signin"
+        type="button"
+        onClick={() => signIn({ email, password })}
+      >
+        Se connecter
+      </button>
     </Form>
   );
 };

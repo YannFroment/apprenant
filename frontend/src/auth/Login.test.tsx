@@ -1,7 +1,8 @@
 import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { renderWithinProviders } from '../../tests/utils';
-import { Login } from './Login';
+import { inMemoryBackend, renderWithinProviders } from '../../tests/utils';
+import { Login, SignIn } from './Login';
 
 describe('Login', () => {
   it('should invite to sign in when not signed in', async () => {
@@ -28,11 +29,22 @@ describe('Login', () => {
 });
 
 describe('SignIn', () => {
-  it('should call the auth endpoint on button click', () => {
+  it('should call the auth endpoint on button click', async () => {
+    const signIn = async () => {};
+    const backend = { ...inMemoryBackend, signIn };
+    const spyOnSignIn = jest.spyOn(backend, 'signIn');
+
+    renderWithinProviders({
+      children: <SignIn />,
+      overrideServices: { backend },
+    });
+
+    await userEvent.click(screen.getByTestId('signin'));
+
+    expect(spyOnSignIn).toHaveBeenCalled();
     // TODO
     /**
-     * form with email and password
-     * api call when hit
+     * api call when hit button
      * save access_token -> should be done within useAuth hook
      * persist refresh_token -> should be done within useAuth hook
      */
