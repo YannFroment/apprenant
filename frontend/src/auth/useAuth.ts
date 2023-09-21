@@ -20,7 +20,7 @@ export const useAuth: UseAuth = (defaultAccessToken: string | null = null) => {
     setAccessToken(access_token);
   };
 
-  const isLoggedIn = accessToken !== null;
+  const isLoggedIn = !!accessToken;
 
   return { accessToken, isLoggedIn, setAccessToken, signIn };
 };
