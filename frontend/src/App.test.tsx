@@ -3,7 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { inMemoryBackend, renderWithinProviders } from '../tests/utils';
 import App from './App';
 import { Trainings } from './domain/Trainings';
-import { UseTrainingsStore } from './store';
+import { UseTrainingsStore } from './store/useTrainingsStore';
 
 describe('Dashboard', () => {
   it('should display loader first, and display dashboard after data fetching', async () => {

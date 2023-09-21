@@ -13,7 +13,7 @@ import {
   AppContext,
   ServiceContainer,
 } from './service-container/ServiceContainerContext.tsx';
-import { useTrainingsStore } from './store/index.ts';
+import { useTrainingsStore } from './store/useTrainingsStore.ts';
 import { theme } from './theme.ts';
 
 const context: ServiceContainer = {

@@ -8,7 +8,7 @@ import {
   AppContext,
   ServiceContainer,
 } from '../src/service-container/ServiceContainerContext';
-import { useTrainingsStore } from '../src/store';
+import { useTrainingsStore } from '../src/store/useTrainingsStore';
 import { theme } from '../src/theme';
 
 export const inMemoryBackend: Backend = {

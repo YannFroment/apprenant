@@ -4,7 +4,7 @@ import { Backend } from '../domain/Backend';
 import { Pictures } from '../domain/Pictures';
 import { SpeechRecorderFactory } from '../domain/SpeechRecorderFactory';
 import { SpeechSynth } from '../domain/SpeechSynth';
-import { UseTrainingsStore } from '../store';
+import { UseTrainingsStore } from '../store/useTrainingsStore';
 
 export type ServiceContainer = {
   speechSynth: SpeechSynth;

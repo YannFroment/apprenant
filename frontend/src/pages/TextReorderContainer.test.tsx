@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import Router from 'react-router';
 
 import { renderWithinProviders } from '../../tests/utils';
-import { createUseStore } from '../store';
+import { createUseStore } from '../store/useTrainingsStore';
 import { TextReorderContainer } from './TextReorderContainer';
 
 jest.mock('react-router', () => ({
