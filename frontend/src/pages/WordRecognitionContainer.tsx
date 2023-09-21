@@ -1,11 +1,10 @@
 import { Navigate, useParams } from 'react-router-dom';
 
-import { useAppContext } from '../service-container/ServiceContainerContext';
+import { useTrainingsStore } from '../store';
 import { WordRecognition } from '../trainings/word-recognition';
 import { Layout } from '../views/layouts/Layout';
 
 const useWordRecognitionById = (id: string | undefined) => {
-  const { useTrainingsStore } = useAppContext();
   const { wordRecognitions } = useTrainingsStore();
 
   return wordRecognitions.find(

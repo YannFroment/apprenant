@@ -1,9 +1,12 @@
-import { screen, waitFor } from '@testing-library/react';
+import { renderHook, screen, waitFor } from '@testing-library/react';
 
-import { inMemoryBackend, renderWithinProviders } from '../tests/utils';
-import App from './App';
+import {
+  createWrapper,
+  inMemoryBackend,
+  renderWithinProviders,
+} from '../tests/utils';
+import App, { useLoadDataBeforeRendering } from './App';
 import { Trainings } from './domain/Trainings';
-import { UseTrainingsStore } from './store';
 
 describe('Dashboard', () => {
   it('should display loader first, and display dashboard after data fetching', async () => {
@@ -17,7 +20,9 @@ describe('Dashboard', () => {
       expect(screen.queryByTestId('dashboard')).toBeInTheDocument();
     });
   });
+});
 
+describe('useLoadDataBeforeRendering', () => {
   it('should retrieve data from backend and save it in the store', async () => {
     const trainings: Trainings = {
       textReorders: [],
@@ -41,26 +46,13 @@ describe('Dashboard', () => {
     };
 
     const getTrainingsSpy = jest.spyOn(backend, 'getTrainings');
-    const trainingsStore = {
-      textReorders: [],
-      wordRecognitions: [],
-      setTrainings: () => {},
-    };
-    const setTrainingsSpy = jest.spyOn(trainingsStore, 'setTrainings');
 
-    const useTrainingsStore: UseTrainingsStore = () => {
-      return trainingsStore;
-    };
-
-    renderWithinProviders({
-      children: <App />,
-      overrideServices: { backend, useTrainingsStore },
-      wrapInRouter: false,
+    renderHook(useLoadDataBeforeRendering, {
+      wrapper: createWrapper({ backend }),
     });
 
     await waitFor(() => {
       expect(getTrainingsSpy).toHaveBeenCalled();
-      expect(setTrainingsSpy).toHaveBeenCalledWith(trainings);
     });
   });
 });

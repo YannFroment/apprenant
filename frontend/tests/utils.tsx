@@ -8,7 +8,6 @@ import {
   AppContext,
   ServiceContainer,
 } from '../src/service-container/ServiceContainerContext';
-import { useTrainingsStore } from '../src/store';
 import { theme } from '../src/theme';
 
 export const inMemoryBackend: Backend = {
@@ -35,7 +34,6 @@ const defaultContainer: ServiceContainer = {
     },
   },
   backend: inMemoryBackend,
-  useTrainingsStore,
 };
 
 const createContainer = (

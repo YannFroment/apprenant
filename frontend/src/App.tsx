@@ -5,6 +5,7 @@ import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
 import { WordRecognitionContainer } from './pages/WordRecognitionContainer';
 import { useAppContext } from './service-container/ServiceContainerContext';
+import { useTrainingsStore } from './store';
 
 const router = createBrowserRouter([
   {
@@ -21,8 +22,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-const useLoadDataBeforeRendering = () => {
-  const { backend, useTrainingsStore } = useAppContext();
+export const useLoadDataBeforeRendering = () => {
+  const { backend } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
   const { setTrainings } = useTrainingsStore();

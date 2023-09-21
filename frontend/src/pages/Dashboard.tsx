@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useAppContext } from '../service-container/ServiceContainerContext';
+import { useTrainingsStore } from '../store';
 import { Layout } from '../views/layouts/Layout';
 import { Link } from '../views/Link';
 
@@ -23,7 +23,6 @@ const Text = styled.p`
 `;
 
 export const Dashboard = () => {
-  const { useTrainingsStore } = useAppContext();
   const { textReorders, wordRecognitions } = useTrainingsStore();
 
   return (

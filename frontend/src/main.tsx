@@ -13,7 +13,6 @@ import {
   AppContext,
   ServiceContainer,
 } from './service-container/ServiceContainerContext.tsx';
-import { useTrainingsStore } from './store/index.ts';
 import { theme } from './theme.ts';
 
 const context: ServiceContainer = {
@@ -21,7 +20,6 @@ const context: ServiceContainer = {
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
   backend: backend,
-  useTrainingsStore,
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
