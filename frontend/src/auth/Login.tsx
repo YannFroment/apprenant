@@ -12,9 +12,17 @@ const Form = styled.form`
 
 const Input = styled.input``;
 
-export const SignIn = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+type SignInProps = {
+  defaultEmail?: string;
+  defaultPassword?: string;
+};
+
+export const SignIn = ({
+  defaultEmail = '',
+  defaultPassword = '',
+}: SignInProps) => {
+  const [email, setEmail] = useState<string>(defaultEmail);
+  const [password, setPassword] = useState<string>(defaultPassword);
 
   const { signIn } = useAuth();
   return (

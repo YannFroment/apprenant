@@ -35,16 +35,20 @@ describe('SignIn', () => {
     const spyOnSignIn = jest.spyOn(backend, 'signIn');
 
     renderWithinProviders({
-      children: <SignIn />,
+      children: (
+        <SignIn defaultEmail={'my@email.com'} defaultPassword={'pass'} />
+      ),
       overrideServices: { backend },
     });
 
     await userEvent.click(screen.getByTestId('signin'));
 
-    expect(spyOnSignIn).toHaveBeenCalled();
+    expect(spyOnSignIn).toHaveBeenCalledWith({
+      email: 'my@email.com',
+      password: 'pass',
+    });
     // TODO
     /**
-     * api call when hit button
      * save access_token -> should be done within useAuth hook
      * persist refresh_token -> should be done within useAuth hook
      */
