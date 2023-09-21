@@ -27,7 +27,7 @@ describe('Login', () => {
   });
 });
 
-describe('useSignIn', () => {
+describe('SignIn', () => {
   it('should call the auth endpoint on button click', () => {
     // TODO
     /**
