@@ -100,19 +100,19 @@ describe('useAuth', () => {
   });
 
   describe('logOut', () => {
-    it('should delete access token', () => {
+    it('should delete access token', async () => {
       const { result } = renderHook(useAuth, {
         wrapper: createWrapper({
           useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
         }),
       });
 
-      act(() => result.current.logOut());
+      await act(() => result.current.logOut());
 
       expect(result.current.accessToken).toBeNull();
     });
 
-    it('should delete refresh token', () => {
+    it('should delete refresh token', async () => {
       const inMemoryStorage = {
         saveRefreshToken: () => {},
         deleteRefreshToken: () => {},
@@ -125,28 +125,24 @@ describe('useAuth', () => {
         wrapper: createWrapper({ storage: inMemoryStorage }),
       });
 
-      act(() => result.current.logOut());
+      await act(() => result.current.logOut());
 
       expect(spyOnDeleteRefreshToken).toHaveBeenCalled();
     });
 
-    it('should call logOut endpoint', () => {
+    it('should call logOut endpoint', async () => {
       const spyOnLogOut = jest.spyOn(inMemoryBackend, 'logOut');
 
       const { result } = renderHook(useAuth, {
-        wrapper: createWrapper({ backend: inMemoryBackend }),
+        wrapper: createWrapper({
+          backend: inMemoryBackend,
+          useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
+        }),
       });
 
-      act(() => result.current.logOut());
+      await act(() => result.current.logOut());
 
-      expect(spyOnLogOut).toHaveBeenCalled();
+      expect(spyOnLogOut).toHaveBeenCalledWith('access_token');
     });
   });
-
-  // TODO
-  /**
-   * create logOut method
-   * should call backend logout method
-   *
-   */
 });

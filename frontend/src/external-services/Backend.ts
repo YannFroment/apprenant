@@ -26,7 +26,11 @@ export const backend: Backend = {
     return tokens;
   },
 
-  logOut: async () => {
-    throw new Error('Not yet impl');
+  logOut: async (accessToken: string) => {
+    await axios.get('http://localhost:3000/auth/logout', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   },
 };

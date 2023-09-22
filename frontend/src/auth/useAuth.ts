@@ -6,7 +6,7 @@ export type UseAuth = (defaultAccessToken?: string | null) => {
   isLoggedIn: boolean;
   setAccessToken: (token: string | null) => void;
   signIn: (credentials: Credentials) => Promise<void>;
-  logOut: () => void;
+  logOut: () => Promise<void>;
 };
 
 export const useAuth: UseAuth = () => {
@@ -19,10 +19,10 @@ export const useAuth: UseAuth = () => {
     storage.saveRefreshToken(refresh_token);
   };
 
-  const logOut = () => {
+  const logOut = async () => {
     setAccessToken(null);
     storage.deleteRefreshToken();
-    backend.logOut();
+    await backend.logOut(accessToken as string); // TODO change this
   };
 
   const isLoggedIn = !!accessToken;
