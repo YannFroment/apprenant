@@ -16,7 +16,7 @@ export const useAuth: UseAuth = () => {
   const signIn = async (credentials: Credentials) => {
     const { access_token, refresh_token } = await backend.signIn(credentials);
     setAccessToken(access_token);
-    await storage.saveRefreshToken(refresh_token);
+    storage.saveRefreshToken(refresh_token);
   };
 
   const logOut = () => {

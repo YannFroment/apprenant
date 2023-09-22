@@ -76,7 +76,7 @@ describe('useAuth', () => {
 
       const backend: Backend = { ...inMemoryBackend, signIn };
       const inMemoryStorage = {
-        saveRefreshToken: async () => {},
+        saveRefreshToken: () => {},
       };
       const spyOnSaveRefreshToken = jest.spyOn(
         inMemoryStorage,

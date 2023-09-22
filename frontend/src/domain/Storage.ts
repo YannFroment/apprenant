@@ -1,3 +1,3 @@
 export type Storage = {
-  saveRefreshToken: (token: string) => Promise<void>;
+  saveRefreshToken: (token: string) => void;
 };

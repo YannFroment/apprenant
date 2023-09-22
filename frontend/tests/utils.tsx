@@ -24,7 +24,7 @@ export const inMemoryBackend: Backend = {
 };
 
 const inMemoryStorage: Storage = {
-  saveRefreshToken: async () => {},
+  saveRefreshToken: () => {},
 };
 
 const defaultContainer: ServiceContainer = {
