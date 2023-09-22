@@ -1,7 +1,7 @@
 import { Storage } from '../domain/Storage';
 
 export const storage: Storage = {
-  saveRefreshToken: async () => {
-    throw new Error('Not yet implemented');
+  saveRefreshToken: async (refreshToken: string) => {
+    localStorage.setItem('refresh_token', refreshToken);
   },
 };
