@@ -17,6 +17,7 @@ services:
     build: ./docker/node
     environment:
       NODE_ENV: development
+      VITE_BACKEND_URL: http://localhost:3000
     depends_on:
       - backend
     ports:

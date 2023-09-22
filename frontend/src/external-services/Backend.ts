@@ -3,12 +3,14 @@ import axios, { AxiosResponse } from 'axios';
 import { Backend, Credentials, Tokens } from '../domain/Backend';
 import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export const backend: Backend = {
   getTrainings: async (): Promise<Trainings> => {
     const [{ data: textReorders }, { data: wordRecognitions }] =
       await Promise.all([
-        axios.get<TextReorder[]>('http://localhost:3000/text-reorders'),
-        axios.get<WordRecognition[]>('http://localhost:3000/word-recognition'),
+        axios.get<TextReorder[]>(`${BACKEND_URL}/text-reorders`),
+        axios.get<WordRecognition[]>(`${BACKEND_URL}/word-recognition`),
       ]);
 
     return {
@@ -21,13 +23,13 @@ export const backend: Backend = {
       Tokens,
       AxiosResponse<Tokens>,
       Credentials
-    >('http://localhost:3000/auth/login', credentials);
+    >(`${BACKEND_URL}/auth/login`, credentials);
 
     return tokens;
   },
 
   logOut: async (accessToken: string) => {
-    await axios.get('http://localhost:3000/auth/logout', {
+    await axios.get(`${BACKEND_URL}/auth/logout`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
