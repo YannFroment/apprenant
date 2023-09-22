@@ -27,7 +27,6 @@ export const backend: Backend = {
 
     return tokens;
   },
-
   logOut: async (accessToken: string) => {
     await axios.get(`${BACKEND_URL}/auth/logout`, {
       headers: {
