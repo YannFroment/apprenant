@@ -129,13 +129,24 @@ describe('useAuth', () => {
 
       expect(spyOnDeleteRefreshToken).toHaveBeenCalled();
     });
+
+    it('should call logOut endpoint', () => {
+      const spyOnLogOut = jest.spyOn(inMemoryBackend, 'logOut');
+
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper({ backend: inMemoryBackend }),
+      });
+
+      act(() => result.current.logOut());
+
+      expect(spyOnLogOut).toHaveBeenCalled();
+    });
   });
 
   // TODO
   /**
    * create logOut method
    * should call backend logout method
-   * should erase refresh token
    *
    */
 });

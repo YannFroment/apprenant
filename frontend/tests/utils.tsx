@@ -21,6 +21,7 @@ export const inMemoryBackend: Backend = {
     access_token: '',
     refresh_token: '',
   }),
+  logOut: async () => {},
 };
 
 const inMemoryStorage: Storage = {

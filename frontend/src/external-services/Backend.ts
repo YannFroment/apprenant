@@ -25,4 +25,8 @@ export const backend: Backend = {
 
     return tokens;
   },
+
+  logOut: async () => {
+    throw new Error('Not yet impl');
+  },
 };
