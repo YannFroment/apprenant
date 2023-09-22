@@ -48,9 +48,10 @@ export const SignIn = ({
   );
 };
 
-export const LogOut = () => {
+const LogOut = () => {
+  const { logOut } = useAuth();
   return (
-    <button type="button" data-testid="log-out">
+    <button type="button" data-testid="log-out" onClick={logOut}>
       Se déconnecter
     </button>
   );

@@ -6,17 +6,23 @@ export type UseAuth = (defaultAccessToken?: string | null) => {
   isLoggedIn: boolean;
   setAccessToken: (token: string | null) => void;
   signIn: (credentials: Credentials) => Promise<void>;
+  logOut: () => void;
 };
 
 export const useAuth: UseAuth = () => {
   const { backend, useAuthStore } = useAppContext();
   const { accessToken, setAccessToken } = useAuthStore();
+
   const signIn = async (credentials: Credentials) => {
     const { access_token } = await backend.signIn(credentials);
     setAccessToken(access_token);
   };
 
+  const logOut = () => {
+    setAccessToken(null);
+  };
+
   const isLoggedIn = !!accessToken;
 
-  return { accessToken, isLoggedIn, setAccessToken, signIn };
+  return { accessToken, isLoggedIn, setAccessToken, signIn, logOut };
 };

@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 
 import { createWrapper, inMemoryBackend } from '../../tests/utils';
 import { Backend } from '../domain/Backend';
+import { createUseAuthStore } from '../store/useAuthStore';
 import { useAuth } from './useAuth';
 
 describe('useAuth', () => {
@@ -71,6 +72,20 @@ describe('useAuth', () => {
     /**
      * persist refresh_token -> should be done within useAuth hook
      */
+  });
+
+  describe('logOut', () => {
+    it('should logout', () => {
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper({
+          useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
+        }),
+      });
+
+      act(() => result.current.logOut());
+
+      expect(result.current.accessToken).toBeNull();
+    });
   });
 
   // TODO

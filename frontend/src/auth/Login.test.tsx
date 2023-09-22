@@ -58,11 +58,16 @@ describe('SignIn', () => {
 });
 
 describe('LogOut', () => {
-  it('', () => {
-    // TODO
-    /**
-     * simple button
-     * call logout method of useAuth
-     */
+  it('should make log out button disappear and sign in form reappear on log out click', async () => {
+    renderWithinProviders({
+      children: <Login />,
+      overrideServices: {
+        useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
+      },
+    });
+
+    await userEvent.click(screen.getByTestId('log-out'));
+
+    expect(screen.queryByTestId('log-out')).not.toBeInTheDocument();
   });
 });
