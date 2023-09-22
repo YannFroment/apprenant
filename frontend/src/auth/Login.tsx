@@ -25,6 +25,7 @@ export const SignIn = ({
   const [password, setPassword] = useState<string>(defaultPassword);
 
   const { signIn } = useAuth();
+
   return (
     <Form data-testid="sign-in">
       <Input
@@ -50,6 +51,7 @@ export const SignIn = ({
 
 const LogOut = () => {
   const { logOut } = useAuth();
+
   return (
     <button type="button" data-testid="log-out" onClick={logOut}>
       Se déconnecter
