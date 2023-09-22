@@ -12,7 +12,8 @@
   "rules": {
     "react-refresh/only-export-components": "off",
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "newline-before-return": "error"
   },
   "overrides": [
     {

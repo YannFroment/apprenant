@@ -7,6 +7,7 @@ export const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   const [enabled, setEnabled] = useState(false);
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true));
+
     return () => {
       cancelAnimationFrame(animation);
       setEnabled(false);
@@ -15,5 +16,6 @@ export const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
   if (!enabled) {
     return null;
   }
+
   return <Droppable {...props}>{children}</Droppable>;
 };
