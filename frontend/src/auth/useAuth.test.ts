@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 
 import { createWrapper, inMemoryBackend } from '../../tests/utils';
 import { Backend } from '../domain/Backend';
+import { Storage } from '../domain/Storage';
 import { createUseAuthStore } from '../store/useAuthStore';
 import { useAuth } from './useAuth';
 
@@ -75,8 +76,9 @@ describe('useAuth', () => {
       });
 
       const backend: Backend = { ...inMemoryBackend, signIn };
-      const inMemoryStorage = {
+      const inMemoryStorage: Storage = {
         saveRefreshToken: () => {},
+        deleteRefreshToken: () => {},
       };
       const spyOnSaveRefreshToken = jest.spyOn(
         inMemoryStorage,
@@ -95,15 +97,10 @@ describe('useAuth', () => {
 
       expect(spyOnSaveRefreshToken).toHaveBeenCalledWith('refresh_token');
     });
-
-    // TODO
-    /**
-     * persist refresh_token -> should be done within useAuth hook
-     */
   });
 
   describe('logOut', () => {
-    it('should logout', () => {
+    it('should delete access token', () => {
       const { result } = renderHook(useAuth, {
         wrapper: createWrapper({
           useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
@@ -114,13 +111,31 @@ describe('useAuth', () => {
 
       expect(result.current.accessToken).toBeNull();
     });
+
+    it('should delete refresh token', () => {
+      const inMemoryStorage = {
+        saveRefreshToken: () => {},
+        deleteRefreshToken: () => {},
+      };
+      const spyOnDeleteRefreshToken = jest.spyOn(
+        inMemoryStorage,
+        'deleteRefreshToken',
+      );
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper({ storage: inMemoryStorage }),
+      });
+
+      act(() => result.current.logOut());
+
+      expect(spyOnDeleteRefreshToken).toHaveBeenCalled();
+    });
   });
 
   // TODO
   /**
    * create logOut method
    * should call backend logout method
-   * should erase access token and refresh token
+   * should erase refresh token
    *
    */
 });

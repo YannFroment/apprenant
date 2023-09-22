@@ -21,6 +21,7 @@ export const useAuth: UseAuth = () => {
 
   const logOut = () => {
     setAccessToken(null);
+    storage.deleteRefreshToken();
   };
 
   const isLoggedIn = !!accessToken;
