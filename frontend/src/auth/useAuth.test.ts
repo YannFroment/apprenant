@@ -68,6 +68,34 @@ describe('useAuth', () => {
       expect(result.current.accessToken).toBe('access_token');
     });
 
+    it('should save the refresh token', async () => {
+      const signIn = async () => ({
+        access_token: '',
+        refresh_token: 'refresh_token',
+      });
+
+      const backend: Backend = { ...inMemoryBackend, signIn };
+      const inMemoryStorage = {
+        saveRefreshToken: async () => {},
+      };
+      const spyOnSaveRefreshToken = jest.spyOn(
+        inMemoryStorage,
+        'saveRefreshToken',
+      );
+      const { result } = renderHook(useAuth, {
+        wrapper: createWrapper({ backend, storage: inMemoryStorage }),
+      });
+
+      await act(() =>
+        result.current.signIn({
+          email: 'email@email.com',
+          password: 'password',
+        }),
+      );
+
+      expect(spyOnSaveRefreshToken).toHaveBeenCalledWith('refresh_token');
+    });
+
     // TODO
     /**
      * persist refresh_token -> should be done within useAuth hook

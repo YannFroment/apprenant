@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { Backend } from '../src/domain/Backend';
+import { Storage } from '../src/domain/Storage';
 import {
   AppContext,
   ServiceContainer,
@@ -22,6 +23,10 @@ export const inMemoryBackend: Backend = {
   }),
 };
 
+const inMemoryStorage: Storage = {
+  saveRefreshToken: async () => {},
+};
+
 const defaultContainer: ServiceContainer = {
   speechSynth: { speak: () => {} },
   speechRecorderFactory: () => {
@@ -38,6 +43,7 @@ const defaultContainer: ServiceContainer = {
   backend: inMemoryBackend,
   useTrainingsStore,
   useAuthStore,
+  storage: inMemoryStorage,
 };
 
 const createContainer = (
@@ -54,6 +60,7 @@ const TestContainer = ({
   overrideServices?: Partial<ServiceContainer>;
 }) => {
   const container = createContainer(overrideServices ?? {});
+
   return (
     <AppContext.Provider value={container}>{children}</AppContext.Provider>
   );
