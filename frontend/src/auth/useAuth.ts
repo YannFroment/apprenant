@@ -22,7 +22,7 @@ export const useAuth: UseAuth = () => {
   const logOut = async () => {
     setAccessToken(null);
     storage.deleteRefreshToken();
-    await backend.logOut(accessToken as string); // TODO change this
+    await backend.logOut();
   };
 
   const isLoggedIn = !!accessToken;

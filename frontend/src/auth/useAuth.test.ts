@@ -136,13 +136,12 @@ describe('useAuth', () => {
       const { result } = renderHook(useAuth, {
         wrapper: createWrapper({
           backend: inMemoryBackend,
-          useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
         }),
       });
 
       await act(() => result.current.logOut());
 
-      expect(spyOnLogOut).toHaveBeenCalledWith('access_token');
+      expect(spyOnLogOut).toHaveBeenCalled();
     });
   });
 });

@@ -1,16 +1,33 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 import { Backend, Credentials, Tokens } from '../domain/Backend';
 import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+let accessToken = '';
+const axiosInstance = axios.create();
+
+axiosInstance.interceptors.request.use(
+  async (config) => {
+    config.headers = {
+      ...config.headers,
+      Authorization: `Bearer ${accessToken}`,
+    } as AxiosRequestHeaders;
+
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  },
+);
+
 export const backend: Backend = {
   getTrainings: async (): Promise<Trainings> => {
     const [{ data: textReorders }, { data: wordRecognitions }] =
       await Promise.all([
-        axios.get<TextReorder[]>(`${BACKEND_URL}/text-reorders`),
-        axios.get<WordRecognition[]>(`${BACKEND_URL}/word-recognition`),
+        axiosInstance.get<TextReorder[]>(`${BACKEND_URL}/text-reorders`),
+        axiosInstance.get<WordRecognition[]>(`${BACKEND_URL}/word-recognition`),
       ]);
 
     return {
@@ -19,19 +36,16 @@ export const backend: Backend = {
     };
   },
   signIn: async (credentials: Credentials): Promise<Tokens> => {
-    const { data: tokens } = await axios.post<
+    const { data: tokens } = await axiosInstance.post<
       Tokens,
       AxiosResponse<Tokens>,
       Credentials
     >(`${BACKEND_URL}/auth/login`, credentials);
+    accessToken = tokens.access_token;
 
     return tokens;
   },
-  logOut: async (accessToken: string) => {
-    await axios.get(`${BACKEND_URL}/auth/logout`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+  logOut: async () => {
+    await axiosInstance.get(`${BACKEND_URL}/auth/logout`);
   },
 };
