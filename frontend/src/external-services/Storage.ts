@@ -1,10 +1,12 @@
 import { Storage } from '../domain/Storage';
 
+const REFRESH_TOKEN_KEY = 'refresh_token';
+
 export const storage: Storage = {
   saveRefreshToken: (refreshToken: string) => {
-    localStorage.setItem('refresh_token', refreshToken);
+    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
   },
   deleteRefreshToken: () => {
-    throw new Error('Not yet impl');
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
   },
 };
