@@ -18,8 +18,8 @@ type SignInProps = {
 };
 
 export const SignIn = ({
-  defaultEmail = '',
-  defaultPassword = '',
+  defaultEmail = 'john@doe.com',
+  defaultPassword = 'password',
 }: SignInProps) => {
   const [email, setEmail] = useState<string>(defaultEmail);
   const [password, setPassword] = useState<string>(defaultPassword);
