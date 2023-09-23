@@ -4,14 +4,14 @@ import { act } from 'react-dom/test-utils';
 import { useAuthStore } from './useAuthStore';
 
 describe('useAuthStore', () => {
-  describe('setAccessToken', () => {
+  describe('setIsLoggedIn', () => {
     it('should update accessToken', () => {
       const { result } = renderHook(useAuthStore);
-      const accessToken = 'access_token';
+      const isLoggedIn = true;
 
-      act(() => result.current.setAccessToken(accessToken));
+      act(() => result.current.setIsLoggedIn(isLoggedIn));
 
-      expect(result.current.accessToken).toEqual(accessToken);
+      expect(result.current.isLoggedIn).toEqual(isLoggedIn);
     });
   });
 });

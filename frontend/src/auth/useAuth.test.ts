@@ -13,16 +13,6 @@ describe('useAuth', () => {
 
       expect(result.current.isLoggedIn).toBe(false);
     });
-
-    it('should be logged in when access token is set', () => {
-      const { result } = renderHook(useAuth, {
-        wrapper: createWrapper(),
-      });
-
-      act(() => result.current.setAccessToken('token'));
-
-      expect(result.current.isLoggedIn).toBe(true);
-    });
   });
 
   describe('signIn', () => {
@@ -58,7 +48,7 @@ describe('useAuth', () => {
         }),
       );
 
-      expect(result.current.accessToken).toBe('access_token');
+      expect(result.current.isLoggedIn).toBe(true);
     });
   });
 
@@ -66,13 +56,13 @@ describe('useAuth', () => {
     it('should delete access token', async () => {
       const { result } = renderHook(useAuth, {
         wrapper: createWrapper({
-          useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
+          useAuthStore: createUseAuthStore({ isLoggedIn: true }),
         }),
       });
 
       await act(() => result.current.logOut());
 
-      expect(result.current.accessToken).toBeNull();
+      expect(result.current.isLoggedIn).toBe(false);
     });
 
     it('should call logOut endpoint', async () => {

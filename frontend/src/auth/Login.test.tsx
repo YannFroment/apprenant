@@ -21,7 +21,7 @@ describe('Login', () => {
     renderWithinProviders({
       children: <Login />,
       overrideServices: {
-        useAuthStore: createUseAuthStore({ accessToken: 'token' }),
+        useAuthStore: createUseAuthStore({ isLoggedIn: true }),
       },
     });
 
@@ -59,7 +59,7 @@ describe('LogOut', () => {
     renderWithinProviders({
       children: <Login />,
       overrideServices: {
-        useAuthStore: createUseAuthStore({ accessToken: 'access_token' }),
+        useAuthStore: createUseAuthStore({ isLoggedIn: true }),
       },
     });
 

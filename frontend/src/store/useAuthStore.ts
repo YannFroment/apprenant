@@ -1,8 +1,8 @@
 import { create, StoreApi, UseBoundStore } from 'zustand';
 
 type AuthStoreState = {
-  accessToken: string | null;
-  setAccessToken: (token: string | null) => void;
+  isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
 };
 
 type UseStore = UseBoundStore<StoreApi<AuthStoreState>>;
@@ -11,10 +11,10 @@ export const createUseAuthStore = (
   args: Partial<AuthStoreState> = {},
 ): UseStore => {
   return create<AuthStoreState>((set) => ({
-    accessToken: args.accessToken ?? null,
-    setAccessToken: (accessToken: string | null) =>
+    isLoggedIn: !!args.isLoggedIn,
+    setIsLoggedIn: (isLoggedIn: boolean) =>
       set(() => ({
-        accessToken,
+        isLoggedIn,
       })),
   }));
 };
@@ -23,13 +23,13 @@ export type UseAuthStore = () => AuthStoreState;
 
 const useStore = createUseAuthStore();
 export const useAuthStore: UseAuthStore = () => {
-  const { accessToken, setAccessToken } = useStore((state) => ({
-    accessToken: state.accessToken,
-    setAccessToken: state.setAccessToken,
+  const { isLoggedIn, setIsLoggedIn } = useStore((state) => ({
+    isLoggedIn: state.isLoggedIn,
+    setIsLoggedIn: state.setIsLoggedIn,
   }));
 
   return {
-    accessToken,
-    setAccessToken,
+    isLoggedIn,
+    setIsLoggedIn,
   };
 };
