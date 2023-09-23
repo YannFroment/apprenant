@@ -63,4 +63,17 @@ describe('Dashboard', () => {
       expect(setTrainingsSpy).toHaveBeenCalledWith(trainings);
     });
   });
+
+  it('should try to auto log in', async () => {
+    const spyOnAutoLogIn = jest.spyOn(inMemoryBackend, 'autoLogIn');
+
+    renderWithinProviders({
+      children: <App />,
+      overrideServices: { backend: inMemoryBackend },
+    });
+
+    await waitFor(() => {
+      expect(spyOnAutoLogIn).toHaveBeenCalled();
+    });
+  });
 });
