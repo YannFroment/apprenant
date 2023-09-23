@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
 import { createWrapper, inMemoryBackend } from '../../tests/utils';
-import { Backend } from '../domain/Backend';
 import { createUseAuthStore } from '../store/useAuthStore';
 import { useAuth } from './useAuth';
 
@@ -47,15 +46,9 @@ describe('useAuth', () => {
       });
     });
 
-    it('should save the access token', async () => {
-      const signIn = async () => ({
-        access_token: 'access_token',
-        refresh_token: '',
-      });
-
-      const backend: Backend = { ...inMemoryBackend, signIn };
+    it('should log in', async () => {
       const { result } = renderHook(useAuth, {
-        wrapper: createWrapper({ backend }),
+        wrapper: createWrapper(),
       });
 
       await act(() =>

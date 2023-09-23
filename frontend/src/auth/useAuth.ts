@@ -14,8 +14,8 @@ export const useAuth: UseAuth = () => {
   const { accessToken, setAccessToken } = useAuthStore();
 
   const signIn = async (credentials: Credentials) => {
-    const { access_token } = await backend.signIn(credentials);
-    setAccessToken(access_token);
+    await backend.signIn(credentials);
+    setAccessToken('access_token');
   };
 
   const logOut = async () => {

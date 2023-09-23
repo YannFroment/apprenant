@@ -1,10 +1,11 @@
 import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 
-import { Backend, Credentials, Tokens } from '../domain/Backend';
+import { Backend, Credentials } from '../domain/Backend';
 import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const REFRESH_TOKEN_KEY = 'refresh_token';
+type Tokens = { access_token: string; refresh_token: string };
 
 let accessToken = '';
 const axiosInstance = axios.create();
@@ -76,7 +77,7 @@ export const backend: Backend = {
       wordRecognitions,
     };
   },
-  signIn: async (credentials: Credentials): Promise<Tokens> => {
+  signIn: async (credentials: Credentials): Promise<void> => {
     const {
       data: { access_token, refresh_token },
     } = await axiosInstance.post<Tokens, AxiosResponse<Tokens>, Credentials>(
@@ -85,8 +86,6 @@ export const backend: Backend = {
     );
     accessToken = access_token;
     localStorage.setItem('refresh_token', refresh_token);
-
-    return { access_token, refresh_token };
   },
   logOut: async () => {
     await axiosInstance.get(`${BACKEND_URL}/auth/logout`);
