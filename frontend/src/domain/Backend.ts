@@ -9,4 +9,5 @@ export type Backend = {
   getTrainings: () => Promise<Trainings>;
   signIn: (credentials: Credentials) => Promise<void>;
   logOut: () => Promise<void>;
+  autoLogIn: () => Promise<boolean>;
 };

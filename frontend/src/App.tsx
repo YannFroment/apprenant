@@ -40,8 +40,20 @@ const useLoadDataBeforeRendering = () => {
   return isLoading;
 };
 
+const useAutoLogin = () => {
+  const { backend, useAuthStore } = useAppContext();
+  const { setIsLoggedIn } = useAuthStore();
+
+  useEffect(() => {
+    backend.autoLogIn().then((isLoggedIn) => {
+      setIsLoggedIn(isLoggedIn);
+    });
+  }, [backend, useAuthStore, setIsLoggedIn]);
+};
+
 function App() {
   const isLoading = useLoadDataBeforeRendering();
+  useAutoLogin();
 
   return (
     <>

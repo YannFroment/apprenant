@@ -38,10 +38,7 @@ axiosInstance.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-      if (refreshToken) {
-        accessToken = await refreshAccessToken(refreshToken);
-      }
+      await regenerateTokens();
 
       return axiosInstance(originalRequest);
     }
@@ -53,7 +50,9 @@ axiosInstance.interceptors.response.use(
 const accessTokenHasExpired = (status: number, message: string): boolean =>
   status === 403 && message === 'Token expired';
 
-const refreshAccessToken = async (refreshToken: string): Promise<string> => {
+const regenerateTokens = async (): Promise<void> => {
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
   const { data: tokens } = await axios.get<Tokens, AxiosResponse<Tokens>>(
     `${BACKEND_URL}/auth/refresh`,
     {
@@ -61,7 +60,8 @@ const refreshAccessToken = async (refreshToken: string): Promise<string> => {
     },
   );
 
-  return tokens.access_token;
+  accessToken = tokens.access_token;
+  localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
 };
 
 export const backend: Backend = {
@@ -85,10 +85,21 @@ export const backend: Backend = {
       credentials,
     );
     accessToken = access_token;
-    localStorage.setItem('refresh_token', refresh_token);
+    localStorage.setItem(REFRESH_TOKEN_KEY, refresh_token);
   },
   logOut: async () => {
     await axiosInstance.get(`${BACKEND_URL}/auth/logout`);
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+  },
+  autoLogIn: async () => {
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
+    if (!refreshToken) {
+      return false;
+    }
+
+    await regenerateTokens();
+
+    return true;
   },
 };

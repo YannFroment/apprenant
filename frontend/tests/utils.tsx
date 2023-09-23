@@ -18,6 +18,9 @@ export const inMemoryBackend: Backend = {
   },
   signIn: async () => {},
   logOut: async () => {},
+  autoLogIn: async () => {
+    return false;
+  },
 };
 
 const defaultContainer: ServiceContainer = {
