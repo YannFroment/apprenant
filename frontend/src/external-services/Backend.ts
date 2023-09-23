@@ -22,6 +22,46 @@ axiosInstance.interceptors.request.use(
   },
 );
 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async function (error) {
+    const originalRequest = error.config;
+    if (
+      accessTokenHasExpired(
+        error.response.status,
+        error.response.data.message,
+      ) &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (refreshToken) {
+        accessToken = await refreshAccessToken(refreshToken);
+      }
+
+      return axiosInstance(originalRequest);
+    }
+
+    return Promise.reject(error);
+  },
+);
+
+const accessTokenHasExpired = (status: number, message: string): boolean =>
+  status === 403 && message === 'Token expired';
+
+const refreshAccessToken = async (refreshToken: string): Promise<string> => {
+  const { data: tokens } = await axios.get<Tokens, AxiosResponse<Tokens>>(
+    `${BACKEND_URL}/auth/refresh`,
+    {
+      headers: { Authorization: `Bearer ${refreshToken}` },
+    },
+  );
+
+  return tokens.access_token;
+};
+
 export const backend: Backend = {
   getTrainings: async (): Promise<Trainings> => {
     const [{ data: textReorders }, { data: wordRecognitions }] =
