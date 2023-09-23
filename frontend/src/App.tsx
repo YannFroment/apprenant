@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { Protected } from './auth/Protected';
 import { Dashboard } from './pages/Dashboard';
 import { TextReorderContainer } from './pages/TextReorderContainer';
 import { WordRecognitionContainer } from './pages/WordRecognitionContainer';
@@ -13,7 +14,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/text-reorder/:id',
-    element: <TextReorderContainer />,
+    element: (
+      <Protected>
+        <TextReorderContainer />
+      </Protected>
+    ),
   },
   {
     path: '/word-recognition/:id',
