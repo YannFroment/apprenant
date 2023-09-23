@@ -10,19 +10,17 @@ export type UseAuth = (defaultAccessToken?: string | null) => {
 };
 
 export const useAuth: UseAuth = () => {
-  const { backend, useAuthStore, storage } = useAppContext();
+  const { backend, useAuthStore } = useAppContext();
   const { accessToken, setAccessToken } = useAuthStore();
 
   const signIn = async (credentials: Credentials) => {
-    const { access_token, refresh_token } = await backend.signIn(credentials);
+    const { access_token } = await backend.signIn(credentials);
     setAccessToken(access_token);
-    storage.saveRefreshToken(refresh_token);
   };
 
   const logOut = async () => {
     await backend.logOut();
     setAccessToken(null);
-    storage.deleteRefreshToken();
   };
 
   const isLoggedIn = !!accessToken;

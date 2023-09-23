@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react';
 
 import { createWrapper, inMemoryBackend } from '../../tests/utils';
 import { Backend } from '../domain/Backend';
-import { Storage } from '../domain/Storage';
 import { createUseAuthStore } from '../store/useAuthStore';
 import { useAuth } from './useAuth';
 
@@ -68,35 +67,6 @@ describe('useAuth', () => {
 
       expect(result.current.accessToken).toBe('access_token');
     });
-
-    it('should save the refresh token', async () => {
-      const signIn = async () => ({
-        access_token: '',
-        refresh_token: 'refresh_token',
-      });
-
-      const backend: Backend = { ...inMemoryBackend, signIn };
-      const inMemoryStorage: Storage = {
-        saveRefreshToken: () => {},
-        deleteRefreshToken: () => {},
-      };
-      const spyOnSaveRefreshToken = jest.spyOn(
-        inMemoryStorage,
-        'saveRefreshToken',
-      );
-      const { result } = renderHook(useAuth, {
-        wrapper: createWrapper({ backend, storage: inMemoryStorage }),
-      });
-
-      await act(() =>
-        result.current.signIn({
-          email: 'email@email.com',
-          password: 'password',
-        }),
-      );
-
-      expect(spyOnSaveRefreshToken).toHaveBeenCalledWith('refresh_token');
-    });
   });
 
   describe('logOut', () => {
@@ -110,24 +80,6 @@ describe('useAuth', () => {
       await act(() => result.current.logOut());
 
       expect(result.current.accessToken).toBeNull();
-    });
-
-    it('should delete refresh token', async () => {
-      const inMemoryStorage = {
-        saveRefreshToken: () => {},
-        deleteRefreshToken: () => {},
-      };
-      const spyOnDeleteRefreshToken = jest.spyOn(
-        inMemoryStorage,
-        'deleteRefreshToken',
-      );
-      const { result } = renderHook(useAuth, {
-        wrapper: createWrapper({ storage: inMemoryStorage }),
-      });
-
-      await act(() => result.current.logOut());
-
-      expect(spyOnDeleteRefreshToken).toHaveBeenCalled();
     });
 
     it('should call logOut endpoint', async () => {

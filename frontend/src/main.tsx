@@ -8,7 +8,6 @@ import App from './App.tsx';
 import { backend } from './external-services/Backend.ts';
 import { pexelPictures } from './external-services/Pictures.ts';
 import { windowSpeechSynth } from './external-services/SpeechSynth.ts';
-import { storage } from './external-services/Storage.ts';
 import { windowSpeechRecorderFactory } from './external-services/WindowSpeechRecorderFactory.ts';
 import {
   AppContext,
@@ -25,7 +24,6 @@ const context: ServiceContainer = {
   backend,
   useTrainingsStore,
   useAuthStore,
-  storage,
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

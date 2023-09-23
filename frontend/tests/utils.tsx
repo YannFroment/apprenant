@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { Backend } from '../src/domain/Backend';
-import { Storage } from '../src/domain/Storage';
 import {
   AppContext,
   ServiceContainer,
@@ -24,11 +23,6 @@ export const inMemoryBackend: Backend = {
   logOut: async () => {},
 };
 
-const inMemoryStorage: Storage = {
-  saveRefreshToken: () => {},
-  deleteRefreshToken: () => {},
-};
-
 const defaultContainer: ServiceContainer = {
   speechSynth: { speak: () => {} },
   speechRecorderFactory: () => {
@@ -45,7 +39,6 @@ const defaultContainer: ServiceContainer = {
   backend: inMemoryBackend,
   useTrainingsStore,
   useAuthStore,
-  storage: inMemoryStorage,
 };
 
 const createContainer = (

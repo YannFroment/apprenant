@@ -4,6 +4,7 @@ import { Backend, Credentials, Tokens } from '../domain/Backend';
 import { TextReorder, Trainings, WordRecognition } from '../domain/Trainings';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const REFRESH_TOKEN_KEY = 'refresh_token';
 
 let accessToken = '';
 const axiosInstance = axios.create();
@@ -36,7 +37,7 @@ axiosInstance.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem('refresh_token');
+      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
       if (refreshToken) {
         accessToken = await refreshAccessToken(refreshToken);
       }
@@ -76,16 +77,19 @@ export const backend: Backend = {
     };
   },
   signIn: async (credentials: Credentials): Promise<Tokens> => {
-    const { data: tokens } = await axiosInstance.post<
-      Tokens,
-      AxiosResponse<Tokens>,
-      Credentials
-    >(`${BACKEND_URL}/auth/login`, credentials);
-    accessToken = tokens.access_token;
+    const {
+      data: { access_token, refresh_token },
+    } = await axiosInstance.post<Tokens, AxiosResponse<Tokens>, Credentials>(
+      `${BACKEND_URL}/auth/login`,
+      credentials,
+    );
+    accessToken = access_token;
+    localStorage.setItem('refresh_token', refresh_token);
 
-    return tokens;
+    return { access_token, refresh_token };
   },
   logOut: async () => {
     await axiosInstance.get(`${BACKEND_URL}/auth/logout`);
+    localStorage.removeItem('refresh_token');
   },
 };
