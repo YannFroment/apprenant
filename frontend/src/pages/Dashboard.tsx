@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useAppContext } from '../service-container/ServiceContainerContext';
@@ -22,9 +23,33 @@ const Text = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing.medium};
 `;
 
+const useLoadDataBeforeRendering = () => {
+  const { backend, useTrainingsStore } = useAppContext();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { setTrainings } = useTrainingsStore();
+
+  useEffect(() => {
+    const loadData = async () => {
+      const trainings = await backend.getTrainings();
+      setTrainings(trainings);
+      setIsLoading(false);
+    };
+
+    loadData();
+  }, [backend, setTrainings]);
+
+  return isLoading;
+};
+
 export const Dashboard = () => {
+  const isLoading = useLoadDataBeforeRendering();
   const { useTrainingsStore } = useAppContext();
   const { textReorders, wordRecognitions } = useTrainingsStore();
+
+  if (isLoading) {
+    return <div data-testid="loader">loading</div>;
+  }
 
   return (
     <Layout>

@@ -8,7 +8,7 @@ export const Protected = ({ children }: { children: ReactNode }) => {
   const { isLoggedIn } = useAuthStore();
 
   if (!isLoggedIn) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   return children;
