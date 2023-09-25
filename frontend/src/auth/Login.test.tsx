@@ -80,4 +80,19 @@ describe('LogOut', () => {
 
     expect(screen.queryByTestId('log-out')).toBeInTheDocument();
   });
+
+  it('should call backend logout method when clicking on logout button', async () => {
+    const spyOnLogOut = jest.spyOn(inMemoryBackend, 'logOut');
+    renderWithinProviders({
+      children: <LogOut />,
+      overrideServices: {
+        useAuthStore: createUseAuthStore({ isLoggedIn: true }),
+        backend: inMemoryBackend,
+      },
+    });
+
+    await userEvent.click(screen.getByTestId('log-out'));
+
+    expect(spyOnLogOut).toHaveBeenCalled();
+  });
 });
