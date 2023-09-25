@@ -5,7 +5,7 @@ import App from './App';
 import { Trainings } from './domain/Trainings';
 import { UseTrainingsStore } from './store/useTrainingsStore';
 
-describe('Dashboard', () => {
+describe('App', () => {
   it('should display loader first, and display dashboard after data fetching', async () => {
     renderWithinProviders({
       children: <App />,
