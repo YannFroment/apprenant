@@ -1,33 +1,48 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
 import { inMemoryBackend, renderWithinProviders } from '../../tests/utils';
 import { createUseAuthStore } from '../store/useAuthStore';
-import { Login, SignIn } from './Login';
+import { Login, LogOut, SignIn } from './Login';
 
 describe('Login', () => {
-  it('should invite to sign in when not signed in', async () => {
+  it('should invite to sign in when not logged in', async () => {
+    const router = createMemoryRouter(
+      [{ path: '/login', element: <Login /> }],
+      { initialEntries: ['/login'], initialIndex: 1 },
+    );
     renderWithinProviders({
-      children: <Login />,
+      children: <RouterProvider router={router} />,
+      overrideServices: {
+        useAuthStore: createUseAuthStore({ isLoggedIn: false }),
+      },
+      wrapInRouter: false,
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('sign-in')).toBeInTheDocument();
-      expect(screen.queryByTestId('log-out')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('login')).toBeInTheDocument();
     });
   });
 
-  it('should invite to log out when signed in', async () => {
+  it('should redirect to route "/" when logged in', async () => {
+    const router = createMemoryRouter(
+      [
+        { path: '/login', element: <Login /> },
+        { path: '/', element: <></> },
+      ],
+      { initialEntries: ['/login'], initialIndex: 1 },
+    );
     renderWithinProviders({
-      children: <Login />,
+      children: <RouterProvider router={router} />,
       overrideServices: {
         useAuthStore: createUseAuthStore({ isLoggedIn: true }),
       },
+      wrapInRouter: false,
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('log-out')).toBeInTheDocument();
-      expect(screen.queryByTestId('sign-in')).not.toBeInTheDocument();
+      expect(router.state.location.pathname).toBe('/');
     });
   });
 });
@@ -55,16 +70,14 @@ describe('SignIn', () => {
 });
 
 describe('LogOut', () => {
-  it('should make log out button disappear and sign in form reappear on log out click', async () => {
+  it('should display log out button when logged in', async () => {
     renderWithinProviders({
-      children: <Login />,
+      children: <LogOut />,
       overrideServices: {
         useAuthStore: createUseAuthStore({ isLoggedIn: true }),
       },
     });
 
-    await userEvent.click(screen.getByTestId('log-out'));
-
-    expect(screen.queryByTestId('log-out')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('log-out')).toBeInTheDocument();
   });
 });

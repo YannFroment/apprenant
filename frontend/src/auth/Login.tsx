@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from './useAuth';
@@ -49,7 +50,7 @@ export const SignIn = ({
   );
 };
 
-const LogOut = () => {
+export const LogOut = () => {
   const { logOut } = useAuth();
 
   return (
@@ -62,7 +63,13 @@ const LogOut = () => {
 export const Login = () => {
   const { isLoggedIn } = useAuth();
 
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
+
   return (
-    <LoginContainer>{isLoggedIn ? <LogOut /> : <SignIn />}</LoginContainer>
+    <LoginContainer data-testid="login">
+      <SignIn />
+    </LoginContainer>
   );
 };
