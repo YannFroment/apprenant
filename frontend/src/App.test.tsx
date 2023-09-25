@@ -10,6 +10,7 @@ describe('App', () => {
     renderWithinProviders({
       children: <App />,
       overrideServices: { backend: inMemoryBackend },
+      wrapInRouter: false,
     });
 
     await waitFor(() => {
