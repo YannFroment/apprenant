@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Login } from '../../auth/Login';
+import { LogOut } from '../../auth/Login';
 import { Link } from '../Link';
 
 const StyledHeader = styled.header`
@@ -48,7 +48,7 @@ export const Header = () => {
         <HeaderLogo />
         <HomeLink />
       </Nav>
-      <Login />
+      <LogOut />
     </StyledHeader>
   );
 };

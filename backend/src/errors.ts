@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { EmailAlreadyInUseError } from './user/user.errors';
+import { TokenExpiredError } from './auth/jwt.guard';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -22,6 +23,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
       case UnauthorizedException:
         status = 401;
         break;
+      case TokenExpiredError:
+        status = 403;
+        break;
       default:
         status = 500;
         break;
@@ -29,7 +33,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message: exception.name,
+      message: exception?.message ?? exception.name,
       path: request.url,
     });
   }

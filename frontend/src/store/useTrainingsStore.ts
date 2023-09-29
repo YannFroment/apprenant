@@ -10,7 +10,7 @@ type TrainingsStoreState = {
 
 type UseStore = UseBoundStore<StoreApi<TrainingsStoreState>>;
 
-export const createUseStore = (
+export const createUseTrainingsStore = (
   args: Partial<TrainingsStoreState> = {},
 ): UseStore => {
   return create<TrainingsStoreState>((set) => ({
@@ -30,11 +30,15 @@ export type UseTrainingsStore = () => {
   setTrainings: (trainings: Trainings) => void;
 };
 
-const useStore = createUseStore();
+const useStore = createUseTrainingsStore();
 export const useTrainingsStore: UseTrainingsStore = () => {
-  const textReorders = useStore((state) => state.textReorders);
-  const wordRecognitions = useStore((state) => state.wordRecognitions);
-  const setTrainings = useStore((state) => state.setTrainings);
+  const { textReorders, wordRecognitions, setTrainings } = useStore(
+    (state) => ({
+      textReorders: state.textReorders,
+      wordRecognitions: state.wordRecognitions,
+      setTrainings: state.setTrainings,
+    }),
+  );
 
   return {
     textReorders,

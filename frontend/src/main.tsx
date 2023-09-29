@@ -13,15 +13,17 @@ import {
   AppContext,
   ServiceContainer,
 } from './service-container/ServiceContainerContext.tsx';
-import { useTrainingsStore } from './store/index.ts';
+import { useAuthStore } from './store/useAuthStore.ts';
+import { useTrainingsStore } from './store/useTrainingsStore.ts';
 import { theme } from './theme.ts';
 
 const context: ServiceContainer = {
   speechSynth: windowSpeechSynth,
   speechRecorderFactory: windowSpeechRecorderFactory,
   pictures: pexelPictures,
-  backend: backend,
+  backend,
   useTrainingsStore,
+  useAuthStore,
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

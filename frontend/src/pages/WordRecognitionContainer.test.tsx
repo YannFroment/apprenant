@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import Router from 'react-router';
 
 import { renderWithinProviders } from '../../tests/utils';
-import { createUseStore } from '../store';
+import { createUseTrainingsStore } from '../store/useTrainingsStore';
 import { WordRecognitionContainer } from './WordRecognitionContainer';
 
 jest.mock('react-router', () => ({
@@ -16,7 +16,7 @@ describe('WordRecognitionContainer', () => {
     renderWithinProviders({
       children: <WordRecognitionContainer />,
       overrideServices: {
-        useTrainingsStore: createUseStore({
+        useTrainingsStore: createUseTrainingsStore({
           wordRecognitions: [
             {
               id: 1,
@@ -38,7 +38,7 @@ it('should go back to home if id is not matching a word recognition from store',
   renderWithinProviders({
     children: <WordRecognitionContainer />,
     overrideServices: {
-      useTrainingsStore: createUseStore({
+      useTrainingsStore: createUseTrainingsStore({
         wordRecognitions: [
           {
             id: 1,
@@ -59,7 +59,7 @@ it('should display title', async () => {
   renderWithinProviders({
     children: <WordRecognitionContainer />,
     overrideServices: {
-      useTrainingsStore: createUseStore({
+      useTrainingsStore: createUseTrainingsStore({
         wordRecognitions: [
           {
             id: 1,

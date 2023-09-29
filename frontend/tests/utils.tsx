@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -8,12 +8,18 @@ import {
   AppContext,
   ServiceContainer,
 } from '../src/service-container/ServiceContainerContext';
-import { useTrainingsStore } from '../src/store';
+import { useAuthStore } from '../src/store/useAuthStore';
+import { useTrainingsStore } from '../src/store/useTrainingsStore';
 import { theme } from '../src/theme';
 
 export const inMemoryBackend: Backend = {
   getTrainings: async () => {
     return { textReorders: [], wordRecognitions: [] };
+  },
+  signIn: async () => {},
+  logOut: async () => {},
+  autoLogIn: async () => {
+    return false;
   },
 };
 
@@ -32,6 +38,7 @@ const defaultContainer: ServiceContainer = {
   },
   backend: inMemoryBackend,
   useTrainingsStore,
+  useAuthStore,
 };
 
 const createContainer = (
@@ -48,6 +55,7 @@ const TestContainer = ({
   overrideServices?: Partial<ServiceContainer>;
 }) => {
   const container = createContainer(overrideServices ?? {});
+
   return (
     <AppContext.Provider value={container}>{children}</AppContext.Provider>
   );
@@ -69,4 +77,16 @@ export const renderWithinProviders = ({
       </TestContainer>
     </ThemeProvider>,
   );
+};
+
+export const createWrapper = (
+  overrideServices: Partial<ServiceContainer> = {},
+) => {
+  return function Wrapper({ children }: { children: ReactElement }) {
+    return (
+      <TestContainer overrideServices={overrideServices}>
+        {children}
+      </TestContainer>
+    );
+  };
 };

@@ -11,7 +11,7 @@ import { AuthController } from './auth.controller';
   imports: [
     UsersModule,
     JwtModule.register({
-      signOptions: { expiresIn: '15m' },
+      signOptions: { expiresIn: '1s' },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, RefreshTokenStrategy],
