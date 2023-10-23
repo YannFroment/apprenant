@@ -1,3 +1,5 @@
+import '@radix-ui/themes/styles.css';
+
 import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 

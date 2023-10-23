@@ -1,5 +1,6 @@
 import './css-reset.css';
 
+import { Theme } from '@radix-ui/themes';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
@@ -30,7 +31,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <AppContext.Provider value={context}>
-        <App />
+        <Theme>
+          <App />
+        </Theme>
       </AppContext.Provider>
     </ThemeProvider>
   </React.StrictMode>,
