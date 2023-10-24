@@ -1,55 +1,38 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
-import { Button as Button } from '../components/Button';
+import { Button } from '@radix-ui/themes';
+
 import { decorators } from './config';
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-const meta = {
+type ButtonProps = {
+  label: string;
+  variant: 'outline' | 'solid';
+};
+
+const meta: Meta = {
   title: 'Example/Button',
   component: Button,
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     label: { control: 'text' },
+    variant: { options: ['outline', 'solid'], control: { type: 'select' }, }, 
   },
   decorators,
-} satisfies Meta<typeof Button>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary: Story = {
-  args: {
-    label: 'Click',
-  },
+const Template: StoryFn<ButtonProps> = (args) => (
+  <Button {...args}>{args.label}</Button>
+);
+
+export const Primary: StoryFn<ButtonProps> = Template.bind({});
+Primary.args = {
+  label: 'Click',
+  variant: 'outline'
 };
 
-export const Secondary: Story = {
-  args: {
-    label: 'Click',
-  },
-};
 
-export const Large: Story = {
-  args: {
-    label: 'Click',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    label: 'Click',
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    label: 'Delete now',
-  },
-};
