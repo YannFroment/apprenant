@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Button } from '../components/Button';
 import { useAuth } from './useAuth';
 
 const LoginContainer = styled.div``;
@@ -28,25 +29,26 @@ export const SignIn = ({
   const { signIn } = useAuth();
 
   return (
-    <Form data-testid="sign-in">
-      <Input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button
-        data-testid="signin"
-        type="button"
-        onClick={() => signIn({ email, password })}
-      >
-        Se connecter
-      </button>
-    </Form>
+    <>
+      <Form data-testid="sign-in">
+        <Input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button
+          dataTestid="signin"
+          onClick={() => signIn({ email, password })}
+          label="Sign in"
+          type="button"
+        />
+      </Form>
+    </>
   );
 };
 
