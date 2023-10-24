@@ -1,6 +1,5 @@
-import { Meta, StoryFn } from '@storybook/react';
-
 import { Button } from '@radix-ui/themes';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { decorators } from './config';
 
@@ -18,7 +17,7 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     label: { control: 'text' },
-    variant: { options: ['outline', 'solid'], control: { type: 'select' }, }, 
+    variant: { options: ['outline', 'solid'], control: { type: 'select' } },
   },
   decorators,
 };
@@ -32,7 +31,5 @@ const Template: StoryFn<ButtonProps> = (args) => (
 export const Primary: StoryFn<ButtonProps> = Template.bind({});
 Primary.args = {
   label: 'Click',
-  variant: 'outline'
+  variant: 'outline',
 };
-
-
